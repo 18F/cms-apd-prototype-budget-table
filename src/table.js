@@ -56,7 +56,7 @@ export default class BudgetTable extends React.Component {
   }
 
   dollars(val) {
-    return numeral(val).format('$0.00a');
+    return numeral(val).format('$0,0.00');
   }
 
   render() {

@@ -21555,7 +21555,7 @@ var BudgetTable = function (_React$Component) {
   }, {
     key: 'dollars',
     value: function dollars(val) {
-      return (0, _numeral2.default)(val).format('$0.00a');
+      return (0, _numeral2.default)(val).format('$0,0.00');
     }
   }, {
     key: 'render',
