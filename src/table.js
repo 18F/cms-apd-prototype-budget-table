@@ -1,4 +1,5 @@
 import React from 'react';
+import numeral from 'numeral';
 
 export default class BudgetTable extends React.Component {
   constructor(props) {
@@ -55,17 +56,7 @@ export default class BudgetTable extends React.Component {
   }
 
   dollars(val) {
-    const fractionDigits = Math.round((val - Math.floor(val)) * 100);
-    const wholeDigits = String(Math.floor(val)).split('').reverse();
-    let commaPosition = 3;
-    while (commaPosition < wholeDigits.length) {
-      wholeDigits.splice(commaPosition, 0, ',');
-
-      // Skip ahead 3 digits, plus the comma we just added
-      commaPosition += 4;
-    }
-
-    return `$${wholeDigits.reverse().join('')}.${fractionDigits < 10 ? '0' : ''}${fractionDigits}`;
+    return numeral(val).format('$0.00a');
   }
 
   render() {
