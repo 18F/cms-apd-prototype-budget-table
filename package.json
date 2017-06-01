@@ -11,14 +11,14 @@
   "author": "",
   "license": "CC0-1.0",
   "dependencies": {
-    "numeral": "^2.0.4",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "numeral": "^2.0.6",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.22.0",
-    "babel-preset-react": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "babelify": "^7.3.0",
-    "browserify": "^14.1.0"
+    "browserify": "^14.4.0"
   }
 }

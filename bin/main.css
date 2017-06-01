@@ -16,6 +16,12 @@ th {
 
 tr.header th {
   text-align: center;
+  background-color: #EEE;
+  border: 1px solid black;
+}
+
+td {
+  border: 1px solid #DDD;
 }
 
 td.dollarAmount {

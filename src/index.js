@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import BudgetTable from './table'
+import NewLineItem from './new-line-item';
+import BudgetTable from './table';
 
 ReactDOM.render(
   <BudgetTable/>,

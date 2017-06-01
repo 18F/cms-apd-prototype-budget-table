@@ -1,0 +1,7 @@
+---
+applications:
+- name: mgw-apd-budget-table
+  buildpack: staticfile_buildpack
+  memory: 32M
+  instances: 1
+  path: bin
