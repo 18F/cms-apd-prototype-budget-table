@@ -40294,7 +40294,8 @@ var BudgetTable = function (_React$Component) {
           '5a-5b-5c-cms': '#0000FF', '5a-5b-5c-state': '#8888FF'
         },
         order: null,
-        x: 'years'
+        x: 'years',
+        type: 'pie'
       };
       allFYs.forEach(function (fy) {
         return fyCumulative[fy] = { total: 0 };
@@ -40641,12 +40642,6 @@ var BudgetTable = function (_React$Component) {
           }
         }
       }
-
-      chartData.type = "bar";
-      //chartData.groups = [
-      //  '2a-cms', '2a-state'
-      //];
-      console.log(JSON.stringify(chartData, false, 2));
 
       return _react2.default.createElement(
         'div',

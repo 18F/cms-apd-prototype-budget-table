@@ -1,6 +1,7 @@
 import React from 'react';
 import numeral from 'numeral';
 import BarChart from 'react-c3js';
+import PieChart from 'react-c3js';
 
 export default class BudgetTable extends React.Component {
   constructor(props) {
@@ -154,7 +155,8 @@ export default class BudgetTable extends React.Component {
         '5a-5b-5c-cms': '#0000FF', '5a-5b-5c-state': '#8888FF'
       },
       order: null,
-      x: 'years'
+      x: 'years',
+      type: 'pie'
     };
     allFYs.forEach(fy => fyCumulative[fy] = { total: 0 });
 
@@ -276,12 +278,6 @@ export default class BudgetTable extends React.Component {
       fyCumulative[fy].total += (cmsTotal + stateTotal);
     }
 
-    chartData.type = "bar";
-    //chartData.groups = [
-    //  '2a-cms', '2a-state'
-    //];
-    console.log(JSON.stringify(chartData, false, 2));
-
     return (
       <div>
         <table cellSpacing="0" cellPadding="0">
@@ -377,8 +373,8 @@ export default class BudgetTable extends React.Component {
           </tbody>
         </table>
 
-        <BarChart data={chartData}>
-        </BarChart>
+        <PieChart data={chartData}>
+        </PieChart>
 
         {/*
         <table cellSpacing="0" cellPadding="0">
