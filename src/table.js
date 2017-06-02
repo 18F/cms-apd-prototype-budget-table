@@ -1,5 +1,6 @@
 import React from 'react';
 import numeral from 'numeral';
+import BarChart from 'react-c3js';
 
 export default class BudgetTable extends React.Component {
   constructor(props) {
@@ -11,7 +12,13 @@ export default class BudgetTable extends React.Component {
           ffy: 2018,
           type: '2a',
           ffp: '2a-90',
-          amount: 23423523
+          amount: 2234523
+        },
+        {
+          ffy: 2018,
+          type: '2a',
+          ffp: '2a-50',
+          amount: 752835
         },
         {
           ffy: 2017,
@@ -117,6 +124,39 @@ export default class BudgetTable extends React.Component {
   render() {
     const allFYs = this.getFYs();
     const twoALineItems = this.getLineItemsByType('2a');
+    const fyCumulative = { };
+    const chartData = {
+      columns: [
+        ['2a-cms'],
+        ['2a-state'],
+        ['2b-cms'],
+        ['2b-state'],
+        ['4a-4b-cms'],
+        ['4a-4b-state'],
+        ['5a-5b-5c-cms'],
+        ['5a-5b-5c-state'],
+        ['years', 2017, 2018]
+      ],
+      groups: [['2a-cms', '2a-state', '2b-cms', '2a-state', '4a-4b-cms', '4a-4b-state', '5a-5b-5c-cms', '5a-5b-5c-state']],
+      names: {
+        '2a-cms': '2A, CMS share',
+        '2a-state': '2A, state share',
+        '2b-cms': '2B, CMS share',
+        '2b-state': '2B, state share',
+        '4a-4b-cms': '4A/4B, CMS share',
+        '4a-4b-state': '4A/4B, state share',
+        '5a-5b-5c-cms': '5A/5B/5C, CMS share',
+        '5a-5b-5c-state': '5A/5B/5C, state share'
+      },
+      colors: {
+        '2a-cms': '#FF0000', '2a-state': '#FF8888',
+        '4a-4b-cms': '#00FF00', '4a-4b-state': '#88FF88',
+        '5a-5b-5c-cms': '#0000FF', '5a-5b-5c-state': '#8888FF'
+      },
+      order: null,
+      x: 'years'
+    };
+    allFYs.forEach(fy => fyCumulative[fy] = { total: 0 });
 
     const twoARows = [];
     for(const fy of allFYs) {
@@ -138,6 +178,14 @@ export default class BudgetTable extends React.Component {
           <td>{this.dollars(stateTotal)}</td>
         </tr>
       );
+
+      chartData.columns[0].push(cmsTotal);
+      chartData.columns[1].push(stateTotal);
+
+      fyCumulative[fy]['2a'] = {
+        cmsTotal, stateTotal, total: cmsTotal + stateTotal
+      };
+      fyCumulative[fy].total += (cmsTotal + stateTotal);
     }
 
     const twoBRows = [];
@@ -160,6 +208,14 @@ export default class BudgetTable extends React.Component {
           <td>{this.dollars(stateTotal)}</td>
         </tr>
       );
+
+      chartData.columns[2].push(cmsTotal);
+      chartData.columns[3].push(stateTotal);
+
+      fyCumulative[fy]['2b'] = {
+        cmsTotal, stateTotal, total: cmsTotal + stateTotal
+      };
+      fyCumulative[fy].total += (cmsTotal + stateTotal);
     }
 
     const fourABRows = [];
@@ -180,6 +236,14 @@ export default class BudgetTable extends React.Component {
           <td>{this.dollars(stateTotal)}</td>
         </tr>
       );
+
+      chartData.columns[4].push(cmsTotal);
+      chartData.columns[5].push(stateTotal);
+
+      fyCumulative[fy]['4'] = {
+        cmsTotal, stateTotal, total: cmsTotal + stateTotal
+      };
+      fyCumulative[fy].total += (cmsTotal + stateTotal);
     }
 
     const fiveABCRows = [];
@@ -202,7 +266,21 @@ export default class BudgetTable extends React.Component {
           <td>{this.dollars(stateTotal)}</td>
         </tr>
       );
+
+      chartData.columns[6].push(cmsTotal);
+      chartData.columns[7].push(stateTotal);
+
+      fyCumulative[fy]['5'] = {
+        cmsTotal, stateTotal, total: cmsTotal + stateTotal
+      };
+      fyCumulative[fy].total += (cmsTotal + stateTotal);
     }
+
+    chartData.type = "bar";
+    //chartData.groups = [
+    //  '2a-cms', '2a-state'
+    //];
+    console.log(JSON.stringify(chartData, false, 2));
 
     return (
       <div>
@@ -298,6 +376,9 @@ export default class BudgetTable extends React.Component {
             {fiveABCRows}
           </tbody>
         </table>
+
+        <BarChart data={chartData}>
+        </BarChart>
 
         {/*
         <table cellSpacing="0" cellPadding="0">

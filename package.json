@@ -13,6 +13,7 @@
   "dependencies": {
     "numeral": "^2.0.6",
     "react": "^15.5.4",
+    "react-c3js": "^0.1.19",
     "react-dom": "^15.5.4"
   },
   "devDependencies": {
