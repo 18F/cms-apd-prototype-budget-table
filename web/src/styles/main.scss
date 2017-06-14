@@ -1,0 +1,35 @@
+// Workaround for https://github.com/18F/web-design-standards/issues/1754
+@media screen and (min-width: 951px)
+{
+  .usa-nav {
+    height: auto;
+  }
+}
+
+$primary-alt-lightest: #e1f3f8;
+$gray-lightest: #f1f1f1;
+
+header .usa-banner {
+  background-color: #cd2026;
+  * {
+    color: white;
+  }
+}
+
+.usa-logo-text img {
+  max-height: 30px;
+}
+
+body {
+  background: white;
+
+  #content {
+    max-width: 1200px;
+    min-height: 100vh;
+    margin: 0 auto;
+  }
+
+  main {
+    @import "components/login";
+  }
+}
