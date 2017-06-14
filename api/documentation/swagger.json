@@ -1,0 +1,276 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Missouri Medicaid Prototype API",
+    "description": "Prototype API for retrieving data from Missouri Medicaid systems and providing it to consumers in a modern, RESTful way.",
+    "version": "1.0.0"
+  },
+  "host": "mo-medicaid-prototype-api.app.cloud.gov",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/",
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/login": {
+      "get": {
+        "summary": "Get user for an existing token",
+        "description": "If the Authorization header is set and it's a valid JWT token\nsigned by the API, this endpoint will decode it and return the\nuser object that it represents.\n",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "description": "JWT token representing a user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "authentication"
+        ],
+        "responses": {
+          "200": {
+            "description": "The user represented by the token",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "If the authorization header is missing, is not a valid JWT\ntoken, was not signed by the API, or is expired, the API\nwill return a 401 status code.\n",
+            "schema": {
+              "type": "string",
+              "description": "A message indicating that the user is not logged in"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "[DUMMY] Log in with username and password",
+        "description": "Send a username and password, get back a user object",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "formData",
+            "description": "Login username. Currently can be any value.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "Login password. Currently can be any value.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "authentication"
+        ],
+        "responses": {
+          "200": {
+            "description": "Currently always responds in the affirmative with a dummy user object",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/client/{department-client-number}": {
+      "get": {
+        "summary": "Checks if a DCN matches a client",
+        "description": "Given a DCN, this method returns true if the DCN is valid and matches a client; otherwise it returns false",
+        "parameters": [
+          {
+            "name": "department-client-number",
+            "in": "path",
+            "description": "Department client number to check"
+          }
+        ],
+        "tags": [
+          "client"
+        ],
+        "responses": {
+          "200": {
+            "description": "Response if the DCN is valid and matches a real client",
+            "schema": {
+              "$ref": "#/definitions/Client"
+            }
+          },
+          "404": {
+            "description": "Response if the DCN is valid but does not match a client"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "realName": {
+          "type": "string",
+          "description": "The user's real name as an arbitrary string."
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "participant",
+            "provider",
+            "state"
+          ],
+          "description": "The user's role in the system"
+        },
+        "eligibility": {
+          "$ref": "#/definitions/Eligibility"
+        },
+        "token": {
+          "type": "string",
+          "description": "JWT token representing the user"
+        }
+      },
+      "required": [ "realName", "description", "eligibility", "token" ]
+    },
+    "Client": {
+      "type": "object",
+      "properties": {
+        "dcn": {
+          "type": "string",
+          "description": "The department client number for this client"
+        },
+        "people": {
+          "$ref": "#/definitions/people"
+        },
+        "eligibility": {
+          "type": "string",
+          "description": "Medicaid eligibility code/descriptive text"
+        },
+        "coverage": {
+          "type": "string",
+          "description": "Coverage code/descriptive text"
+        },
+        "spenddown": {
+          "$ref": "#/definitions/spenddown"
+        }
+      },
+      "required": [ "dcn", "people", "eligibility", "coverage", "spenddown" ]
+    },
+    "people": {
+      "type": "object",
+      "description": "The people covered by this DCN",
+      "properties": {
+        "primary": {
+          "type": "string",
+          "description": "The full name of the primary client for the DCN"
+        },
+        "others": {
+          "type": "array",
+          "description": "Full names of all other members on the DCN",
+          "items": {
+            "type": "string"
+          }
+        },
+        "address": {
+          "type": "array",
+          "description": "Address of the client; each item in the array corresponds to an address line",
+          "items": {
+            "type": "string"
+          }
+        },
+        "phone": {
+          "type": "string",
+          "description": "Client's phone number"
+        }
+      },
+      "required": [ "primary", "others", "address", "phone" ]
+    },
+    "spenddown": {
+      "type": "object",
+      "description": "Spend down information",
+      "properties": {
+        "monthlyAmount": {
+          "type": "number",
+          "description": "The total spend down dollar amount due each month"
+        },
+        "owed": {
+          "type": "number",
+          "description": "The total spend down dollar amount still owed for coverage to begin"
+        },
+        "contributions": {
+          "type": "array",
+          "descriptions": "Contributions towards the client's spend down",
+          "items": {
+            "$ref": "#/definitions/spenddown-contribution"
+          }
+        },
+        "paymentHistory": {
+          "type": "array",
+          "description": "History of payments",
+          "items": {
+            "$ref": "#/definitions/payment"
+          }
+        }
+      },
+      "required": [ "monthlyAmount", "owed", "contributions", "paymentHistory" ]
+    },
+    "spenddown-contribution": {
+      "type": "object",
+      "description": "A spend down contribution",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "description": "The dollar amount of the contribution"
+        },
+        "status": {
+          "type": "string",
+          "description": "The kind of contribution",
+          "enum": [
+            "paid",
+            "unpaid",
+            "direct"
+          ]
+        },
+        "to": {
+          "type": "string",
+          "description": "Who the contribution was paid to or incurred from, or absent for direct contributions"
+        }
+      },
+      "required": [ "amount", "status" ]
+    },
+    "payment": {
+      "type": "object",
+      "description": "A payment",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "description": "The dollar amount of the payment"
+        },
+        "received": {
+          "$ref": "#/definitions/date",
+          "description": "The date the payment was received"
+        },
+        "applied": {
+          "$ref": "#/definitions/date",
+          "description": "The date the payment was applied"
+        },
+        "month": {
+          "type": "string",
+          "description": "The coverage month that the payment was applied to"
+        }
+      },
+      "required": [ "amount", "received", "applied", "month" ]
+    },
+    "date": {
+      "type": "number",
+      "description": "A data expressed in Javascript epoch time, as the milliseconds since midnight, January 1, 1970, UTC"
+    },
+    "Eligibility": {
+      "type": "object",
+      "properties": {
+
+      }
+    }
+  }
+}
