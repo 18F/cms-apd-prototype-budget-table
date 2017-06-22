@@ -11,9 +11,9 @@ dependencies:
     - cd web && npm install
 test:
   pre:
-    - cc-test-reporter before-build
+    - ./cc-test-reporter before-build
   override:
-    - npm test; cc-test-reporter after-build --exit-code $?
+    - npm test; ./cc-test-reporter after-build --exit-code $?
 
 deployment:
   production:
