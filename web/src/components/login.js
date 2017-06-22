@@ -5,9 +5,6 @@ import { withRouter } from 'react-router';
 class LoginComponent extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
-    // this.history = props.history;
-    // this.history.push('hi');
 
     this.state = {
       username: '',

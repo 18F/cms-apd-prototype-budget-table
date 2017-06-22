@@ -12,6 +12,7 @@ import '../node_modules/uswds/src/stylesheets/uswds.scss';
 import './styles/main.scss';
 
 import { Login, Dashboard } from './components';
+import Search from './components/search/';
 
 import reducers from './reducers';
 
@@ -26,6 +27,7 @@ ReactDOM.render(
       <div>
         <main>
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/search" component={Search} />
           <Route exact path="/" component={Login} />
         </main>
       </div>

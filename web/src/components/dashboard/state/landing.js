@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
-import LineWithText from './line-with-text';
+import LineWithText from '../../line-with-text';
 
 const NewRequestButton = withRouter((props) => {
   const clickHandler = () => {
@@ -31,7 +31,7 @@ LinkToRequest.propTypes = {
   }).isRequired
 };
 
-function stateDashboard(props) {
+function landing(props) {
   let linksToExistingRequests = [];
   if (!props.existingRequests) {
     // fetch 'em'
@@ -51,7 +51,7 @@ function stateDashboard(props) {
   );
 }
 
-stateDashboard.propTypes = {
+landing.propTypes = {
   existingRequests: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]).isRequired
 };
 
@@ -61,4 +61,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, null)(withRouter(stateDashboard));
+export default connect(mapStateToProps, null)(landing);
