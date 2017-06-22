@@ -9,10 +9,6 @@ API="https://api.fr.cloud.gov"
 ORG="sandbox-gsa"
 SPACE="michael.walker"
 
-# App-specific environment
-API_NAME="missouri-medicaid-prototype-api"
-FRONTEND_NAME="missouri-medicaid-prototype-frontend"
-
 # This directory is used to persist the CF credentials
 mkdir -p $HOME/.cf
 

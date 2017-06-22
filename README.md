@@ -1,3 +1,6 @@
+[![CircleCI](https://circleci.com/gh/18F/cms-apd-prototype-budget-table/tree/master.svg?style=svg)](https://circleci.com/gh/18F/cms-apd-prototype-budget-table/tree/master)
+[![Code Climate](https://codeclimate.com/github/18F/cms-apd-prototype-budget-table/badges/gpa.svg)](https://codeclimate.com/github/18F/cms-apd-prototype-budget-table)
+
 # CMS APD Project | Prototype | Budget Table
 
 A very simple static React app for building APD budget tables.

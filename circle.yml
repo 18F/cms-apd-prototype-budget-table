@@ -1,0 +1,25 @@
+machine:
+  node:
+    version: 6.11.0
+dependencies:
+  post:
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
+  override:
+    - npm install
+    - cd api && npm install
+    - cd web && npm install
+  cache_directories:
+    - "api/node_modules"
+    - "web/node_modules"
+test:
+  pre:
+    - ./cc-test-reporter before-build
+  override:
+    - npm test; ./cc-test-reporter after-build --exit-code $?
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - ./bin/deploy.sh
