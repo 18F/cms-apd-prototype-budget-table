@@ -1,6 +1,8 @@
 machine:
   node:
     version: 6.11.0
+  services:
+    - docker
 dependencies:
   post:
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter

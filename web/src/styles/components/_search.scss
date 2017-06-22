@@ -1,0 +1,16 @@
+.component.search {
+  .result {
+    border: 1px solid #AAA;
+    margin: 2em 0;
+    padding: 10px;
+
+    header {
+      font-size: 2em;
+    }
+
+    .vendors {
+      font-style: italic;
+      margin-left: 1em;
+    }
+  }
+}
