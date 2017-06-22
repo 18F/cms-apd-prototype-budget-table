@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Collapse } from 'react-collapse';
 import { states, projects } from './data';
+
+import Dollars from '../dollars';
 
 const getFilteredProjects = search => projects.filter((project) => {
   if (search.name) {
@@ -31,12 +34,33 @@ const getFilteredProjects = search => projects.filter((project) => {
   return true;
 });
 
-const ProjectElement = (props) => {
-  const project = props.project;
-  return (
-    <div>{project.name}</div>
-  );
-};
+class ProjectElement extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showFinancials: false
+    };
+
+    this.toggleShowFinancials = () => {
+      this.setState({ showFinancials: !this.state.showFinancials });
+    };
+  }
+
+  render() {
+    const project = this.props.project;
+    return (
+      <div className="result">
+        <header>{project.name}</header>
+        <div className="state">{project.state}</div>
+        <div className="vendors">{project.vendors.join(', ')}</div>
+        <button onClick={this.toggleShowFinancials}>Show details</button>
+        <Collapse isOpened={this.state.showFinancials}>
+          <h2>Total project cost: <Dollars value={project.financials.total} /></h2>
+        </Collapse>
+      </div>
+    );
+  }
+}
 ProjectElement.propTypes = {
   project: PropTypes.shape({
     name: PropTypes.string.isRequired
@@ -78,7 +102,7 @@ export default class Search extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="search component">
         <label htmlFor="search_name">Project name</label>
         <input id="search_name" type="text" onChange={this.onChangeName} value={this.state.search.name} />
 
@@ -90,6 +114,7 @@ export default class Search extends React.Component {
 
         <hr />
 
+        <h3>{ this.state.projects.length } projects</h3>
         {this.state.projects.map(project => (
           <ProjectElement key={`project-${project.id}`} project={project} />
         ))}
