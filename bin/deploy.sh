@@ -33,6 +33,7 @@ npm install
 cp src/env.prod.json src/env.json
 npm run build
 cd ..
+cp -R ./mockups ./web/dist/
 
 # Log into CF and push
 cf_run login -a $API -u $CF_USERNAME -p $CF_PASSWORD -o $ORG -s $SPACE
