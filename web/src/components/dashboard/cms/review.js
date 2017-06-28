@@ -26,7 +26,7 @@ class Section extends React.Component {
   render() {
     return (
       <div className="section">
-        <button aria-expanded={this.state.expanded} aria-controls={this.state.id} onClick={this.toggleExpand}>
+        <button aria-expanded={this.state.expanded} aria-controls={this.state.id} aria-label={this.props.name} onClick={this.toggleExpand}>
           {this.state.expanded ? '-' : '+'}
         </button>
         <h2>{this.props.name}</h2>
