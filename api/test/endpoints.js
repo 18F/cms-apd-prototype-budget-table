@@ -112,59 +112,6 @@ function runTests() {
       requestTest.end();
     });
 
-    // test.test('/client/{department-client-number}...', (clientDCNTest) => {
-    //   clientDCNTest.test('get', (getTest) => {
-    //     getTest.test('with an invalid DCN', (invalidDCN) => {
-    //       request.get('http://0.0.0.0:8000/client/dcn')
-    //         .then(() => {
-    //           invalidDCN.fail('should not return successfully');
-    //           invalidDCN.end();
-    //         })
-    //         .catch((err) => {
-    //           invalidDCN.equal(err.response.statusCode, 404, 'returns a 404 error');
-    //           invalidDCN.end();
-    //         })
-    //         .catch((err) => {
-    //           invalidDCN.fail(err);
-    //           invalidDCN.end();
-    //         });
-    //     });
-    //
-    //     getTest.test('with a valid DCN', (validDCN) => {
-    //       request.get({ method: 'GET', uri: 'http://0.0.0.0:8000/client/123456789', resolveWithFullResponse: true })
-    //         .then((response) => {
-    //           validDCN.equal(response.statusCode, 200, 'returns a 200 HTTP status code');
-    //           const body = JSON.parse(response.body);
-    //           const validator = ajv.compile(swagger.paths['/client/{department-client-number}'].get.responses['200'].schema);
-    //           const valid = validator(body);
-    //           validDCN.ok(valid, 'body should be valid according to swagger spec');
-    //           validDCN.notOk(validator.errors, 'no errors');
-    //           validDCN.end();
-    //         })
-    //         .catch((err) => {
-    //           validDCN.fail(err);
-    //           validDCN.end();
-    //         });
-    //     });
-    //
-    //     getTest.end();
-    //   });
-    //
-    //   clientDCNTest.test('put', (putTest) => {
-    //     methodIsUnsupported('put', putTest);
-    //   });
-    //
-    //   clientDCNTest.test('post', (postTest) => {
-    //     methodIsUnsupported('post', postTest);
-    //   });
-    //
-    //   clientDCNTest.test('delete', (deleteTest) => {
-    //     methodIsUnsupported('del', deleteTest);
-    //   });
-    //
-    //   clientDCNTest.end();
-    // });
-
     test.end();
   });
 
