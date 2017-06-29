@@ -10,7 +10,8 @@ const Person = props => (
     <div className="phone">{props.person.phone}</div>
   </div>
 );
-Person.propTypes = SubmitterPropTypes;
+Person.propTypes = SubmitterPropTypes.propTypes;
+Person.defaultTypes = SubmitterPropTypes.defaultProps;
 
 class Section extends React.Component {
   constructor(props) {
@@ -88,7 +89,7 @@ const render = props => (
   </div>
 );
 render.propTypes = {
-  request: RequestPropTypes
+  request: RequestPropTypes.propTypes.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => {

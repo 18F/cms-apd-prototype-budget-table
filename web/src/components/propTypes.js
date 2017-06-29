@@ -1,9 +1,15 @@
 import PropTypes from 'prop-types';
 
 export const Submitter = {
-  name: PropTypes.string.isRequired,
-  email: PropTypes.string,
-  phone: PropTypes.string
+  propTypes: {
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string,
+    phone: PropTypes.string
+  },
+  defaultProps: {
+    email: '',
+    phone: ''
+  }
 };
 
 export const Request = {
