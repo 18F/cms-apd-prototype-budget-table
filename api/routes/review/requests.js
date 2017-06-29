@@ -19,15 +19,14 @@ function getRequests() {
 }
 
 module.exports = function requestReviewRoutes(app) {
-  app.get('/review/requests', (req, res) => {
-    getRequests()
-      .then(allRequests => res.send(allRequests.map(request => ({ id: request.id, name: request.name }))))
-      .catch(err => res.status(500).send(err));
-  });
+  app.get('/review/requests', (req, res) => getRequests()
+    .then(allRequests => res.send(allRequests.map(request => ({ id: request.id, name: request.name }))))
+    .catch(err => res.status(500).send(err))
+  );
 
   app.get('/review/requests/:requestID', (req, res) => {
     const requestID = req.params.requestID;
-    getRequests()
+    return getRequests()
       .then((allRequests) => {
         const foundRequest = allRequests.find(request => request.id === requestID);
         if (foundRequest) {

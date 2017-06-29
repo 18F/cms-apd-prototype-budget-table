@@ -78,7 +78,7 @@
         }
       }
     },
-    "/requests": {
+    "/review/requests": {
       "get": {
         "summary": "Get a list of all pending financial requests",
         "description": "Returns a list of all pending financial requests.  Requests that have been approved are not included.",
@@ -89,14 +89,22 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/FinancialRequest"
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
               }
             }
           }
         }
       }
     },
-    "/requests/{financial-request-ID}": {
+    "/review/requests/{financial-request-ID}": {
       "get": {
         "summary": "Gets a financial request, if it exists",
         "description": "Given a request ID, this method will return the associated request if it exists.  Otherwise returns 404.",
@@ -130,24 +138,12 @@
           "type": "string",
           "description": "The user's real name as an arbitrary string."
         },
-        "role": {
-          "type": "string",
-          "enum": [
-            "participant",
-            "provider",
-            "state"
-          ],
-          "description": "The user's role in the system"
-        },
-        "eligibility": {
-          "$ref": "#/definitions/Eligibility"
-        },
         "token": {
           "type": "string",
           "description": "JWT token representing the user"
         }
       },
-      "required": [ "realName", "description", "eligibility", "token" ]
+      "required": [ "realName", "token" ]
     },
     "FinancialRequest": {
       "type": "object",

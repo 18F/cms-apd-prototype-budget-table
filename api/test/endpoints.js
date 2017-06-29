@@ -10,14 +10,14 @@ const ajv = new AJV();
 let swagger;
 let serverProcess;
 
-function methodIsUnsupported(methodName, test) {
-  request[methodName]('http://0.0.0.0:8000/client/dcn')
+function methodIsUnsupported(urlPath, methodName, test) {
+  request[methodName](`http://0.0.0.0:8000${urlPath}`)
     .then(() => {
       test.fail('should not return successfully');
       test.end();
     })
     .catch((err) => {
-      test.equal(err.response.statusCode, 405, 'returns a 405 error');
+      test.equal(err.statusCode, 405, 'returns a 405 error');
       test.end();
     })
     .catch((err) => {
@@ -28,58 +28,142 @@ function methodIsUnsupported(methodName, test) {
 
 function runTests() {
   tape.test('api endpoints', (test) => {
-    test.test('/client/{department-client-number}...', (clientDCNTest) => {
-      clientDCNTest.test('get', (getTest) => {
-        getTest.test('with an invalid DCN', (invalidDCN) => {
-          request.get('http://0.0.0.0:8000/client/dcn')
+    test.test('/review/requests', (requestsTest) => {
+      requestsTest.test('get', (getTest) => {
+        request.get('http://0.0.0.0:8000/review/requests')
+          .then((response) => {
+            const body = JSON.parse(response);
+            const validator = ajv.compile(swagger.paths['/review/requests'].get.responses['200'].schema);
+            const valid = validator(body);
+            getTest.ok(valid, 'body should be valid according to swagger spec');
+            getTest.notOk(validator.errors, 'no errors');
+            getTest.end();
+          })
+          .catch((err) => {
+            getTest.fail(err);
+            getTest.end();
+          });
+      });
+
+      requestsTest.test('put', (unsupportedMethodTest) => {
+        methodIsUnsupported('/review/requests', 'put', unsupportedMethodTest);
+      });
+
+      requestsTest.test('post', (unsupportedMethodTest) => {
+        methodIsUnsupported('/review/requests', 'post', unsupportedMethodTest);
+      });
+
+      requestsTest.test('delete', (unsupportedMethodTest) => {
+        methodIsUnsupported('/review/requests', 'del', unsupportedMethodTest);
+      });
+
+      requestsTest.end();
+    });
+
+    test.test('/review/requests/{financial-request-ID}', (requestTest) => {
+      requestTest.test('get', (getTest) => {
+        getTest.test('with invalid request ID', (invalidRequestID) => {
+          request.get('http://0.0.0.0:8000/review/requests/invalid-id')
             .then(() => {
-              invalidDCN.fail('should not return successfully');
-              invalidDCN.end();
+              invalidRequestID.fail('should not return successfully');
+              invalidRequestID.end();
             })
             .catch((err) => {
-              invalidDCN.equal(err.response.statusCode, 404, 'returns a 404 error');
-              invalidDCN.end();
+              invalidRequestID.equal(err.statusCode, 404, 'returns a 404 error');
+              invalidRequestID.end();
             })
             .catch((err) => {
-              invalidDCN.fail(err);
-              invalidDCN.end();
+              invalidRequestID.fail(err);
+              invalidRequestID.end();
             });
         });
 
-        getTest.test('with a valid DCN', (validDCN) => {
-          request.get({ method: 'GET', uri: 'http://0.0.0.0:8000/client/123456789', resolveWithFullResponse: true })
+        getTest.test('with valid request ID', (validRequestID) => {
+          request.get('http://0.0.0.0:8000/review/requests/FR-MMIS-2017-01-R01')
             .then((response) => {
-              validDCN.equal(response.statusCode, 200, 'returns a 200 HTTP status code');
-              const body = JSON.parse(response.body);
-              const validator = ajv.compile(swagger.paths['/client/{department-client-number}'].get.responses['200'].schema);
+              const body = JSON.parse(response);
+              const validator = ajv.compile(swagger.paths['/review/requests/{financial-request-ID}'].get.responses['200'].schema);
               const valid = validator(body);
-              validDCN.ok(valid, 'body should be valid according to swagger spec');
-              validDCN.notOk(validator.errors, 'no errors');
-              validDCN.end();
+              validRequestID.ok(valid, 'body should be valid according to swagger spec');
+              validRequestID.notOk(validator.errors, 'no errors');
+              validRequestID.end();
             })
             .catch((err) => {
-              test.fail(err);
-              validDCN.end();
+              validRequestID.fail(err);
+              validRequestID.end();
             });
         });
 
         getTest.end();
       });
 
-      clientDCNTest.test('put', (putTest) => {
-        methodIsUnsupported('put', putTest);
+      requestTest.test('put', (unsupportedMethodTest) => {
+        methodIsUnsupported('/review/requests/some-id', 'put', unsupportedMethodTest);
       });
 
-      clientDCNTest.test('post', (postTest) => {
-        methodIsUnsupported('post', postTest);
+      requestTest.test('post', (unsupportedMethodTest) => {
+        methodIsUnsupported('/review/requests/some-id', 'post', unsupportedMethodTest);
       });
 
-      clientDCNTest.test('delete', (deleteTest) => {
-        methodIsUnsupported('del', deleteTest);
+      requestTest.test('delete', (unsupportedMethodTest) => {
+        methodIsUnsupported('/review/requests/some-id', 'del', unsupportedMethodTest);
       });
 
-      clientDCNTest.end();
+      requestTest.end();
     });
+
+    // test.test('/client/{department-client-number}...', (clientDCNTest) => {
+    //   clientDCNTest.test('get', (getTest) => {
+    //     getTest.test('with an invalid DCN', (invalidDCN) => {
+    //       request.get('http://0.0.0.0:8000/client/dcn')
+    //         .then(() => {
+    //           invalidDCN.fail('should not return successfully');
+    //           invalidDCN.end();
+    //         })
+    //         .catch((err) => {
+    //           invalidDCN.equal(err.response.statusCode, 404, 'returns a 404 error');
+    //           invalidDCN.end();
+    //         })
+    //         .catch((err) => {
+    //           invalidDCN.fail(err);
+    //           invalidDCN.end();
+    //         });
+    //     });
+    //
+    //     getTest.test('with a valid DCN', (validDCN) => {
+    //       request.get({ method: 'GET', uri: 'http://0.0.0.0:8000/client/123456789', resolveWithFullResponse: true })
+    //         .then((response) => {
+    //           validDCN.equal(response.statusCode, 200, 'returns a 200 HTTP status code');
+    //           const body = JSON.parse(response.body);
+    //           const validator = ajv.compile(swagger.paths['/client/{department-client-number}'].get.responses['200'].schema);
+    //           const valid = validator(body);
+    //           validDCN.ok(valid, 'body should be valid according to swagger spec');
+    //           validDCN.notOk(validator.errors, 'no errors');
+    //           validDCN.end();
+    //         })
+    //         .catch((err) => {
+    //           validDCN.fail(err);
+    //           validDCN.end();
+    //         });
+    //     });
+    //
+    //     getTest.end();
+    //   });
+    //
+    //   clientDCNTest.test('put', (putTest) => {
+    //     methodIsUnsupported('put', putTest);
+    //   });
+    //
+    //   clientDCNTest.test('post', (postTest) => {
+    //     methodIsUnsupported('post', postTest);
+    //   });
+    //
+    //   clientDCNTest.test('delete', (deleteTest) => {
+    //     methodIsUnsupported('del', deleteTest);
+    //   });
+    //
+    //   clientDCNTest.end();
+    // });
 
     test.end();
   });
