@@ -12,7 +12,16 @@
   }],
   "prose": {
     "executiveSummary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas commodo massa ut nunc placerat vehicula. Aenean sit amet auctor ligula, sit amet mattis ex. Mauris tincidunt, ex ut ullamcorper elementum, massa tellus blandit lacus, dictum varius orci felis vel urna. Mauris a pretium quam. Praesent mollis mi dolor, at vulputate.",
-    "statementOfOutcomes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pretium enim ac hendrerit accumsan. Maecenas ornare ante fermentum, elementum ante eget, laoreet risus. Aliquam quis sollicitudin tellus. Suspendisse enim tellus, pellentesque a turpis at, efficitur varius felis. Quisque ornare maximus tortor at blandit. Vivamus at est non diam iaculis sagittis in quis magna. Nam id est non turpis pharetra tempor. Etiam ipsum massa, tempor vitae dolor a, feugiat facilisis tortor.\n\nMaecenas at nibh scelerisque, tempor purus eget, luctus dui. Morbi sed consectetur lacus, at elementum urna. Quisque sit amet nulla in eros volutpat cursus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum at efficitur est, nec malesuada lectus. Duis at orci vitae tortor sagittis sollicitudin. Phasellus et porta felis. Quisque at vehicula eros. Nulla sit amet mollis elit, pulvinar pulvinar turpis. Sed tempor ultricies ante nec lobortis. Maecenas dictum vulputate egestas. Aliquam interdum vulputate ante."
+    "statementOfOutcomes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pretium enim ac hendrerit accumsan. Maecenas ornare ante fermentum, elementum ante eget, laoreet risus. Aliquam quis sollicitudin tellus. Suspendisse enim tellus, pellentesque a turpis at, efficitur varius felis. Quisque ornare maximus tortor at blandit. Vivamus at est non diam iaculis sagittis in quis magna. Nam id est non turpis pharetra tempor. Etiam ipsum massa, tempor vitae dolor a, feugiat facilisis tortor.\n\nMaecenas at nibh scelerisque, tempor purus eget, luctus dui. Morbi sed consectetur lacus, at elementum urna. Quisque sit amet nulla in eros volutpat cursus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum at efficitur est, nec malesuada lectus. Duis at orci vitae tortor sagittis sollicitudin. Phasellus et porta felis. Quisque at vehicula eros. Nulla sit amet mollis elit, pulvinar pulvinar turpis. Sed tempor ultricies ante nec lobortis. Maecenas dictum vulputate egestas. Aliquam interdum vulputate ante.",
+    "proposedBudget": "",
+    "papdSummary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra leo purus, vel dapibus lorem iaculis condimentum. Sed facilisis leo sit amet massa maximus elementum a eu lorem. Aenean velit turpis, sodales vel dolor at, volutpat placerat quam. Praesent quis lacus eu nisi imperdiet finibus non et tellus. Pellentesque aliquet nulla ac odio aliquam malesuada. Maecenas interdum, orci volutpat viverra faucibus, nunc quam sagittis lorem, id dignissim ex dolor a enim. Ut ultricies imperdiet consequat.",
+    "personnel": "We're going to hire people!",
+    "acquisitionsPlan": "We're going to buy stuff!",
+    "costAllocationEstimate": "We estimate that costs will be allocated",
+    "costBenefitAnalysis": "Our analysis reveals that the costs have benefits",
+    "proposedActivity": "We propose having activities",
+    "continuityOfOperations": "We plan to keep doing stuff",
+    "otherAssurances": "We assure you that we like cookies"
   },
   "mdbt": {
     "development": {

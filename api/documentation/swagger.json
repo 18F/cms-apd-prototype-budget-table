@@ -97,7 +97,8 @@
                   "name": {
                     "type": "string"
                   }
-                }
+                },
+                "required": [ "id", "name" ]
               }
             }
           }
@@ -174,6 +175,42 @@
             "statementOfOutcomes": {
               "type": "string",
               "description": "Statement of outcomes"
+            },
+            "proposedBudget": {
+              "type": "string",
+              "description": "Proposed budget"
+            },
+            "papdSummary": {
+              "type": "string",
+              "description": "PAPD summary"
+            },
+            "personnel": {
+              "type": "string",
+              "description": "Personnel"
+            },
+            "acquisitionsPlan": {
+              "type": "string",
+              "description": "Acquisitions plan"
+            },
+            "costAllocationEstimate": {
+              "type": "string",
+              "description": "Cost allocation estimate"
+            },
+            "costBenefitAnalysis": {
+              "type": "string",
+              "description": "Cost/benefit analysis"
+            },
+            "proposedActivity": {
+              "type": "string",
+              "description": "Proposed activity"
+            },
+            "continuityOfOperations": {
+              "type": "string",
+              "description": "Security, interface, disaster recover, and business continuity"
+            },
+            "otherAssurances": {
+              "type": "string",
+              "description": "Other assurances"
             }
           }
         },
