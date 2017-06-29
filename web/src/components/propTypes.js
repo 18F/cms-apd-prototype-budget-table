@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 
 export const Submitter = {
-  propTypes: {
+  propTypes: PropTypes.shape({
     name: PropTypes.string.isRequired,
     email: PropTypes.string,
     phone: PropTypes.string
-  },
+  }),
   defaultProps: {
     email: '',
     phone: ''
@@ -13,10 +13,10 @@ export const Submitter = {
 };
 
 export const Request = {
-  propTypes: {
+  propTypes: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string,
-    submitters: PropTypes.arrayOf(Submitter).isRequired,
+    submitters: PropTypes.arrayOf(Submitter.propTypes).isRequired,
     prose: PropTypes.shape({
       executiveSummary: PropTypes.string.isRequired,
       statementOfOutcomes: PropTypes.string.isRequired
@@ -36,7 +36,7 @@ export const Request = {
         interagency: PropTypes.number.isRequired
       })
     }).isRequired
-  },
+  }),
   defaultProps: {
     name: ''
   }

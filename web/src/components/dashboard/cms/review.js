@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Request as RequestPropTypes, Submitter as SubmitterPropTypes } from '../../propTypes';
+import { Requests } from '../../../actions';
 
 import Section from './review-section';
 
@@ -11,56 +13,81 @@ const Submitter = props => (
     <div className="phone">{props.person.phone}</div>
   </div>
 );
-Submitter.propTypes = SubmitterPropTypes.propTypes;
-Submitter.defaultTypes = SubmitterPropTypes.defaultProps;
+Submitter.propTypes = {
+  person: SubmitterPropTypes.propTypes.isRequired
+};
 
-function crlfToBreaks(string) {
-  const keyPrefix = Math.random();
-  // We'll accept any performance hit from using the array index as part of the
-  // key, since that's by far the best way to ensure uniqueness.
-  return (string.split('\n').map((stringLine, i) => (<p key={`string-bit-${keyPrefix}-${i}`}>{stringLine}</p>))); // eslint-disable-line react/no-array-index-key
+class Review extends React.Component {
+  constructor(props) {
+    super(props);
+
+    if (!props.request) {
+      props.setCurrentRequest(props.requestID);
+    }
+  }
+
+  render() {
+    if (this.props.request) {
+      return (
+        <div className="cms review">
+          <div className="header">
+            <div className="description">
+              Medicaid Management Information Systems<br />
+              Advanced Planning Document<br />
+              State of Franklin<br />
+              Franklin Dept. of Health - Medicaid<br />
+              Submitted 6/20/2017<br />
+            </div>
+            <div className="submitters">
+              {this.props.request.submitters.map(person => <Submitter key={`apd-${this.props.request.id}-person-${person.name}`} person={person} />)}
+            </div>
+          </div>
+          <Section name="Executive Summary" summary="Describe the overall effort you are proposing and the problems you hope to solve.">
+            {this.props.request.prose.executiveSummary}
+          </Section>
+          <Section name="Statement of Outcomes">
+            {this.props.request.prose.statementOfOutcomes}
+          </Section>
+          <Section name="Proposed Budget"></Section>
+          <Section name="PAPD Summary"></Section>
+          <Section name="Personnel"></Section>
+          <Section name="Acquisitions Plan"></Section>
+          <Section name="Cost Allocation Estimate"></Section>
+          <Section name="Cost/Benefit Analysis"></Section>
+          <Section name="Proposed Activity"></Section>
+          <Section name="Security, Interface, Disaster Recover, and Business Continuity"></Section>
+          <Section name="Other Assurances"></Section>
+        </div>
+      );
+    }
+    return (<span>Loading request</span>);
+  }
 }
-
-const render = props => (
-  <div className="cms review">
-    <div className="header">
-      <div className="description">
-        Medicaid Management Information Systems<br />
-        Advanced Planning Document<br />
-        State of Franklin<br />
-        Franklin Dept. of Health - Medicaid<br />
-        Submitted 6/20/2017<br />
-      </div>
-      <div className="submitters">
-        {props.request.submitters.map(person => <Submitter key={`apd-${props.request.id}-person-${person.name}`} person={person} />)}
-      </div>
-    </div>
-    <Section name="Executive Summary" summary="Describe the overall effort you are proposing and the problems you hope to solve.">
-      {crlfToBreaks(props.request.prose.executiveSummary)}
-    </Section>
-    <Section name="Statement of Outcomes">
-      {crlfToBreaks(props.request.prose.statementOfOutcomes)}
-    </Section>
-    <Section name="Proposed Budget">x</Section>
-    <Section name="PAPD Summary">x</Section>
-    <Section name="Personnel">x</Section>
-    <Section name="Acquisitions Plan">x</Section>
-    <Section name="Cost Allocation Estimate">x</Section>
-    <Section name="Cost/Benefit Analysis">x</Section>
-    <Section name="Proposed Activity">x</Section>
-    <Section name="Security, Interface, Disaster Recover, and Business Continuity">x</Section>
-    <Section name="Other Assurances">x</Section>
-  </div>
-);
-render.propTypes = {
-  request: RequestPropTypes.propTypes.isRequired
+Review.propTypes = {
+  request: RequestPropTypes.propTypes,
+  requestID: PropTypes.string.isRequired,
+  setCurrentRequest: PropTypes.func.isRequired
+};
+Review.defaultProps = {
+  request: null
 };
 
 const mapStateToProps = (state, ownProps) => {
   const requestID = ownProps.match.params.requestID;
-  return {
-    request: state.openRequests.find(request => request.id === requestID)
-  };
+  if (state.currentRequest && state.currentRequest.id === requestID) {
+    return {
+      requestID,
+      request: state.currentRequest
+    };
+  }
+
+  return { requestID };
 };
 
-export default connect(mapStateToProps, null)(render);
+const mapDispatchToState = dispatch => ({
+  setCurrentRequest(requestID) {
+    dispatch(Requests.setCurrentRequest(requestID));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToState)(Review);

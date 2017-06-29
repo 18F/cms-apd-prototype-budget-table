@@ -20,3 +20,11 @@ export const removeAPIHeader = (name) => {
   delete headers[name];
   internalAPI = new Frisbee({ baseURI, headers });
 };
+
+export const getRequests = () =>
+  internalAPI.get('/review/requests')
+    .then(res => res.body);
+
+export const getRequest = requestID =>
+  internalAPI.get(`/review/requests/${requestID}`)
+    .then(res => res.body);

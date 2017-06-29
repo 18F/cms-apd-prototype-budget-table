@@ -21,7 +21,7 @@ function getRequests() {
 module.exports = function requestReviewRoutes(app) {
   app.get('/review/requests', (req, res) => {
     getRequests()
-      .then(allRequests => res.send(allRequests))
+      .then(allRequests => res.send(allRequests.map(request => ({ id: request.id, name: request.name }))))
       .catch(err => res.status(500).send(err));
   });
 

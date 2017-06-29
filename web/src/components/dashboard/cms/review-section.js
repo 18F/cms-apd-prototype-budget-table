@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+function crlfToBreaks(string) {
+  const keyPrefix = Math.random();
+  // We'll accept any performance hit from using the array index as part of the
+  // key, since that's by far the best way to ensure uniqueness.
+  return (string.split('\n').map((stringLine, i) => (<p key={`string-bit-${keyPrefix}-${i}`}>{stringLine}</p>))); // eslint-disable-line react/no-array-index-key
+}
+
 export default class Section extends React.Component {
   constructor(props) {
     super(props);
@@ -8,6 +15,13 @@ export default class Section extends React.Component {
     this.state = {
       id: `section_${Math.random()}`,
       expanded: true
+    };
+
+    this.getChildren = () => {
+      if (typeof props.children === 'string') {
+        return crlfToBreaks(props.children);
+      }
+      return props.children;
     };
 
     this.toggleExpand = () => {
@@ -25,7 +39,7 @@ export default class Section extends React.Component {
         <div className="content" id={this.state.id} hidden={!this.state.expanded}>
           {this.props.summary ? (<h3>{this.props.summary}</h3>) : null }
           <div className="children">
-            {this.props.children}
+            {this.getChildren()}
           </div>
         </div>
       </div>
@@ -35,7 +49,7 @@ export default class Section extends React.Component {
 Section.propTypes = {
   name: PropTypes.string.isRequired,
   summary: PropTypes.string,
-  children: PropTypes.element
+  children: PropTypes.node
 };
 Section.defaultProps = {
   summary: null,
