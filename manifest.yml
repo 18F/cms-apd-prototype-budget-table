@@ -5,3 +5,8 @@ applications:
     memory: 64M
     host: mmis-financial-requests
     buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
+  - name: mmis-financial-requests-api
+    path: api
+    memory: 128M
+    host: mmis-financial-requests-api
+    buildpack: nodejs_buildpack
