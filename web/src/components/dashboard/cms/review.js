@@ -1,13 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Request as RequestPropTypes, Submitter as SubmitterPropTypes } from '../../propTypes';
 
-const Person = (props) => (
+const Person = props => (
   <div className="person">
     <div className="name">{props.person.name}</div>
     <div className="email">{props.person.email}</div>
     <div className="phone">{props.person.phone}</div>
   </div>
 );
+Person.propTypes = SubmitterPropTypes;
 
 class Section extends React.Component {
   constructor(props) {
@@ -40,6 +43,11 @@ class Section extends React.Component {
     );
   }
 }
+Section.propTypes = {
+  name: PropTypes.string.isRequired,
+  summary: PropTypes.string,
+  children: PropTypes.element
+};
 
 function crlfToBreaks(string) {
   const keyPrefix = Math.random();
@@ -48,7 +56,7 @@ function crlfToBreaks(string) {
   return (string.split('\n').map((stringLine, i) => (<p key={`string-bit-${keyPrefix}-${i}`}>{stringLine}</p>))); // eslint-disable-line react/no-array-index-key
 }
 
-const render = (props) => (
+const render = props => (
   <div className="cms review">
     <div className="header">
       <div className="description">
@@ -68,17 +76,20 @@ const render = (props) => (
     <Section name="Statement of Outcomes">
       {crlfToBreaks(props.request.prose.statementOfOutcomes)}
     </Section>
-    <Section name="Proposed Budget"></Section>
-    <Section name="PAPD Summary"></Section>
-    <Section name="Personnel"></Section>
-    <Section name="Acquisitions Plan"></Section>
-    <Section name="Cost Allocation Estimate"></Section>
-    <Section name="Cost/Benefit Analysis"></Section>
-    <Section name="Proposed Activity"></Section>
-    <Section name="Security, Interface, Disaster Recover, and Business Continuity"></Section>
-    <Section name="Other Assurances"></Section>
+    <Section name="Proposed Budget">x</Section>
+    <Section name="PAPD Summary">x</Section>
+    <Section name="Personnel">x</Section>
+    <Section name="Acquisitions Plan">x</Section>
+    <Section name="Cost Allocation Estimate">x</Section>
+    <Section name="Cost/Benefit Analysis">x</Section>
+    <Section name="Proposed Activity">x</Section>
+    <Section name="Security, Interface, Disaster Recover, and Business Continuity">x</Section>
+    <Section name="Other Assurances">x</Section>
   </div>
 );
+render.propTypes = {
+  request: RequestPropTypes
+};
 
 const mapStateToProps = (state, ownProps) => {
   const requestID = ownProps.match.params.requestID;
