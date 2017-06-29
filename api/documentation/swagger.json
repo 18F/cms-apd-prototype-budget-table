@@ -1,11 +1,11 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Missouri Medicaid Prototype API",
-    "description": "Prototype API for retrieving data from Missouri Medicaid systems and providing it to consumers in a modern, RESTful way.",
+    "title": "MMIS Financial Requests Prototype API",
+    "description": "Prototype API for managing financial request data for MMIS APDs",
     "version": "1.0.0"
   },
-  "host": "mo-medicaid-prototype-api.app.cloud.gov",
+  "host": "mmis-financial-requests-api.app.cloud.gov",
   "schemes": [
     "https"
   ],
@@ -78,29 +78,45 @@
         }
       }
     },
-    "/client/{department-client-number}": {
+    "/requests": {
       "get": {
-        "summary": "Checks if a DCN matches a client",
-        "description": "Given a DCN, this method returns true if the DCN is valid and matches a client; otherwise it returns false",
-        "parameters": [
-          {
-            "name": "department-client-number",
-            "in": "path",
-            "description": "Department client number to check"
-          }
-        ],
-        "tags": [
-          "client"
-        ],
+        "summary": "Get a list of all pending financial requests",
+        "description": "Returns a list of all pending financial requests.  Requests that have been approved are not included.",
+        "tags": [ "requests" ],
         "responses": {
           "200": {
-            "description": "Response if the DCN is valid and matches a real client",
+            "description": "The list of pending financial requests",
             "schema": {
-              "$ref": "#/definitions/Client"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FinancialRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/requests/{financial-request-ID}": {
+      "get": {
+        "summary": "Gets a financial request, if it exists",
+        "description": "Given a request ID, this method will return the associated request if it exists.  Otherwise returns 404.",
+        "parameters": [
+          {
+            "name": "financial-request-ID",
+            "in": "path",
+            "description": "The financial request ID to retrieve"
+          }
+        ],
+        "tags": [ "requests" ],
+        "responses": {
+          "200": {
+            "description": "Response if the request exists",
+            "schema": {
+              "$ref": "#/definitions/FinancialRequest"
             }
           },
           "404": {
-            "description": "Response if the DCN is valid but does not match a client"
+            "description": "Response if the request does not exist"
           }
         }
       }
@@ -133,143 +149,107 @@
       },
       "required": [ "realName", "description", "eligibility", "token" ]
     },
-    "Client": {
+    "FinancialRequest": {
       "type": "object",
       "properties": {
-        "dcn": {
+        "id": {
           "type": "string",
-          "description": "The department client number for this client"
+          "description": "The unique ID of the financial request"
         },
-        "people": {
-          "$ref": "#/definitions/people"
-        },
-        "eligibility": {
+        "name": {
           "type": "string",
-          "description": "Medicaid eligibility code/descriptive text"
+          "description": "A friendly name for the financial request"
         },
-        "coverage": {
-          "type": "string",
-          "description": "Coverage code/descriptive text"
+        "submitters": {
+          "type": "array",
+          "description": "The submitters on the financial request",
+          "items": {
+            "$ref": "#/definitions/people"
+          }
         },
-        "spenddown": {
-          "$ref": "#/definitions/spenddown"
+        "prose": {
+          "type": "object",
+          "description": "The chunks of prose that support the financial request",
+          "properties": {
+            "executiveSummary": {
+              "type": "string",
+              "description": "Executive summary"
+            },
+            "statementOfOutcomes": {
+              "type": "string",
+              "description": "Statement of outcomes"
+            }
+          }
+        },
+        "mdbt": {
+          "$ref": "#/definitions/mdbt"
         }
       },
-      "required": [ "dcn", "people", "eligibility", "coverage", "spenddown" ]
+      "required": [ "id", "submitters", "prose", "mdbt" ]
     },
     "people": {
       "type": "object",
       "description": "The people covered by this DCN",
       "properties": {
-        "primary": {
+        "name": {
           "type": "string",
-          "description": "The full name of the primary client for the DCN"
+          "description": "The submitter's name"
         },
-        "others": {
-          "type": "array",
-          "description": "Full names of all other members on the DCN",
-          "items": {
-            "type": "string"
-          }
-        },
-        "address": {
-          "type": "array",
-          "description": "Address of the client; each item in the array corresponds to an address line",
-          "items": {
-            "type": "string"
-          }
+        "email": {
+          "type": "string",
+          "description": "The submitter's email address"
         },
         "phone": {
           "type": "string",
-          "description": "Client's phone number"
+          "description": "The submitter's phone number"
         }
       },
-      "required": [ "primary", "others", "address", "phone" ]
-    },
-    "spenddown": {
-      "type": "object",
-      "description": "Spend down information",
-      "properties": {
-        "monthlyAmount": {
-          "type": "number",
-          "description": "The total spend down dollar amount due each month"
-        },
-        "owed": {
-          "type": "number",
-          "description": "The total spend down dollar amount still owed for coverage to begin"
-        },
-        "contributions": {
-          "type": "array",
-          "descriptions": "Contributions towards the client's spend down",
-          "items": {
-            "$ref": "#/definitions/spenddown-contribution"
-          }
-        },
-        "paymentHistory": {
-          "type": "array",
-          "description": "History of payments",
-          "items": {
-            "$ref": "#/definitions/payment"
-          }
-        }
-      },
-      "required": [ "monthlyAmount", "owed", "contributions", "paymentHistory" ]
-    },
-    "spenddown-contribution": {
-      "type": "object",
-      "description": "A spend down contribution",
-      "properties": {
-        "amount": {
-          "type": "number",
-          "description": "The dollar amount of the contribution"
-        },
-        "status": {
-          "type": "string",
-          "description": "The kind of contribution",
-          "enum": [
-            "paid",
-            "unpaid",
-            "direct"
-          ]
-        },
-        "to": {
-          "type": "string",
-          "description": "Who the contribution was paid to or incurred from, or absent for direct contributions"
-        }
-      },
-      "required": [ "amount", "status" ]
-    },
-    "payment": {
-      "type": "object",
-      "description": "A payment",
-      "properties": {
-        "amount": {
-          "type": "number",
-          "description": "The dollar amount of the payment"
-        },
-        "received": {
-          "$ref": "#/definitions/date",
-          "description": "The date the payment was received"
-        },
-        "applied": {
-          "$ref": "#/definitions/date",
-          "description": "The date the payment was applied"
-        },
-        "month": {
-          "type": "string",
-          "description": "The coverage month that the payment was applied to"
-        }
-      },
-      "required": [ "amount", "received", "applied", "month" ]
+      "required": [ "name" ]
     },
     "date": {
       "type": "number",
       "description": "A data expressed in Javascript epoch time, as the milliseconds since midnight, January 1, 1970, UTC"
     },
-    "Eligibility": {
+    "mdbt": {
       "type": "object",
+      "description": "Medicaid detailed budget table data",
       "properties": {
-
+        "development": {
+          "type": "object",
+          "properties": {
+            "internal": {
+              "type": "number"
+            },
+            "external": {
+              "type": "number"
+            }
+          }
+        },
+        "operations": {
+          "type": "object",
+          "properties": {
+            "internal": {
+              "type": "number"
+            },
+            "external": {
+              "type": "number"
+            }
+          }
+        },
+        "other": {
+          "type": "object",
+          "properties": {
+            "internal": {
+              "type": "number"
+            },
+            "external": {
+              "type": "number"
+            },
+            "interagency": {
+              "type": "number"
+            }
+          }
+        }
       }
     }
   }
