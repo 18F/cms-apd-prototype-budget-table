@@ -48,15 +48,15 @@ class Review extends React.Component {
           <Section name="Statement of Outcomes">
             {this.props.request.prose.statementOfOutcomes}
           </Section>
-          <Section name="Proposed Budget"></Section>
-          <Section name="PAPD Summary"></Section>
-          <Section name="Personnel"></Section>
-          <Section name="Acquisitions Plan"></Section>
-          <Section name="Cost Allocation Estimate"></Section>
-          <Section name="Cost/Benefit Analysis"></Section>
-          <Section name="Proposed Activity"></Section>
-          <Section name="Security, Interface, Disaster Recover, and Business Continuity"></Section>
-          <Section name="Other Assurances"></Section>
+          <Section name="Proposed Budget">{this.props.request.prose.proposedBudget}</Section>
+          <Section name="PAPD Summary">{this.props.request.prose.papdSummary}</Section>
+          <Section name="Personnel">{this.props.request.prose.personnel}</Section>
+          <Section name="Acquisitions Plan">{this.props.request.prose.acquisitionsPlan}</Section>
+          <Section name="Cost Allocation Estimate">{this.props.request.prose.costAllocationEstimate}</Section>
+          <Section name="Cost/Benefit Analysis">{this.props.request.prose.costBenefitAnalysis}</Section>
+          <Section name="Proposed Activity">{this.props.request.prose.proposedActivity}</Section>
+          <Section name="Security, Interface, Disaster Recover, and Business Continuity">{this.props.request.prose.continuityOfOperations}</Section>
+          <Section name="Other Assurances">{this.props.request.prose.otherAssurances}</Section>
         </div>
       );
     }
