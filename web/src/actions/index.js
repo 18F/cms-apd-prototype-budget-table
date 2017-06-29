@@ -16,7 +16,7 @@ export const API = {
     FETCH_STATE_OPEN_REQUESTS: 'api: fetch open requests for a state'
   },
 
-  fetchOpenRequests(stateID) {
+  fetchOpenStateRequests(stateID) {
     return (dispatch) => {
       api().get(`/state/${stateID}/open/`).then((res) => {
         dispatch({ type: Requests.SET_OPEN_REQUESTS, requests: res.body });
@@ -56,42 +56,6 @@ export const Login = {
   }
 };
 
-export const Spenddown = {
-  messages: {
-    SET_CLIENT_INFO: 'set client spend down info'
-  }
-};
-
-export const DCN = {
-  messages: {
-    CHECK_DCN: 'check dcn',
-    INVALID_DCN: 'dcn is invalid',
-    DCN_NOT_FOUND: 'dcn is not found'
-  },
-
-  checkDCN(dcn) {
-    if (dcn) {
-      return (dispatch) => {
-        api().get(`/client/${dcn}/`).then((res) => {
-          switch (res.status) {
-            case 200:
-              dispatch({ type: Spenddown.messages.SET_CLIENT_INFO, client: res.body });
-              break;
-
-            default:
-              dispatch({ type: DCN.messages.INVALID_DCN });
-              break;
-          }
-          dispatch({ type: DCN.messages.CHECK_DCN });
-        });
-      };
-    }
-
-    return { type: DCN.messages.INVALID_DCN };
-  }
-};
-
 export default {
-  Login,
-  DCN
+  Login
 };
