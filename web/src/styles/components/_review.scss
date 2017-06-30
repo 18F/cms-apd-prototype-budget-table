@@ -24,7 +24,7 @@
     border-top: 1px solid rgb(220, 220, 220);
     padding-top: 20px;
 
-    button {
+    > button {
       position: absolute;
       left: 0;
       top: 20px;
@@ -41,6 +41,31 @@
 
     .children {
       margin-left: 100px;
+    }
+  }
+
+  tbody.cost.group {
+    tr td {
+      border-top: 3px solid black;
+      &:first-child {
+        font-weight: bold;
+      }
+    }
+
+    td button {
+      padding: 0;
+      margin: 0;
+      background: transparent;
+      color: #0071bc;
+    }
+
+    .cost.group.detail td {
+      border-top: 1px solid black;
+      &:first-child {
+        text-align: right;
+        font-weight: normal;
+        border: 0;
+      }
     }
   }
 }

@@ -8,13 +8,62 @@ const costGroupsEqual = (cg1, cg2) => (
   (cg1.ffp === cg2.ffp)
 );
 
-const getCostGroupRow = (costGroup, ffys) => (
-  <tr>
-    <td>{costGroup.category}</td>
-    {ffys.map(ffy => (<td><Dollars value={costGroup[ffy]} /></td>))}
-    <td><Dollars value={costGroup.total} /></td>
-  </tr>
-);
+class CostGroup extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      detailsHidden: true
+    };
+
+    this.toggleExpand = () => {
+      console.log('toggle details');
+      this.setState({ detailsHidden: !this.state.detailsHidden });
+    };
+  }
+
+  render() {
+    const ffys = this.props.ffys;
+    const costGroup = this.props.costGroup;
+
+    const ffp = costGroup.ffp;
+    const sfp = 1 - ffp;
+
+    const buttonControls = `cost-group-cms-share-${costGroup.category}-${costGroup.ffp}-${costGroup.type} cost-group-state-share-${costGroup.category}-${costGroup.ffp}-${costGroup.type}`;
+
+    return (
+      <tbody className="cost group">
+        <tr>
+          <td>
+            {costGroup.category}
+            <br />
+            <button aria-expanded={!this.state.detailsHidden} aria-label={`${costGroup.category} details`} aria-controls={buttonControls} onClick={this.toggleExpand}>{this.state.detailsHidden ? 'more' : 'less'}</button>
+          </td>
+          {ffys.map(ffy => (<td><Dollars value={costGroup[ffy] || 0} /></td>))}
+          <td><Dollars value={costGroup.total} /></td>
+        </tr>
+        <tr className="cost group detail" hidden={this.state.detailsHidden} id={`cost-group-cms-share-${costGroup.category.replace(' ', '_')}-${costGroup.ffp}-${costGroup.type}`}>
+          <td>CMS share ({Math.round(ffp * 100)}%)</td>
+          {ffys.map(ffy => (<td><Dollars value={costGroup[ffy] * ffp} /></td>))}
+          <td><Dollars value={costGroup.total * ffp} /></td>
+        </tr>
+        <tr className="cost group detail" hidden={this.state.detailsHidden} id={`cost-group-state-share-${costGroup.category.replace(' ', '_')}-${costGroup.ffp}-${costGroup.type}`}>
+          <td>State share ({Math.round(sfp * 100)}%)</td>
+          {ffys.map(ffy => (<td><Dollars value={costGroup[ffy] * sfp} /></td>))}
+          <td><Dollars value={costGroup.total * sfp} /></td>
+        </tr>
+      </tbody>
+    );
+  }
+}
+CostGroup.propTypes = {
+  ffys: PropTypes.arrayOf(PropTypes.number).isRequired,
+  costGroup: PropTypes.shape({
+    category: PropTypes.string.isRequired,
+    ffp: PropTypes.number.isRequired,
+    total: PropTypes.number.isRequired
+  }).isRequired
+};
 
 const render = (props) => {
   const groupedCosts = [];
@@ -41,8 +90,6 @@ const render = (props) => {
   });
   ffys.sort();
 
-  console.log(groupedCosts);
-
   return (
     <table>
       <thead>
@@ -52,9 +99,7 @@ const render = (props) => {
           <th scope="col">Total</th>
         </tr>
       </thead>
-      <tbody>
-        {groupedCosts.map(cost => getCostGroupRow(cost, ffys))}
-      </tbody>
+      {groupedCosts.map(cost => <CostGroup costGroup={cost} ffys={ffys} />)}
     </table>
   );
 };
