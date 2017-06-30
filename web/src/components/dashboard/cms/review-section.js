@@ -14,7 +14,7 @@ export default class Section extends React.Component {
 
     this.state = {
       id: `section_${Math.random()}`,
-      expanded: true
+      expanded: !props.collapsed
     };
 
     this.getChildren = () => {
@@ -49,9 +49,11 @@ export default class Section extends React.Component {
 Section.propTypes = {
   name: PropTypes.string.isRequired,
   summary: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
+  collapsed: PropTypes.bool
 };
 Section.defaultProps = {
   summary: null,
-  children: null
+  children: null,
+  collapsed: false
 };
