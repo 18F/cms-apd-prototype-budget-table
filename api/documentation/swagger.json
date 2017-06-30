@@ -161,7 +161,7 @@
           "type": "array",
           "description": "The submitters on the financial request",
           "items": {
-            "$ref": "#/definitions/people"
+            "$ref": "#/definitions/person"
           }
         },
         "prose": {
@@ -214,30 +214,94 @@
             }
           }
         },
+        "outcomes": {
+          "type": "array",
+          "description": "Expected project outcomes",
+          "items": {
+            "$ref": "#/definitions/outcome"
+          }
+        },
+        "costs": {
+          "type": "array",
+          "description": "Detailed budget estimate costs",
+          "items": {
+            "$ref": "#/definitions/cost"
+          }
+        },
         "mdbt": {
           "$ref": "#/definitions/mdbt"
         }
       },
       "required": [ "id", "submitters", "prose", "mdbt" ]
     },
-    "people": {
+    "person": {
       "type": "object",
-      "description": "The people covered by this DCN",
+      "description": "A single person",
       "properties": {
         "name": {
           "type": "string",
-          "description": "The submitter's name"
+          "description": "The persons's name"
         },
         "email": {
           "type": "string",
-          "description": "The submitter's email address"
+          "description": "The person's email address"
         },
         "phone": {
           "type": "string",
-          "description": "The submitter's phone number"
+          "description": "The person's phone number"
         }
       },
       "required": [ "name" ]
+    },
+    "outcome": {
+      "type": "object",
+      "description": "A project outcome",
+      "properties": {
+        "priority": {
+          "type": "number",
+          "description": "The outcome priority"
+        },
+        "outcome": {
+          "type": "string",
+          "description": "A short description of the outcome"
+        },
+        "example": {
+          "type": "string",
+          "description": "A brief example of what could happen if the outcome is achieved"
+        },
+        "measures": {
+          "type": "string",
+          "description": "Some example measures of success for the outcome"
+        }
+      },
+      "required": [ "priority", "outcome", "example", "measures" ]
+    },
+    "cost": {
+      "type": "object",
+      "description": "A budget cost item",
+      "properties": {
+        "category": {
+          "type": "string",
+          "description": "The cost category/name"
+        },
+        "ffy": {
+          "type": "number",
+          "description": "Federal fiscal year the cost occurs in"
+        },
+        "ffp": {
+          "type": "number",
+          "description": "Federal financial participation rate; e.g., 0.9 (90%), 0.75 (75%), etc."
+        },
+        "type": {
+          "type": "string",
+          "description": "Cost allocation type (e.g., ddi, om, other)"
+        },
+        "total": {
+          "type": "number",
+          "description": "Total cost of this budget item for this FFY"
+        }
+      },
+      "required": [ "category", "ffy", "ffp", "type", "total" ]
     },
     "date": {
       "type": "number",

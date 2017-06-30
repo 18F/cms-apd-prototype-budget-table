@@ -23,6 +23,46 @@
     "continuityOfOperations": "We plan to keep doing stuff",
     "otherAssurances": "We assure you that we like cookies"
   },
+  "outcomes": [{
+    "priority": 1,
+    "outcome": "Higher client and provider satisfaction",
+    "example": "Better customer service leads to increased participation in services",
+    "measures": "Client participation in services\nProvider enrollment and retention"
+  }, {
+    "priority": 1,
+    "outcome": "Improved fiscal sustainability",
+    "example": "Better services tracking increases public/private partnerships",
+    "measures": "Improved cost avoidance\nProportional investment in services"
+  }, {
+    "priority": 1,
+    "outcome": "Fraud and abuse prevention",
+    "example": "Electronic visit verification prevents misuse of services",
+    "measures": "Increased fraud detection\nLong-term drop in fraud and abuse"
+  }, {
+    "priority": 1,
+    "outcome": "Better data and analytics",
+    "example": "Modern data systems support fast, accurate federal reporting",
+    "measures": "Improved performance on federal reporting metrics"
+  }],
+  "costs": [{
+    "category": "Project initiation",
+    "ffy": 2015,
+    "type": "ddi",
+    "ffp": 0.9,
+    "total": 260000
+  },{
+    "category": "Project manager",
+    "ffy": 2015,
+    "type": "ddi",
+    "ffp": 0.9,
+    "total": 238000
+  },{
+    "category": "Project manager",
+    "ffy": 2016,
+    "type": "ddi",
+    "ffp": 0.9,
+    "total": 329000
+  }],
   "mdbt": {
     "development": {
       "internal": 0,
