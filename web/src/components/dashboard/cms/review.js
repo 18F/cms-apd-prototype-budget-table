@@ -5,6 +5,7 @@ import { Request as RequestPropTypes, Submitter as SubmitterPropTypes } from '..
 import { Requests } from '../../../actions';
 
 import Section from './review-section';
+import ProposedBudgetTable from './proposed-budget-table';
 
 const Submitter = props => (
   <div className="person">
@@ -28,6 +29,8 @@ class Review extends React.Component {
 
   render() {
     if (this.props.request) {
+      const request = this.props.request;
+
       return (
         <div className="cms review">
           <div className="header">
@@ -39,24 +42,51 @@ class Review extends React.Component {
               Submitted 6/20/2017<br />
             </div>
             <div className="submitters">
-              {this.props.request.submitters.map(person => <Submitter key={`apd-${this.props.request.id}-person-${person.name}`} person={person} />)}
+              {request.submitters.map(person => <Submitter key={`apd-${request.id}-person-${person.name}`} person={person} />)}
             </div>
           </div>
+
           <Section name="Executive Summary" summary="Describe the overall effort you are proposing and the problems you hope to solve.">
-            {this.props.request.prose.executiveSummary}
+            {request.prose.executiveSummary}
           </Section>
-          <Section name="Statement of Outcomes">
-            {this.props.request.prose.statementOfOutcomes}
+
+          <Section collapsed name="Statement of Outcomes">
+            <p>{request.prose.statementOfOutcomes}</p>
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Priority</th>
+                  <th scope="col">Outcome</th>
+                  <th scope="col">Example</th>
+                  <th scope="col">Example measures</th>
+                </tr>
+              </thead>
+              <tbody>
+                {request.outcomes.map(outcome => (
+                  <tr>
+                    <td>{outcome.priority}</td>
+                    <td>{outcome.outcome}</td>
+                    <td>{outcome.example}</td>
+                    <td>{outcome.measures}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </Section>
-          <Section name="Proposed Budget">{this.props.request.prose.proposedBudget}</Section>
-          <Section name="PAPD Summary">{this.props.request.prose.papdSummary}</Section>
-          <Section name="Personnel">{this.props.request.prose.personnel}</Section>
-          <Section name="Acquisitions Plan">{this.props.request.prose.acquisitionsPlan}</Section>
-          <Section name="Cost Allocation Estimate">{this.props.request.prose.costAllocationEstimate}</Section>
-          <Section name="Cost/Benefit Analysis">{this.props.request.prose.costBenefitAnalysis}</Section>
-          <Section name="Proposed Activity">{this.props.request.prose.proposedActivity}</Section>
-          <Section name="Security, Interface, Disaster Recover, and Business Continuity">{this.props.request.prose.continuityOfOperations}</Section>
-          <Section name="Other Assurances">{this.props.request.prose.otherAssurances}</Section>
+
+          <Section collapsed name="Proposed Budget">
+            <p>{request.prose.proposedBudget}</p>
+            <ProposedBudgetTable costs={request.costs} />
+          </Section>
+
+          <Section collapsed name="PAPD Summary">{request.prose.papdSummary}</Section>
+          <Section collapsed name="Personnel">{request.prose.personnel}</Section>
+          <Section collapsed name="Acquisitions Plan">{request.prose.acquisitionsPlan}</Section>
+          <Section collapsed name="Cost Allocation Estimate">{request.prose.costAllocationEstimate}</Section>
+          <Section collapsed name="Cost/Benefit Analysis">{request.prose.costBenefitAnalysis}</Section>
+          <Section collapsed name="Proposed Activity">{request.prose.proposedActivity}</Section>
+          <Section collapsed name="Security, Interface, Disaster Recover, and Business Continuity">{request.prose.continuityOfOperations}</Section>
+          <Section collapsed name="Other Assurances">{request.prose.otherAssurances}</Section>
         </div>
       );
     }
