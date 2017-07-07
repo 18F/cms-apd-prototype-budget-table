@@ -17,7 +17,6 @@ class CostGroup extends React.Component {
     };
 
     this.toggleExpand = () => {
-      console.log('toggle details');
       this.setState({ detailsHidden: !this.state.detailsHidden });
     };
   }
