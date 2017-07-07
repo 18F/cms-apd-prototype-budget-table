@@ -87,11 +87,11 @@ const render = (props) => {
       <thead>
         <tr>
           <th scope="col">Cost category</th>
-          {ffys.map(ffy => (<th scope="col">FFY {ffy}</th>))}
+          {ffys.map(ffy => (<th scope="col" key={ffy}>FFY {ffy}</th>))}
           <th scope="col">Total</th>
         </tr>
       </thead>
-      {groupedCosts.map(cost => <CostGroup costGroup={cost} ffys={ffys} />)}
+      {groupedCosts.map(cost => <CostGroup key={`${cost.category}-${cost.type}-${cost.ffp}`} costGroup={cost} ffys={ffys} />)}
     </table>
   );
 };
