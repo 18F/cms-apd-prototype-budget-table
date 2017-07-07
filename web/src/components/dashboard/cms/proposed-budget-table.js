@@ -2,12 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Dollars from '../../dollars';
 
-const costGroupsEqual = (cg1, cg2) => (
-  (cg1.category === cg2.category) &&
-  (cg1.type === cg2.type) &&
-  (cg1.ffp === cg2.ffp)
-);
-
 class CostGroup extends React.Component {
   constructor(props) {
     super(props);
