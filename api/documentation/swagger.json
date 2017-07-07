@@ -1,11 +1,11 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Missouri Medicaid Prototype API",
-    "description": "Prototype API for retrieving data from Missouri Medicaid systems and providing it to consumers in a modern, RESTful way.",
+    "title": "MMIS Financial Requests Prototype API",
+    "description": "Prototype API for managing financial request data for MMIS APDs",
     "version": "1.0.0"
   },
-  "host": "mo-medicaid-prototype-api.app.cloud.gov",
+  "host": "mmis-financial-requests-api.app.cloud.gov",
   "schemes": [
     "https"
   ],
@@ -78,29 +78,54 @@
         }
       }
     },
-    "/client/{department-client-number}": {
+    "/review/requests": {
       "get": {
-        "summary": "Checks if a DCN matches a client",
-        "description": "Given a DCN, this method returns true if the DCN is valid and matches a client; otherwise it returns false",
-        "parameters": [
-          {
-            "name": "department-client-number",
-            "in": "path",
-            "description": "Department client number to check"
-          }
-        ],
-        "tags": [
-          "client"
-        ],
+        "summary": "Get a list of all pending financial requests",
+        "description": "Returns a list of all pending financial requests.  Requests that have been approved are not included.",
+        "tags": [ "requests" ],
         "responses": {
           "200": {
-            "description": "Response if the DCN is valid and matches a real client",
+            "description": "The list of pending financial requests",
             "schema": {
-              "$ref": "#/definitions/Client"
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [ "id", "name" ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/review/requests/{financial-request-ID}": {
+      "get": {
+        "summary": "Gets a financial request, if it exists",
+        "description": "Given a request ID, this method will return the associated request if it exists.  Otherwise returns 404.",
+        "parameters": [
+          {
+            "name": "financial-request-ID",
+            "in": "path",
+            "description": "The financial request ID to retrieve"
+          }
+        ],
+        "tags": [ "requests" ],
+        "responses": {
+          "200": {
+            "description": "Response if the request exists",
+            "schema": {
+              "$ref": "#/definitions/FinancialRequest"
             }
           },
           "404": {
-            "description": "Response if the DCN is valid but does not match a client"
+            "description": "Response if the request does not exist"
           }
         }
       }
@@ -114,162 +139,214 @@
           "type": "string",
           "description": "The user's real name as an arbitrary string."
         },
-        "role": {
-          "type": "string",
-          "enum": [
-            "participant",
-            "provider",
-            "state"
-          ],
-          "description": "The user's role in the system"
-        },
-        "eligibility": {
-          "$ref": "#/definitions/Eligibility"
-        },
         "token": {
           "type": "string",
           "description": "JWT token representing the user"
         }
       },
-      "required": [ "realName", "description", "eligibility", "token" ]
+      "required": [ "realName", "token" ]
     },
-    "Client": {
+    "FinancialRequest": {
       "type": "object",
       "properties": {
-        "dcn": {
+        "id": {
           "type": "string",
-          "description": "The department client number for this client"
+          "description": "The unique ID of the financial request"
         },
-        "people": {
-          "$ref": "#/definitions/people"
-        },
-        "eligibility": {
+        "name": {
           "type": "string",
-          "description": "Medicaid eligibility code/descriptive text"
+          "description": "A friendly name for the financial request"
         },
-        "coverage": {
-          "type": "string",
-          "description": "Coverage code/descriptive text"
+        "submitters": {
+          "type": "array",
+          "description": "The submitters on the financial request",
+          "items": {
+            "$ref": "#/definitions/person"
+          }
         },
-        "spenddown": {
-          "$ref": "#/definitions/spenddown"
+        "prose": {
+          "type": "object",
+          "description": "The chunks of prose that support the financial request",
+          "properties": {
+            "executiveSummary": {
+              "type": "string",
+              "description": "Executive summary"
+            },
+            "statementOfOutcomes": {
+              "type": "string",
+              "description": "Statement of outcomes"
+            },
+            "proposedBudget": {
+              "type": "string",
+              "description": "Proposed budget"
+            },
+            "papdSummary": {
+              "type": "string",
+              "description": "PAPD summary"
+            },
+            "personnel": {
+              "type": "string",
+              "description": "Personnel"
+            },
+            "acquisitionsPlan": {
+              "type": "string",
+              "description": "Acquisitions plan"
+            },
+            "costAllocationEstimate": {
+              "type": "string",
+              "description": "Cost allocation estimate"
+            },
+            "costBenefitAnalysis": {
+              "type": "string",
+              "description": "Cost/benefit analysis"
+            },
+            "proposedActivity": {
+              "type": "string",
+              "description": "Proposed activity"
+            },
+            "continuityOfOperations": {
+              "type": "string",
+              "description": "Security, interface, disaster recover, and business continuity"
+            },
+            "otherAssurances": {
+              "type": "string",
+              "description": "Other assurances"
+            }
+          }
+        },
+        "outcomes": {
+          "type": "array",
+          "description": "Expected project outcomes",
+          "items": {
+            "$ref": "#/definitions/outcome"
+          }
+        },
+        "costs": {
+          "type": "array",
+          "description": "Detailed budget estimate costs",
+          "items": {
+            "$ref": "#/definitions/cost"
+          }
+        },
+        "mdbt": {
+          "$ref": "#/definitions/mdbt"
         }
       },
-      "required": [ "dcn", "people", "eligibility", "coverage", "spenddown" ]
+      "required": [ "id", "submitters", "prose", "mdbt" ]
     },
-    "people": {
+    "person": {
       "type": "object",
-      "description": "The people covered by this DCN",
+      "description": "A single person",
       "properties": {
-        "primary": {
+        "name": {
           "type": "string",
-          "description": "The full name of the primary client for the DCN"
+          "description": "The persons's name"
         },
-        "others": {
-          "type": "array",
-          "description": "Full names of all other members on the DCN",
-          "items": {
-            "type": "string"
-          }
-        },
-        "address": {
-          "type": "array",
-          "description": "Address of the client; each item in the array corresponds to an address line",
-          "items": {
-            "type": "string"
-          }
+        "email": {
+          "type": "string",
+          "description": "The person's email address"
         },
         "phone": {
           "type": "string",
-          "description": "Client's phone number"
+          "description": "The person's phone number"
         }
       },
-      "required": [ "primary", "others", "address", "phone" ]
+      "required": [ "name" ]
     },
-    "spenddown": {
+    "outcome": {
       "type": "object",
-      "description": "Spend down information",
+      "description": "A project outcome",
       "properties": {
-        "monthlyAmount": {
+        "priority": {
           "type": "number",
-          "description": "The total spend down dollar amount due each month"
+          "description": "The outcome priority"
         },
-        "owed": {
-          "type": "number",
-          "description": "The total spend down dollar amount still owed for coverage to begin"
+        "outcome": {
+          "type": "string",
+          "description": "A short description of the outcome"
         },
-        "contributions": {
-          "type": "array",
-          "descriptions": "Contributions towards the client's spend down",
-          "items": {
-            "$ref": "#/definitions/spenddown-contribution"
-          }
+        "example": {
+          "type": "string",
+          "description": "A brief example of what could happen if the outcome is achieved"
         },
-        "paymentHistory": {
-          "type": "array",
-          "description": "History of payments",
-          "items": {
-            "$ref": "#/definitions/payment"
-          }
+        "measures": {
+          "type": "string",
+          "description": "Some example measures of success for the outcome"
         }
       },
-      "required": [ "monthlyAmount", "owed", "contributions", "paymentHistory" ]
+      "required": [ "priority", "outcome", "example", "measures" ]
     },
-    "spenddown-contribution": {
+    "cost": {
       "type": "object",
-      "description": "A spend down contribution",
+      "description": "A budget cost item",
       "properties": {
-        "amount": {
+        "category": {
+          "type": "string",
+          "description": "The cost category/name"
+        },
+        "ffy": {
           "type": "number",
-          "description": "The dollar amount of the contribution"
+          "description": "Federal fiscal year the cost occurs in"
         },
-        "status": {
-          "type": "string",
-          "description": "The kind of contribution",
-          "enum": [
-            "paid",
-            "unpaid",
-            "direct"
-          ]
+        "ffp": {
+          "type": "number",
+          "description": "Federal financial participation rate; e.g., 0.9 (90%), 0.75 (75%), etc."
         },
-        "to": {
+        "type": {
           "type": "string",
-          "description": "Who the contribution was paid to or incurred from, or absent for direct contributions"
+          "description": "Cost allocation type (e.g., ddi, om, other)"
+        },
+        "total": {
+          "type": "number",
+          "description": "Total cost of this budget item for this FFY"
         }
       },
-      "required": [ "amount", "status" ]
-    },
-    "payment": {
-      "type": "object",
-      "description": "A payment",
-      "properties": {
-        "amount": {
-          "type": "number",
-          "description": "The dollar amount of the payment"
-        },
-        "received": {
-          "$ref": "#/definitions/date",
-          "description": "The date the payment was received"
-        },
-        "applied": {
-          "$ref": "#/definitions/date",
-          "description": "The date the payment was applied"
-        },
-        "month": {
-          "type": "string",
-          "description": "The coverage month that the payment was applied to"
-        }
-      },
-      "required": [ "amount", "received", "applied", "month" ]
+      "required": [ "category", "ffy", "ffp", "type", "total" ]
     },
     "date": {
       "type": "number",
       "description": "A data expressed in Javascript epoch time, as the milliseconds since midnight, January 1, 1970, UTC"
     },
-    "Eligibility": {
+    "mdbt": {
       "type": "object",
+      "description": "Medicaid detailed budget table data",
       "properties": {
-
+        "development": {
+          "type": "object",
+          "properties": {
+            "internal": {
+              "type": "number"
+            },
+            "external": {
+              "type": "number"
+            }
+          }
+        },
+        "operations": {
+          "type": "object",
+          "properties": {
+            "internal": {
+              "type": "number"
+            },
+            "external": {
+              "type": "number"
+            }
+          }
+        },
+        "other": {
+          "type": "object",
+          "properties": {
+            "internal": {
+              "type": "number"
+            },
+            "external": {
+              "type": "number"
+            },
+            "interagency": {
+              "type": "number"
+            }
+          }
+        }
       }
     }
   }

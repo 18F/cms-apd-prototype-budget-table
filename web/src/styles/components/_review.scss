@@ -1,0 +1,71 @@
+.cms.review {
+  .header {
+    overflow: hidden;
+    margin-top: 2em;
+
+    .description {
+      float: left;
+      max-width: 400px;
+    }
+
+    .submitters {
+      float: right;
+      max-width: 400px;
+
+      .person + .person {
+        margin-top: 1em;
+      }
+    }
+  }
+
+  .section {
+    position: relative;
+    margin: 2em auto;
+    border-top: 1px solid rgb(220, 220, 220);
+    padding-top: 20px;
+
+    > button {
+      position: absolute;
+      left: 0;
+      top: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 40px;
+      margin: 0;
+    }
+
+    h2, h3 {
+      margin: 0;
+      margin-left: 50px;
+    }
+
+    .children {
+      margin-left: 100px;
+    }
+  }
+
+  tbody.cost.group {
+    tr td {
+      border-top: 3px solid black;
+      &:first-child {
+        font-weight: bold;
+      }
+    }
+
+    td button {
+      padding: 0;
+      margin: 0;
+      background: transparent;
+      color: #0071bc;
+    }
+
+    .cost.group.detail td {
+      border-top: 1px solid black;
+      &:first-child {
+        text-align: right;
+        font-weight: normal;
+        border: 0;
+      }
+    }
+  }
+}

@@ -12,9 +12,10 @@ tape.test('routes/index', (test) => {
     };
 
     compositeModule(app);
-    initTest.equal(app.get.callCount, 2, 'app.get is called two times');
+    initTest.equal(app.get.callCount, 3, 'app.get is called two times');
     initTest.ok(app.get.calledWith('/login'), 'sets up the /login route');
-    initTest.ok(app.get.calledWith('/client/:dcn'), 'sets up the /client route');
+    initTest.ok(app.get.calledWith('/review/requests'), 'sets up the /review/requests route');
+    initTest.ok(app.get.calledWith('/review/requests/:requestID'), 'sets up the /review/requests/:requestID route');
     initTest.ok(app.get.args.every(arg => typeof arg[1] === 'function'), 'provides a handler to every route');
 
     initTest.equal(app.post.callCount, 1, 'app.post is called one time');

@@ -1,27 +1,36 @@
-import { api, removeAPIHeader } from '../api';
+import { api, removeAPIHeader, getRequests, getRequest } from '../api';
 
 export const Requests = {
   messages: {
+    SET_CURRENT_REQUEST: 'requests: set current request',
     SET_OPEN_REQUESTS: 'requests: set open requests',
     UPDATE_COST: 'requests: update cost'
   },
 
   updateCost(property, value) {
     return { type: Requests.messages.UPDATE_COST, property, value };
+  },
+
+  setCurrentRequest(requestID) {
+    return (dispatch) => {
+      getRequest(requestID).then((request) => {
+        dispatch({ type: Requests.messages.SET_CURRENT_REQUEST, request });
+      });
+    };
+  },
+
+  getOpenRequests() {
+    return (dispatch) => {
+      getRequests().then((requests) => {
+        dispatch({ type: Requests.messages.SET_OPEN_REQUESTS, requests });
+      });
+    };
   }
 };
 
 export const API = {
   messages: {
-    FETCH_STATE_OPEN_REQUESTS: 'api: fetch open requests for a state'
-  },
-
-  fetchOpenRequests(stateID) {
-    return (dispatch) => {
-      api().get(`/state/${stateID}/open/`).then((res) => {
-        dispatch({ type: Requests.SET_OPEN_REQUESTS, requests: res.body });
-      });
-    };
+    GET_STATE_OPEN_REQUESTS: 'api: fetch open requests for a state'
   }
 };
 
@@ -56,42 +65,4 @@ export const Login = {
   }
 };
 
-export const Spenddown = {
-  messages: {
-    SET_CLIENT_INFO: 'set client spend down info'
-  }
-};
-
-export const DCN = {
-  messages: {
-    CHECK_DCN: 'check dcn',
-    INVALID_DCN: 'dcn is invalid',
-    DCN_NOT_FOUND: 'dcn is not found'
-  },
-
-  checkDCN(dcn) {
-    if (dcn) {
-      return (dispatch) => {
-        api().get(`/client/${dcn}/`).then((res) => {
-          switch (res.status) {
-            case 200:
-              dispatch({ type: Spenddown.messages.SET_CLIENT_INFO, client: res.body });
-              break;
-
-            default:
-              dispatch({ type: DCN.messages.INVALID_DCN });
-              break;
-          }
-          dispatch({ type: DCN.messages.CHECK_DCN });
-        });
-      };
-    }
-
-    return { type: DCN.messages.INVALID_DCN };
-  }
-};
-
-export default {
-  Login,
-  DCN
-};
+export default { Requests, Login };

@@ -2,28 +2,22 @@ import updeep from 'updeep';
 import { Requests } from '../actions';
 
 const stateShape = {
-  currentRequest: {
-    id: 'FR-MMIS-2017-01-R01',
-    costs: {
-      ddiInternal: 0,
-      ddiExternal: 0,
-      omInternal: 0,
-      omExternal: 0,
-      otherInternal: 0,
-      otherExternal: 0,
-      otherInteragency: 0
-    }
-  },
-  openRequests: [{
-    id: '1',
-    name: 'first request'
-  }]
+  currentRequest: false,
+  openRequests: false
 };
 
 export default function reducer(state = stateShape, action) {
   let newState = state;
 
   switch (action.type) {
+    case Requests.messages.SET_CURRENT_REQUEST:
+      newState = updeep({ currentRequest: action.request }, newState);
+      break;
+
+    case Requests.messages.SET_OPEN_REQUESTS:
+      newState = updeep({ openRequests: action.requests }, newState);
+      break;
+
     case Requests.messages.UPDATE_COST:
       newState = updeep({ currentRequest: { costs: { [action.property]: action.value } } }, newState);
       break;
