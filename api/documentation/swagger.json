@@ -157,6 +157,10 @@
           "type": "string",
           "description": "A friendly name for the financial request"
         },
+        "state": {
+          "type": "string",
+          "description": "The name of the state, territory, or jurisdiction submitting the request"
+        },
         "submitters": {
           "type": "array",
           "description": "The submitters on the financial request",

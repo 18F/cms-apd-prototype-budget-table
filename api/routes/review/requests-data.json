@@ -1,6 +1,7 @@
 [{
   "id": "FR-MMIS-2017-01-R01",
   "name": "State of Franklin, MMIS, FFY 2017 #1",
+  "state": "Franklin",
   "submitters": [{
     "name": "Alexis Nikephoros",
     "email": "alexis@medicaid.franklin.us",
