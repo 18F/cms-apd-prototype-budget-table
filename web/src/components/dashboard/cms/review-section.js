@@ -14,7 +14,7 @@ export default class Section extends React.Component {
 
     this.state = {
       id: `section_${Math.random()}`,
-      expanded: true || !props.collapsed
+      expanded: !props.collapsed
     };
 
     this.getChildren = () => {
