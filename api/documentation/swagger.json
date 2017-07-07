@@ -284,10 +284,6 @@
           "type": "string",
           "description": "The cost category/name"
         },
-        "ffy": {
-          "type": "number",
-          "description": "Federal fiscal year the cost occurs in"
-        },
         "ffp": {
           "type": "number",
           "description": "Federal financial participation rate; e.g., 0.9 (90%), 0.75 (75%), etc."
@@ -296,12 +292,25 @@
           "type": "string",
           "description": "Cost allocation type (e.g., ddi, om, other)"
         },
-        "total": {
-          "type": "number",
-          "description": "Total cost of this budget item for this FFY"
+        "years": {
+          "type": "array",
+          "description": "List of federal fiscal years this cost occurs in",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ffy": {
+                "type": "number",
+                "description": "A federal fiscal year"
+              },
+              "total": {
+                "type": "number",
+                "description": "Total cost of this budget item for the corresponding FFY"
+              }
+            }
+          }
         }
       },
-      "required": [ "category", "ffy", "ffp", "type", "total" ]
+      "required": [ "category", "ffp", "type", "years" ]
     },
     "date": {
       "type": "number",

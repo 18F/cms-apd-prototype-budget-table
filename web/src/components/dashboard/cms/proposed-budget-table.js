@@ -2,12 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Dollars from '../../dollars';
 
-const costGroupsEqual = (cg1, cg2) => (
-  (cg1.category === cg2.category) &&
-  (cg1.type === cg2.type) &&
-  (cg1.ffp === cg2.ffp)
-);
-
 class CostGroup extends React.Component {
   constructor(props) {
     super(props);
@@ -38,17 +32,17 @@ class CostGroup extends React.Component {
             <br />
             <button aria-expanded={!this.state.detailsHidden} aria-label={`${costGroup.category} details`} aria-controls={buttonControls} onClick={this.toggleExpand}>{this.state.detailsHidden ? 'more' : 'less'}</button>
           </td>
-          {ffys.map(ffy => (<td><Dollars value={costGroup[ffy] || 0} /></td>))}
+          {ffys.map(ffy => (<td key={ffy}><Dollars value={costGroup[ffy] || 0} /></td>))}
           <td><Dollars value={costGroup.total} /></td>
         </tr>
         <tr className="cost group detail" hidden={this.state.detailsHidden} id={`cost-group-cms-share-${costGroup.category.replace(' ', '_')}-${costGroup.ffp}-${costGroup.type}`}>
           <td>CMS share ({Math.round(ffp * 100)}%)</td>
-          {ffys.map(ffy => (<td><Dollars value={costGroup[ffy] * ffp} /></td>))}
+          {ffys.map(ffy => (<td key={ffy}><Dollars value={costGroup[ffy] * ffp} /></td>))}
           <td><Dollars value={costGroup.total * ffp} /></td>
         </tr>
         <tr className="cost group detail" hidden={this.state.detailsHidden} id={`cost-group-state-share-${costGroup.category.replace(' ', '_')}-${costGroup.ffp}-${costGroup.type}`}>
           <td>State share ({Math.round(sfp * 100)}%)</td>
-          {ffys.map(ffy => (<td><Dollars value={costGroup[ffy] * sfp} /></td>))}
+          {ffys.map(ffy => (<td key={ffy}><Dollars value={costGroup[ffy] * sfp} /></td>))}
           <td><Dollars value={costGroup.total * sfp} /></td>
         </tr>
       </tbody>
@@ -69,23 +63,22 @@ const render = (props) => {
   const ffys = [];
 
   props.costs.forEach((cost) => {
-    if (!ffys.includes(cost.ffy)) {
-      ffys.push(cost.ffy);
+    const costObject = {
+      category: cost.category,
+      type: cost.type,
+      ffp: cost.ffp,
+      total: 0
+    };
+
+    for (const ffyCost of cost.years) {
+      if (!ffys.includes(ffyCost.ffy)) {
+        ffys.push(ffyCost.ffy);
+      }
+      costObject[ffyCost.ffy] = ffyCost.total;
+      costObject.total += ffyCost.total;
     }
 
-    const groupedCostsIndex = groupedCosts.findIndex(costGroup => costGroupsEqual(costGroup, cost));
-    if (groupedCostsIndex < 0) {
-      groupedCosts.push({
-        category: cost.category,
-        type: cost.type,
-        ffp: cost.ffp,
-        [cost.ffy]: cost.total,
-        total: cost.total
-      });
-    } else {
-      groupedCosts[groupedCostsIndex][cost.ffy] = cost.total;
-      groupedCosts[groupedCostsIndex].total += cost.total;
-    }
+    groupedCosts.push(costObject);
   });
   ffys.sort();
 

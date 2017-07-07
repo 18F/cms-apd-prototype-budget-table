@@ -44,25 +44,28 @@
     "example": "Modern data systems support fast, accurate federal reporting",
     "measures": "Improved performance on federal reporting metrics"
   }],
-  "costs": [{
-    "category": "Project initiation",
-    "ffy": 2015,
-    "type": "ddi",
-    "ffp": 0.9,
-    "total": 260000
-  },{
-    "category": "Project manager",
-    "ffy": 2015,
-    "type": "ddi",
-    "ffp": 0.9,
-    "total": 238000
-  },{
-    "category": "Project manager",
-    "ffy": 2016,
-    "type": "ddi",
-    "ffp": 0.9,
-    "total": 329000
-  }],
+  "costs": [
+    {
+      "category": "Project initiation",
+      "type": "ddi",
+      "ffp": 0.9,
+      "years": [{
+        "ffy": 2015,
+        "total": 260000
+      }]
+    },{
+      "category": "Project manager",
+      "type": "ddi",
+      "ffp": 0.9,
+      "years": [{
+        "ffy": 2015,
+        "total": 238000
+      },{
+        "ffy": 2016,
+        "total": 329000
+      }]
+    }
+  ],
   "mdbt": {
     "development": {
       "internal": 0,
