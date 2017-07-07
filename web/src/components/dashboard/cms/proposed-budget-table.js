@@ -69,23 +69,22 @@ const render = (props) => {
   const ffys = [];
 
   props.costs.forEach((cost) => {
-    if (!ffys.includes(cost.ffy)) {
-      ffys.push(cost.ffy);
+    const costObject = {
+      category: cost.category,
+      type: cost.type,
+      ffp: cost.ffp,
+      total: 0
+    };
+
+    for (const ffyCost of cost.years) {
+      if (!ffys.includes(ffyCost.ffy)) {
+        ffys.push(ffyCost.ffy);
+      }
+      costObject[ffyCost.ffy] = ffyCost.total;
+      costObject.total += ffyCost.total;
     }
 
-    const groupedCostsIndex = groupedCosts.findIndex(costGroup => costGroupsEqual(costGroup, cost));
-    if (groupedCostsIndex < 0) {
-      groupedCosts.push({
-        category: cost.category,
-        type: cost.type,
-        ffp: cost.ffp,
-        [cost.ffy]: cost.total,
-        total: cost.total
-      });
-    } else {
-      groupedCosts[groupedCostsIndex][cost.ffy] = cost.total;
-      groupedCosts[groupedCostsIndex].total += cost.total;
-    }
+    groupedCosts.push(costObject);
   });
   ffys.sort();
 
