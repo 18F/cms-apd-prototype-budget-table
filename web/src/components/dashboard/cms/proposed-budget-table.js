@@ -38,17 +38,17 @@ class CostGroup extends React.Component {
             <br />
             <button aria-expanded={!this.state.detailsHidden} aria-label={`${costGroup.category} details`} aria-controls={buttonControls} onClick={this.toggleExpand}>{this.state.detailsHidden ? 'more' : 'less'}</button>
           </td>
-          {ffys.map(ffy => (<td><Dollars value={costGroup[ffy] || 0} /></td>))}
+          {ffys.map(ffy => (<td key={ffy}><Dollars value={costGroup[ffy] || 0} /></td>))}
           <td><Dollars value={costGroup.total} /></td>
         </tr>
         <tr className="cost group detail" hidden={this.state.detailsHidden} id={`cost-group-cms-share-${costGroup.category.replace(' ', '_')}-${costGroup.ffp}-${costGroup.type}`}>
           <td>CMS share ({Math.round(ffp * 100)}%)</td>
-          {ffys.map(ffy => (<td><Dollars value={costGroup[ffy] * ffp} /></td>))}
+          {ffys.map(ffy => (<td key={ffy}><Dollars value={costGroup[ffy] * ffp} /></td>))}
           <td><Dollars value={costGroup.total * ffp} /></td>
         </tr>
         <tr className="cost group detail" hidden={this.state.detailsHidden} id={`cost-group-state-share-${costGroup.category.replace(' ', '_')}-${costGroup.ffp}-${costGroup.type}`}>
           <td>State share ({Math.round(sfp * 100)}%)</td>
-          {ffys.map(ffy => (<td><Dollars value={costGroup[ffy] * sfp} /></td>))}
+          {ffys.map(ffy => (<td key={ffy}><Dollars value={costGroup[ffy] * sfp} /></td>))}
           <td><Dollars value={costGroup.total * sfp} /></td>
         </tr>
       </tbody>
