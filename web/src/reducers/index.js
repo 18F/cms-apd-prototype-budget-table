@@ -1,15 +1,20 @@
 import updeep from 'updeep';
-import { Requests } from '../actions';
+import { Projects, Requests } from '../actions';
 
 const stateShape = {
   currentRequest: false,
-  openRequests: false
+  openRequests: false,
+  projects: false
 };
 
 export default function reducer(state = stateShape, action) {
   let newState = state;
 
   switch (action.type) {
+    case Projects.messages.SET_PROJECTS:
+      newState = updeep({ projects: action.projects }, newState);
+      break;
+
     case Requests.messages.SET_CURRENT_REQUEST:
       newState = updeep({ currentRequest: action.request }, newState);
       break;

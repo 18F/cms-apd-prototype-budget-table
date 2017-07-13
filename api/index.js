@@ -5,6 +5,7 @@ const routes = require('./routes');
 
 const app = express();
 
+app.use('/schema', express.static('schema'));
 app.use('/documentation', express.static('documentation'));
 
 middleware(app);

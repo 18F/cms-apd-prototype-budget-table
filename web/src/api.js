@@ -21,6 +21,10 @@ export const removeAPIHeader = (name) => {
   internalAPI = new Frisbee({ baseURI, headers });
 };
 
+export const getProjects = () =>
+  internalAPI.get('/projects')
+    .then(res => res.body);
+
 export const getRequests = () =>
   internalAPI.get('/review/requests')
     .then(res => res.body);

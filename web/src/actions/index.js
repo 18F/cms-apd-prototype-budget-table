@@ -1,4 +1,18 @@
-import { api, removeAPIHeader, getRequests, getRequest } from '../api';
+import { api, removeAPIHeader, getProjects, getRequests, getRequest } from '../api';
+
+export const Projects = {
+  messages: {
+    SET_PROJECTS: 'projects: set projects'
+  },
+
+  getProjects() {
+    return (dispatch) => {
+      getProjects().then((projects) => {
+        dispatch({ type: Projects.messages.SET_PROJECTS, projects });
+      });
+    };
+  }
+};
 
 export const Requests = {
   messages: {

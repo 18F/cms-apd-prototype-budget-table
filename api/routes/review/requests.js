@@ -1,26 +1,27 @@
-const fs = require('fs');
-const path = require('path');
+const fakeData = require('../fake-data');
 
 function getRequests() {
-  return new Promise((resolve, reject) => {
-    fs.readFile(path.join(__dirname, 'requests-data.json'), { encoding: 'utf8' }, (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        try {
-          const requests = JSON.parse(data);
-          resolve(requests);
-        } catch (e) {
-          reject(e);
-        }
-      }
-    });
+  return new Promise((resolve) => {
+    resolve(fakeData.requests);
   });
+}
+
+function getCategoryTotalCost(category) {
+  return category.years.reduce((sum, ffy) => sum + ffy.total, 0);
+}
+
+function getRequestTotalCost(request) {
+  return request.costs.reduce((sum, category) => sum + getCategoryTotalCost(category), 0);
 }
 
 module.exports = function requestReviewRoutes(app) {
   app.get('/review/requests', (req, res) => getRequests()
-    .then(allRequests => res.send(allRequests.map(request => ({ id: request.id, name: request.name }))))
+    .then(allRequests => res.send(allRequests.map(request => ({
+      id: request.id,
+      name: request.name,
+      state: request.state,
+      total: getRequestTotalCost(request)
+    }))))
     .catch(err => res.status(500).send(err))
   );
 

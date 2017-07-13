@@ -1,7 +1,7 @@
 const bodyParser = require('body-parser');
 const corsMiddleware = require('./cors');
 const tokenMiddleware = require('./token');
-const schema = require('../documentation/swagger.json');
+const schema = require('../schema/api.json');
 
 module.exports = function middleware(app) {
   corsMiddleware(app, schema);

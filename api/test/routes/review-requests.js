@@ -7,7 +7,7 @@ const requestsModule = require('../../routes/review/requests');
 
 const getHandlerForRoute = (spy, route) => spy.args.find(args => args[0] === route)[1];
 
-tape.test('routes/client', (test) => {
+tape.test('routes/review/requests', (test) => {
   test.test('initialization', (initTest) => {
     const app = {
       get: sinon.spy()
@@ -22,7 +22,7 @@ tape.test('routes/client', (test) => {
     initTest.end();
   });
 
-  test.test('GET / review/requests', (getRequestsTest) => {
+  test.test('GET /review/requests', (getRequestsTest) => {
     const app = {
       get: sinon.spy()
     };
