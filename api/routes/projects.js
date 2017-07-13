@@ -1,8 +1,9 @@
-const fakeData = require('./fake-data');
+const db = require('../models');
 
 module.exports = function requestReviewRoutes(app) {
-  app.get('/projects', (req, res) => (new Promise((resolve) => {
-    res.send(fakeData.projects);
-    resolve();
-  })));
+  app.get('/projects', (req, res) =>
+    db.project.findAll()
+      .then(projects => Promise.all(projects.map(project => project.getFullObject())))
+      .then(projects => res.send(projects))
+  );
 };

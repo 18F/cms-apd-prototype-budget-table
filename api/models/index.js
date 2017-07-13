@@ -7,7 +7,7 @@ const connectionString = process.env.DATABASE_URL || 'postgres://localhost/cms_p
 
 const sequelize = new Sequelize(connectionString, { logging: false });
 
-const modelFiles = ['funding_request', 'project'];
+const modelFiles = ['activity', 'cost', 'funding_request', 'outcome', 'project', 'prose'];
 for (const modelFile of modelFiles) {
   const model = sequelize.import(path.join(__dirname, modelFile));
   db[model.name] = model;

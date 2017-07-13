@@ -30,7 +30,8 @@ module.exports = {
       },
       createdAt: dateType,
       updatedAt: dateType
-    }).then(() => queryInterface.createTable('funding_requests', {
+    })
+    .then(() => queryInterface.createTable('funding_requests', {
       id: autoID,
       request_id: {
         type: Sequelize.TEXT
@@ -44,24 +45,38 @@ module.exports = {
       projectId: foreignKey('projects'),
       createdAt: dateType,
       updatedAt: dateType
-    })).then(() => queryInterface.createTable('proses', {
+    }))
+    .then(() => queryInterface.createTable('proses', {
       id: autoID,
       section: Sequelize.TEXT,
       text: Sequelize.TEXT,
       fundingRequestId: foreignKey('funding_requests'),
       createdAt: dateType,
       updatedAt: dateType
-    })).then(() => queryInterface.createTable('outcomes', {
+    }))
+    .then(() => queryInterface.createTable('outcomes', {
       id: autoID,
       text: Sequelize.TEXT,
       fundingRequestId: foreignKey('funding_requests'),
       createdAt: dateType,
       updatedAt: dateType
-    })).then(() => queryInterface.createTable('activities', {
+    }))
+    .then(() => queryInterface.createTable('activities', {
       id: autoID,
       description: Sequelize.TEXT,
       how_it_supports: Sequelize.TEXT,
       outcomeId: foreignKey('outcomes'),
+      createdAt: dateType,
+      updatedAt: dateType
+    }))
+    .then(() => queryInterface.createTable('costs', {
+      id: autoID,
+      category: Sequelize.STRING,
+      cost: Sequelize.DOUBLE,
+      ffy: Sequelize.INTEGER,
+      ffp: Sequelize.FLOAT,
+      expenseType: Sequelize.STRING,
+      fundingRequestId: foreignKey('funding_requests'),
       createdAt: dateType,
       updatedAt: dateType
     }));

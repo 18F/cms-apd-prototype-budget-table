@@ -13,14 +13,14 @@ routes(app);
 
 const db = require('./models');
 
-db.funding_request.findOne({ id: 5 }).then(fr => {
-  fr.getOutcomes().then(o => {
-    console.log(o[0].text);
-    o[0].getActivities().then(a => {
-      console.log(a);
-    })
-  })
-})
+// db.funding_request.findOne({ where: { id: 5 }}).then(fr => {
+//   fr.getOutcomes().then(o => {
+//     console.log(o[0].text);
+//     o[0].getActivities().then(a => {
+//       console.log(a);
+//     })
+//   })
+// })
 
 // const Project = db.project;
 // Project.create({ projectID: 'FR-MMIS-2017-01', name: 'Participant webapp to view spenddown status', state: 'Franklin' });
