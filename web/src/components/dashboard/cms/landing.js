@@ -140,7 +140,7 @@ function mapStateToProps(state) {
 
   if (state.projects) {
     for (const project of state.projects) {
-      if (!stateNames.includes[project.state]) {
+      if (!stateNames.includes(project.state)) {
         stateNames.push(project.state);
       }
     }
