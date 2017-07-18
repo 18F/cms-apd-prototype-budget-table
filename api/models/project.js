@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       name: this.name,
       description: '',
       state: this.state,
-      spent: Math.round((Math.random() * 1000000)),
+      spent: Math.round(Math.random() * 1000000),
       requests: [],
       financials: {}
     };
@@ -25,9 +25,10 @@ module.exports = (sequelize, DataTypes) => {
         obj.requests = requests.map(request => ({
           id: request.requestID,
           submitted: request.createdAt.toISOString().substr(0, 10),
+          approved: request.createdAt.toISOString().substr(0, 10),
           dollars: {
-            added: 0,
-            subtracted: 0
+            added: Math.round(Math.random() * 1000000),
+            subtracted: Math.round(Math.random() * 300000)
           }
         }));
       })
