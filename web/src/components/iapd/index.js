@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Section from '../collapsible';
 import Dollars from '../dollars';
 
+import ExecutiveSummary from './executive-summary';
+
 import { Requests } from '../../actions';
 
 const Outcome = props => (
@@ -256,58 +258,7 @@ class IAPD extends React.Component {
           <small>Days left in 60 day review period: {this.props.request.reviewRemaining}</small>
         </header>
 
-        <Section name="Executive summary">
-          <p>
-            Your executive summary should clearly and concisely communicate the
-            gist of your overall project.
-          </p>
-
-          <p>
-            <span className="small bold">Problem space</span>
-            <br />
-            <span className="small">
-              Briefly describe the problem(s) your project is trying to solve.
-            </span>
-            <br />
-            <textarea value={this.props.request.executiveSummary.problem} />
-          </p>
-
-          <p>
-            <span className="small bold">Project vision</span>
-            <br />
-            <span className="small">
-              A two-sentence high level description of what you want your
-              project to achieve.
-            </span>
-            <br />
-            <textarea value={this.props.request.executiveSummary.vision} />
-            <span className="small">
-              If you&rsquo;re not sure about the goal(s) of the project, please reach
-              out to the other people on your APD team.
-            </span>
-          </p>
-
-          <p>
-            <span className="small bold">Time investment</span>
-            <br />
-            <span className="small shift up">
-              This project is expected to take approximately
-              <input type="number" className="short" value={this.props.request.executiveSummary.time}/>
-              months
-            </span>
-          </p>
-
-          <p>
-            <span className="small bold">Total cost</span>
-            <br />
-            <span className="small shift up">
-              This project will cost approximately
-              <span className="input-with-dollar">
-                <input type="number" className="short dollar" value={this.props.request.executiveSummary.cost} />
-              </span>
-            </span>
-          </p>
-        </Section>
+        <ExecutiveSummary info={this.props.request.executiveSummary} />
 
         <Section name="Project plan">
           <p>

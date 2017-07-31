@@ -1,5 +1,15 @@
 import { api, removeAPIHeader, getProjects, getRequests, getRequest } from '../api';
 
+export const IAPD = {
+  messages: {
+    UPDATE_EXECUTIVE_SUMMARY: 'IAPD: update executive summary'
+  },
+
+  updateExecutiveSummary(newExecutiveSummary) {
+    return { type: IAPD.messages.UPDATE_EXECUTIVE_SUMMARY, executiveSummary: newExecutiveSummary };
+  }
+};
+
 export const Projects = {
   messages: {
     SET_PROJECTS: 'projects: set projects'

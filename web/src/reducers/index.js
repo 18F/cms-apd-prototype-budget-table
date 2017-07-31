@@ -1,5 +1,5 @@
 import updeep from 'updeep';
-import { Projects, Requests } from '../actions';
+import { IAPD, Projects, Requests } from '../actions';
 
 const emptyRequest = {
   id: false,
@@ -186,6 +186,10 @@ export default function reducer(state = stateShape, action) {
   let newState = state;
 
   switch (action.type) {
+    case IAPD.messages.UPDATE_EXECUTIVE_SUMMARY:
+      newState = updeep({ currentRequest: { executiveSummary: action.executiveSummary } }, newState);
+      break;
+
     case Requests.messages.START_NEW_REQUEST:
       newState = updeep({ currentRequest: emptyRequest }, newState);
       break;
