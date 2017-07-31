@@ -30,8 +30,10 @@ body {
   }
 
   main {
+    @import "components/collapsible";
     @import "components/login";
     @import "components/search";
+    @import "components/iapd";
     @import "components/landing_cms";
     @import "components/review";
   }

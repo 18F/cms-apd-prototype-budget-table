@@ -16,6 +16,7 @@ export const Projects = {
 
 export const Requests = {
   messages: {
+    START_NEW_REQUEST: 'requests: start new request',
     SET_CURRENT_REQUEST: 'requests: set current request',
     SET_OPEN_REQUESTS: 'requests: set open requests',
     UPDATE_COST: 'requests: update cost'
@@ -23,6 +24,10 @@ export const Requests = {
 
   updateCost(property, value) {
     return { type: Requests.messages.UPDATE_COST, property, value };
+  },
+
+  startNewRequest() {
+    return { type: Requests.messages.START_NEW_REQUEST };
   },
 
   setCurrentRequest(requestID) {

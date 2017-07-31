@@ -18,7 +18,9 @@ class Collapsible extends React.Component {
     return (
       <div className={`collapsible ${this.state.expanded ? 'expanded' : 'collapsed'} ${this.props.className}`}>
         <button aria-expanded={this.state.expanded} aria-controls={this.state.id} aria-label={this.props.name} onClick={this.toggleExpand}>
-          {this.state.expanded ? '-' : '+'}
+          <span>
+            {this.state.expanded ? '-' : '+'}
+          </span>
         </button>
         <h2>{this.props.name}</h2>
         <div className="content" id={this.state.id} hidden={!this.state.expanded}>

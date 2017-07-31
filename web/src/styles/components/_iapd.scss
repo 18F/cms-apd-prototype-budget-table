@@ -1,0 +1,66 @@
+.iapd {
+  header {
+    background: rgb(24, 67, 104);
+    color: white;
+    padding: 1em;
+
+    h3 {
+      margin: 0;
+      font-family: 'Source Sans Pro';
+      font-size: 1.5em;
+      font-weight: normal;
+
+      small {
+        padding-left: 1.5em;
+        font-size: 0.65em;
+        font-weight: normal;
+      }
+    }
+
+    small {
+      font-weight: 200;
+    }
+  }
+
+  .collapsible {
+    button {
+      background-color: rgb(116, 147, 172);
+    }
+
+    h2 {
+      font-family: 'Source Sans Pro';
+      color: rgb(76, 114, 146);
+    }
+  }
+
+  .small {
+    font-size: 0.8em;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  span.shift {
+    &.up {
+      position: relative;
+      top: -1em;
+    }
+  }
+
+  input.short {
+    display: inline;
+    width: 4em;
+    margin: 0 0.5em;
+  }
+
+  .input-with-dollar {
+    position: relative;
+    &:after {
+      position: absolute;
+      content: '$';
+      top: -0.25rem;
+      left: 1rem;
+    }
+  }
+}
