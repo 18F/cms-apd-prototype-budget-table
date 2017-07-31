@@ -16,15 +16,12 @@ const emptyRequest = {
   plan: {
     vision: '',
     outcomes: [{
-      id: 'temp-1',
       title: '',
       metrics: ''
     }, {
-      id: 'temp-2',
       title: '',
       metrics: ''
     }, {
-      id: 'temp-3',
       title: '',
       metrics: ''
     }]
@@ -188,6 +185,10 @@ export default function reducer(state = stateShape, action) {
   switch (action.type) {
     case IAPD.messages.UPDATE_EXECUTIVE_SUMMARY:
       newState = updeep({ currentRequest: { executiveSummary: action.executiveSummary } }, newState);
+      break;
+
+    case IAPD.messages.UPDATE_PROJECT_PLAN:
+      newState = updeep({ currentRequest: { plan: action.projectPlan } }, newState);
       break;
 
     case Requests.messages.START_NEW_REQUEST:

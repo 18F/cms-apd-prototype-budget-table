@@ -2,11 +2,16 @@ import { api, removeAPIHeader, getProjects, getRequests, getRequest } from '../a
 
 export const IAPD = {
   messages: {
-    UPDATE_EXECUTIVE_SUMMARY: 'IAPD: update executive summary'
+    UPDATE_EXECUTIVE_SUMMARY: 'IAPD: update executive summary',
+    UPDATE_PROJECT_PLAN: 'IAPD: update project plan'
   },
 
   updateExecutiveSummary(newExecutiveSummary) {
     return { type: IAPD.messages.UPDATE_EXECUTIVE_SUMMARY, executiveSummary: newExecutiveSummary };
+  },
+
+  updateProjectPlan(newProjectPlan) {
+    return { type: IAPD.messages.UPDATE_PROJECT_PLAN, projectPlan: newProjectPlan };
   }
 };
 

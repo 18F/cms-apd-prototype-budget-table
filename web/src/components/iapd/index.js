@@ -4,19 +4,9 @@ import Section from '../collapsible';
 import Dollars from '../dollars';
 
 import ExecutiveSummary from './executive-summary';
+import ProjectPlan from './project-plan';
 
 import { Requests } from '../../actions';
-
-const Outcome = props => (
-  <div className="outcome">
-    <p>
-      Outcome {props.number} <input type="text" />
-    </p>
-    <p>
-      Success metrics: <input type="text" />
-    </p>
-  </div>
-);
 
 const Milestone = props => (
   <div className="milestone">
@@ -259,35 +249,8 @@ class IAPD extends React.Component {
         </header>
 
         <ExecutiveSummary info={this.props.request.executiveSummary} />
-
-        <Section name="Project plan">
-          <p>
-            In this section, you&rsquo;ll describe the desired outcomes of your
-            initiative, along with the activities (tasks) you&rsquo; complete
-            to achieve them.
-          </p>
-
-          <h3>Project vision</h3>
-          <p>
-            What is the ultimate benefit of your initiative?  Provide a
-            description of no more than 200 words.
-            <br />
-            <textarea />
-          </p>
-
-          <h3>Project outcomes</h3>
-          <p>
-            Provide short, detailed descriptions of each smaller goal that
-            contributes to the overall project goal, along with metrics
-            for tracking the success of each.
-          </p>
-
-          {this.props.request.plan.outcomes.map((o, i) => <Outcome key={o.id} number={i + 1} outcome={o} />)}
-
-          <p>
-            <a href="">Add an outcome +</a>
-          </p>
-        </Section>
+        
+        <ProjectPlan vision={this.props.request.plan.vision} outcomes={this.props.request.plan.outcomes} />
 
         <Section name="Project milestones">
           <p>
