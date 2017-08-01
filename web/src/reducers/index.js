@@ -58,6 +58,7 @@ const emptyRequest = {
       state25: 0,
       total: 0,
       categories: [{
+        id: randomID(),
         category: 'Category I (e.g., coding & development)',
         inhouse: null,
         ffp90: 0,
@@ -66,6 +67,7 @@ const emptyRequest = {
         state25: 0,
         total: 0
       }, {
+        id: randomID(),
         category: 'Category II',
         inhouse: null,
         ffp90: 0,
@@ -74,6 +76,7 @@ const emptyRequest = {
         state25: 0,
         total: 0
       }, {
+        id: randomID(),
         category: 'Category III',
         inhouse: null,
         ffp90: 0,
@@ -82,6 +85,7 @@ const emptyRequest = {
         state25: 0,
         total: 0
       }, {
+        id: randomID(),
         category: 'Category IV',
         inhouse: null,
         ffp90: 0,
@@ -98,6 +102,7 @@ const emptyRequest = {
       state50: 0,
       total: 0,
       categories: [{
+        id: randomID(),
         category: 'Category I',
         inhouse: null,
         ffp75: 0,
@@ -106,6 +111,7 @@ const emptyRequest = {
         state50: 0,
         total: 0
       }, {
+        id: randomID(),
         category: 'Category II',
         inhouse: null,
         ffp75: 0,
@@ -114,6 +120,7 @@ const emptyRequest = {
         state50: 0,
         total: 0
       }, {
+        id: randomID(),
         category: 'Category III',
         inhouse: null,
         ffp75: 0,
@@ -122,6 +129,7 @@ const emptyRequest = {
         state50: 0,
         total: 0
       }, {
+        id: randomID(),
         category: 'Category IV',
         inhouse: null,
         ffp75: 0,
@@ -136,24 +144,28 @@ const emptyRequest = {
       state50: 0,
       total: 0,
       categories: [{
+        id: randomID(),
         category: 'Category I',
         inhouse: null,
         ffp50: 0,
         state50: 0,
         total: 0
       }, {
+        id: randomID(),
         category: 'Category II',
         inhouse: null,
         ffp50: 0,
         state50: 0,
         total: 0
       }, {
+        id: randomID(),
         category: 'Category III',
         inhouse: null,
         ffp50: 0,
         state50: 0,
         total: 0
       }, {
+        id: randomID(),
         category: 'Category IV',
         inhouse: null,
         ffp50: 0,
@@ -209,6 +221,74 @@ export default function reducer(state = stateShape, action) {
       newState = updeep({ currentRequest: { milestones: action.milestones } }, newState);
       break;
 
+    case IAPD.messages.UPDATE_BUDGET_DDI_CATEGORY:
+      {
+        const categoryUpdate = { [action.category]: action.values };
+        newState = updeep({ currentRequest: { budget: { [action.budget]: { ddi: { categories: categoryUpdate } } } } }, newState);
+
+        // Update DDI totals too
+        let ffp90 = 0;
+        let state10 = 0;
+        let ffp75 = 0;
+        let state25 = 0;
+        let total = 0;
+
+        for (const category of newState.currentRequest.budget[action.budget].ddi.categories) {
+          ffp90 += category.ffp90;
+          state10 += category.state10;
+          ffp75 += category.ffp75;
+          state25 += category.state25;
+          total += category.total;
+        }
+
+        newState = updeep({ currentRequest: { budget: { [action.budget]: { ddi: { ffp90, state10, ffp75, state25, total } } } } }, newState);
+      }
+      break;
+
+    case IAPD.messages.UPDATE_BUDGET_OM_CATEGORY:
+      {
+        const categoryUpdate = { [action.category]: action.values };
+        newState = updeep({ currentRequest: { budget: { [action.budget]: { om: { categories: categoryUpdate } } } } }, newState);
+
+        // Update O&M totals too
+        let ffp75 = 0;
+        let state25 = 0;
+        let ffp50 = 0;
+        let state50 = 0;
+        let total = 0;
+
+        for (const category of newState.currentRequest.budget[action.budget].om.categories) {
+          ffp75 += category.ffp75;
+          state25 += category.state25;
+          ffp50 += category.ffp50;
+          state50 += category.state50;
+          total += category.total;
+        }
+
+        newState = updeep({ currentRequest: { budget: { [action.budget]: { om: { ffp75, state25, ffp50, state50, total } } } } }, newState);
+      }
+      break;
+
+    case IAPD.messages.UPDATE_BUDGET_MECH_CATEGORY:
+      {
+        const categoryUpdate = { [action.category]: action.values };
+        newState = updeep({ currentRequest: { budget: { [action.budget]: { mechanizedSystems: { categories: categoryUpdate } } } } }, newState);
+
+        // Update mechanized systems totals too
+        let ffp50 = 0;
+        let state50 = 0;
+        let total = 0;
+
+        for (const category of newState.currentRequest.budget[action.budget].mechanizedSystems.categories) {
+          ffp50 += category.ffp50;
+          state50 += category.state50;
+          total += category.total;
+        }
+
+        newState = updeep({ currentRequest: { budget: { [action.budget]: { mechanizedSystems: { ffp50, state50, total } } } } }, newState);
+      }
+      break;
+
     case IAPD.messages.ADD_PROJECT_OUTCOME:
       {
         const outcomes = [...newState.currentRequest.plan.outcomes];
@@ -234,6 +314,55 @@ export default function reducer(state = stateShape, action) {
           defineSuccess: ''
         });
         newState = updeep({ currentRequest: { milestones } }, newState);
+      }
+      break;
+
+    case IAPD.messages.ADD_BUDGET_DDI_CATEGORY:
+      {
+        const categories = [...newState.currentRequest.budget[action.budget].ddi.categories];
+        categories.push({
+          id: randomID(),
+          category: '',
+          inhouse: null,
+          ffp90: 0,
+          state10: 0,
+          ffp75: 0,
+          state25: 0,
+          total: 0
+        });
+        newState = updeep({ currentRequest: { budget: { [action.budget]: { ddi: { categories } } } } }, newState);
+      }
+      break;
+
+    case IAPD.messages.ADD_BUDGET_OM_CATEGORY:
+      {
+        const categories = [...newState.currentRequest.budget[action.budget].om.categories];
+        categories.push({
+          id: randomID(),
+          category: '',
+          inhouse: null,
+          ffp75: 0,
+          state25: 0,
+          ffp50: 0,
+          state50: 0,
+          total: 0
+        });
+        newState = updeep({ currentRequest: { budget: { [action.budget]: { om: { categories } } } } }, newState);
+      }
+      break;
+
+    case IAPD.messages.ADD_BUDGET_MECH_CATEGORY:
+      {
+        const categories = [...newState.currentRequest.budget[action.budget].mechanizedSystems.categories];
+        categories.push({
+          id: randomID(),
+          category: '',
+          inhouse: null,
+          ffp50: 0,
+          state50: 0,
+          total: 0
+        });
+        newState = updeep({ currentRequest: { budget: { [action.budget]: { mechanizedSystems: { categories } } } } }, newState);
       }
       break;
 

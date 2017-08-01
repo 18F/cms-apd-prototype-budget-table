@@ -1,172 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Section from '../collapsible';
-import Dollars from '../dollars';
 
 import ExecutiveSummary from './executive-summary';
 import ProjectPlan from './project-plan/';
 import ProjectMilestones from './project-milestones/';
+import ProposedBudget from './proposed-budget/';
 
 import { Requests } from '../../actions';
-
-const BudgetTable = props => (
-  <div className="budget-table">
-    <input type="number" placeholder="federal fiscal year" />
-
-    <div className="pull right">FFY 20XX</div>
-
-    <table>
-      <thead>
-        <tr>
-          <th colSpan="7">Design, development, and implementation activities (2A, 2B)</th>
-        </tr>
-        <tr>
-          <th>State cost category</th>
-          <th>In-house or contract?</th>
-          <th>90% federal share</th>
-          <th>10% state share</th>
-          <th>75% federal share</th>
-          <th>25% state share</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        {props.budget.ddi.categories.map(c => (
-          <tr key={c.category}>
-            <td><input value={c.category} /></td>
-            <td>
-              <select>
-                <option>select</option>
-                <option>in-house</option>
-                <option>contractor</option>
-              </select>
-            </td>
-            <td><span className="input-with-dollar"><input value={c.ffp90} /></span></td>
-            <td><span className="input-with-dollar"><input value={c.state10} /></span></td>
-            <td><span className="input-with-dollar"><input value={c.ffp75} /></span></td>
-            <td><span className="input-with-dollar"><input value={c.state25} /></span></td>
-            <td><Dollars value={c.total} /></td>
-          </tr>
-        ))}
-        <tr>
-          <td colSpan="7">
-            <a href="">Add a new row +</a>
-          </td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Grand total</th>
-          <th>&nbsp;</th>
-          <th><Dollars value={props.budget.ddi.ffp90} /></th>
-          <th><Dollars value={props.budget.ddi.state10} /></th>
-          <th><Dollars value={props.budget.ddi.ffp75} /></th>
-          <th><Dollars value={props.budget.ddi.state25} /></th>
-          <th><Dollars value={props.budget.ddi.total} /></th>
-        </tr>
-      </thead>
-    </table>
-
-    <table>
-      <thead>
-        <tr>
-          <th colSpan="7">Maintenance and operations activities (4A, 4B)</th>
-        </tr>
-        <tr>
-          <th>State cost category</th>
-          <th>In-house or contract?</th>
-          <th>75% federal share</th>
-          <th>25% state share</th>
-          <th>50% federal share</th>
-          <th>50% state share</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        {props.budget.om.categories.map(c => (
-          <tr key={c.category}>
-            <td><input value={c.category} /></td>
-            <td>
-              <select>
-                <option>select</option>
-                <option>in-house</option>
-                <option>contractor</option>
-              </select>
-            </td>
-            <td><span className="input-with-dollar"><input value={c.ffp75} /></span></td>
-            <td><span className="input-with-dollar"><input value={c.state25} /></span></td>
-            <td><span className="input-with-dollar"><input value={c.ffp50} /></span></td>
-            <td><span className="input-with-dollar"><input value={c.state50} /></span></td>
-            <td><Dollars value={c.total} /></td>
-          </tr>
-        ))}
-        <tr>
-          <td colSpan="7">
-            <a href="">Add a new row +</a>
-          </td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Grand total</th>
-          <th>&nbsp;</th>
-          <th><Dollars value={props.budget.om.ffp75} /></th>
-          <th><Dollars value={props.budget.om.state25} /></th>
-          <th><Dollars value={props.budget.om.ffp50} /></th>
-          <th><Dollars value={props.budget.om.state50} /></th>
-          <th><Dollars value={props.budget.om.total} /></th>
-        </tr>
-      </thead>
-    </table>
-
-    <table>
-      <thead>
-        <tr>
-          <th colSpan="5">Mechanized systems (5A, 5B, 5C)</th>
-        </tr>
-        <tr>
-          <th>State cost category</th>
-          <th>In-house, contract, or interagency?</th>
-          <th>50% federal share</th>
-          <th>50% state share</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        {props.budget.mechanizedSystems.categories.map(c => (
-          <tr key={c.category}>
-            <td><input value={c.category} /></td>
-            <td>
-              <select>
-                <option>select</option>
-                <option>in-house</option>
-                <option>contractor</option>
-                <option>interagency</option>
-              </select>
-            </td>
-            <td><span className="input-with-dollar"><input value={c.ffp50} /></span></td>
-            <td><span className="input-with-dollar"><input value={c.state50} /></span></td>
-            <td><Dollars value={c.total} /></td>
-          </tr>
-        ))}
-        <tr>
-          <td colSpan="5">
-            <a href="">Add a new row +</a>
-          </td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Grand total</th>
-          <th>&nbsp;</th>
-          <th><Dollars value={props.budget.mechanizedSystems.ffp50} /></th>
-          <th><Dollars value={props.budget.mechanizedSystems.state50} /></th>
-          <th><Dollars value={props.budget.mechanizedSystems.total} /></th>
-        </tr>
-      </thead>
-    </table>
-  </div>
-);
 
 const Staff = props => (
   <div className="staff">
@@ -205,25 +46,7 @@ class IAPD extends React.Component {
 
         <ProjectMilestones outcomes={this.props.request.plan.outcomes.filter(o => o.title)} milestones={this.props.request.milestones} />
 
-        <Section name="Proposed budget">
-          <h3>Detailed budget tables</h3>
-
-          <p>
-            Please complete the following tables for each relevant Federal
-            Fiscal Year. These will provide a more detailed view of how
-            you&rsquo;ll spend your award.  Within each table, replace the
-            Category labels (leftmost column) with descriptions of each
-            category.  For example, in the Design, Development, and
-            implementation table, you might replace &ldquo;Category I&rdquo;
-            with &ldquo;Project planning and kickoff.&rdquo;
-          </p>
-
-          {this.props.request.budget.map(b => <BudgetTable key={b.ffy} budget={b} />)}
-
-          <a href="">Add another fiscal year +</a>
-
-          ...MDBT goes here...
-        </Section>
+        <ProposedBudget />
 
         <Section name="Staffing requirements">
           <p>
@@ -343,8 +166,7 @@ class IAPD extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  request: state.currentRequest,
-  costs: state.currentRequest.costs
+  request: state.currentRequest
 });
 
 const mapDispatchToProps = dispatch => ({

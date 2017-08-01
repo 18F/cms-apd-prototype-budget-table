@@ -5,8 +5,14 @@ export const IAPD = {
     UPDATE_EXECUTIVE_SUMMARY: 'IAPD: update executive summary',
     UPDATE_PROJECT_PLAN: 'IAPD: update project plan',
     UPDATE_PROJECT_MILESTONES: 'IAPD: update milestones',
+    UPDATE_BUDGET_DDI_CATEGORY: 'IAPD: update budget ddi category',
+    UPDATE_BUDGET_OM_CATEGORY: 'IAPD: update budget om category',
+    UPDATE_BUDGET_MECH_CATEGORY: 'IAPD: update budget mechanized systems category',
     ADD_PROJECT_OUTCOME: 'IAPD: add outcome',
-    ADD_PROJECT_MILESTONE: 'IAPD: add milestone'
+    ADD_PROJECT_MILESTONE: 'IAPD: add milestone',
+    ADD_BUDGET_DDI_CATEGORY: 'IAPD: add budget ddi category',
+    ADD_BUDGET_OM_CATEGORY: 'IAPD: add budget om category',
+    ADD_BUDGET_MECH_CATEGORY: 'IAPD: add budget mechanized systems category'
   },
 
   updateExecutiveSummary(newExecutiveSummary) {
@@ -21,12 +27,36 @@ export const IAPD = {
     return { type: IAPD.messages.UPDATE_PROJECT_MILESTONES, milestones: newMilestones };
   },
 
+  updateBudgetDDICategory(budgetIndex, categoryIndex, newValues) {
+    return { type: IAPD.messages.UPDATE_BUDGET_DDI_CATEGORY, budget: budgetIndex, category: categoryIndex, values: newValues };
+  },
+
+  updateBudgetOMCategory(budgetIndex, categoryIndex, newValues) {
+    return { type: IAPD.messages.UPDATE_BUDGET_OM_CATEGORY, budget: budgetIndex, category: categoryIndex, values: newValues };
+  },
+
+  updateBudgetMechanizedSystemsCategory(budgetIndex, categoryIndex, newValues) {
+    return { type: IAPD.messages.UPDATE_BUDGET_MECH_CATEGORY, budget: budgetIndex, category: categoryIndex, values: newValues };
+  },
+
   addProjectOutcome() {
     return { type: IAPD.messages.ADD_PROJECT_OUTCOME };
   },
 
   addProjectMilestone() {
     return { type: IAPD.messages.ADD_PROJECT_MILESTONE };
+  },
+
+  addBudgetDDICategory(budgetIndex) {
+    return { type: IAPD.messages.ADD_BUDGET_DDI_CATEGORY, budget: budgetIndex };
+  },
+
+  addBudgetOMCategory(budgetIndex) {
+    return { type: IAPD.messages.ADD_BUDGET_OM_CATEGORY, budget: budgetIndex };
+  },
+
+  addBudgetMechanizedSystemsCategory(budgetIndex) {
+    return { type: IAPD.messages.ADD_BUDGET_MECH_CATEGORY, budget: budgetIndex };
   }
 };
 
