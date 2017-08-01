@@ -8,6 +8,7 @@ export const IAPD = {
     UPDATE_BUDGET_DDI_CATEGORY: 'IAPD: update budget ddi category',
     UPDATE_BUDGET_OM_CATEGORY: 'IAPD: update budget om category',
     UPDATE_BUDGET_MECH_CATEGORY: 'IAPD: update budget mechanized systems category',
+    UPDATE_PAPD_SUMMARY: 'IAPD: update PAPD summary',
     ADD_PROJECT_OUTCOME: 'IAPD: add outcome',
     ADD_PROJECT_MILESTONE: 'IAPD: add milestone',
     ADD_BUDGET_DDI_CATEGORY: 'IAPD: add budget ddi category',
@@ -37,6 +38,10 @@ export const IAPD = {
 
   updateBudgetMechanizedSystemsCategory(budgetIndex, categoryIndex, newValues) {
     return { type: IAPD.messages.UPDATE_BUDGET_MECH_CATEGORY, budget: budgetIndex, category: categoryIndex, values: newValues };
+  },
+
+  updatePAPDSummary(newPAPDSummary) {
+    return { type: IAPD.messages.UPDATE_PAPD_SUMMARY, papdSummary: newPAPDSummary };
   },
 
   addProjectOutcome() {

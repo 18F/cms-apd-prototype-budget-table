@@ -289,6 +289,10 @@ export default function reducer(state = stateShape, action) {
       }
       break;
 
+    case IAPD.messages.UPDATE_PAPD_SUMMARY:
+      newState = updeep({ currentRequest: { papdSummary: action.papdSummary } }, newState);
+      break;
+
     case IAPD.messages.ADD_PROJECT_OUTCOME:
       {
         const outcomes = [...newState.currentRequest.plan.outcomes];
