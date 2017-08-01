@@ -72,15 +72,13 @@ class Milestone extends React.Component {
 
         <p>
           Which outcome(s) does this milestone support?
-          <br />
-          {this.props.outcomes.map(outcome => (<div key={outcome.id}><input type="checkbox" id={`_project_milestone_outcome_${outcome.id}`} value={outcome.id} name="associatedOutcomes" onChange={this.updateArray} /><label htmlFor={`_project_milestone_outcome_${outcome.id}`}>{outcome.title}</label></div>))}
         </p>
+        {this.props.outcomes.map(outcome => (<div key={outcome.id}><input type="checkbox" id={`_project_milestone_outcome_${outcome.id}`} value={outcome.id} name="associatedOutcomes" onChange={this.updateArray} /><label htmlFor={`_project_milestone_outcome_${outcome.id}`}>{outcome.title}</label></div>))}
 
         <p>
           Which MITA business areas are part of this milestone?
-          <br />
-          {this.mitaBusinessAreas.map(area => (<div key={area}><input type="checkbox" id={`_project_milestone_mita_${area}`} value={area} name="mitaAreas" onChange={this.updateArray} /><label htmlFor={`_project_milestone_mita_${area}`}>{area}</label></div>))}
         </p>
+        {this.mitaBusinessAreas.map(area => (<div key={area}><input type="checkbox" id={`_project_milestone_mita_${area}`} value={area} name="mitaAreas" onChange={this.updateArray} /><label htmlFor={`_project_milestone_mita_${area}`}>{area}</label></div>))}
 
         <p>
           How much will it cost to reach this milestone?
