@@ -1,6 +1,17 @@
 import updeep from 'updeep';
 import { IAPD, Projects, Requests } from '../actions';
 
+const randomID = (function createRandomIDFunction() {
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'.split('');
+  return () => {
+    let id = '';
+    for (let i = 0; i < 8; i += 1) {
+      id += letters[Math.floor(Math.random() * letters.length)];
+    }
+    return id;
+  };
+}());
+
 const emptyRequest = {
   id: false,
   state: '',
@@ -16,21 +27,24 @@ const emptyRequest = {
   plan: {
     vision: '',
     outcomes: [{
+      id: randomID(),
       title: '',
       metrics: ''
     }, {
+      id: randomID(),
       title: '',
       metrics: ''
     }, {
+      id: randomID(),
       title: '',
       metrics: ''
     }]
   },
   milestones: [{
-    id: 'temp-1',
+    id: randomID(),
     description: '',
     activities: '',
-    associatedOutcome: '',
+    associatedOutcomes: [],
     mitaAreas: [],
     cost: 0,
     defineSuccess: ''
@@ -189,6 +203,38 @@ export default function reducer(state = stateShape, action) {
 
     case IAPD.messages.UPDATE_PROJECT_PLAN:
       newState = updeep({ currentRequest: { plan: action.projectPlan } }, newState);
+      break;
+
+    case IAPD.messages.UPDATE_PROJECT_MILESTONES:
+      newState = updeep({ currentRequest: { milestones: action.milestones } }, newState);
+      break;
+
+    case IAPD.messages.ADD_PROJECT_OUTCOME:
+      {
+        const outcomes = [...newState.currentRequest.plan.outcomes];
+        outcomes.push({
+          id: randomID(),
+          title: '',
+          metrics: ''
+        });
+        newState = updeep({ currentRequest: { plan: { outcomes } } }, newState);
+      }
+      break;
+
+    case IAPD.messages.ADD_PROJECT_MILESTONE:
+      {
+        const milestones = [...newState.currentRequest.milestones];
+        milestones.push({
+          id: randomID(),
+          description: '',
+          activities: '',
+          associatedOutcomes: [],
+          mitaAreas: [],
+          cost: 0,
+          defineSuccess: ''
+        });
+        newState = updeep({ currentRequest: { milestones } }, newState);
+      }
       break;
 
     case Requests.messages.START_NEW_REQUEST:

@@ -3,7 +3,10 @@ import { api, removeAPIHeader, getProjects, getRequests, getRequest } from '../a
 export const IAPD = {
   messages: {
     UPDATE_EXECUTIVE_SUMMARY: 'IAPD: update executive summary',
-    UPDATE_PROJECT_PLAN: 'IAPD: update project plan'
+    UPDATE_PROJECT_PLAN: 'IAPD: update project plan',
+    UPDATE_PROJECT_MILESTONES: 'IAPD: update milestones',
+    ADD_PROJECT_OUTCOME: 'IAPD: add outcome',
+    ADD_PROJECT_MILESTONE: 'IAPD: add milestone'
   },
 
   updateExecutiveSummary(newExecutiveSummary) {
@@ -12,6 +15,18 @@ export const IAPD = {
 
   updateProjectPlan(newProjectPlan) {
     return { type: IAPD.messages.UPDATE_PROJECT_PLAN, projectPlan: newProjectPlan };
+  },
+
+  updateProjectMilestones(newMilestones) {
+    return { type: IAPD.messages.UPDATE_PROJECT_MILESTONES, milestones: newMilestones };
+  },
+
+  addProjectOutcome() {
+    return { type: IAPD.messages.ADD_PROJECT_OUTCOME };
+  },
+
+  addProjectMilestone() {
+    return { type: IAPD.messages.ADD_PROJECT_MILESTONE };
   }
 };
 

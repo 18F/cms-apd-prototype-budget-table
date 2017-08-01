@@ -17,13 +17,18 @@ class ProjectPlan extends React.Component {
       });
     };
 
-    this.updateOutcome = (index, title, metric) => {
+    this.updateOutcome = (index, title, metrics) => {
       const newOutcomes = [...this.props.outcomes];
-      newOutcomes[index] = { title, metric };
+      newOutcomes[index] = { id: newOutcomes[index].id, title, metrics };
       this.props.update({
         vision: this.props.vision,
         outcomes: newOutcomes
       });
+    };
+
+    this.addOutcome = (e) => {
+      e.preventDefault();
+      this.props.addOutcome();
     };
   }
 
@@ -51,10 +56,10 @@ class ProjectPlan extends React.Component {
           for tracking the success of each.
         </p>
 
-        {this.props.outcomes.map((o, i) => <Outcome key={o.title || i} index={i} outcome={o} onChange={this.updateOutcome} />)}
+        {this.props.outcomes.map((o, i) => <Outcome key={o.id} index={i} outcome={o} onChange={this.updateOutcome} />)}
 
         <p>
-          <a href="">Add an outcome +</a>
+          <a href="" onClick={this.addOutcome}>Add an outcome +</a>
         </p>
       </Section>
     );
@@ -67,7 +72,8 @@ ProjectPlan.propTypes = {
     title: PropTypes.string.isRequired,
     metrics: PropTypes.string.isRequired
   })).isRequired,
-  update: PropTypes.func.isRequired
+  update: PropTypes.func.isRequired,
+  addOutcome: PropTypes.func.isRequired
 };
 
 ProjectPlan.defaultProps = {
@@ -77,6 +83,9 @@ ProjectPlan.defaultProps = {
 const mapDispatchToProps = dispatch => ({
   update(newProjectPlan) {
     dispatch(IAPDActions.updateProjectPlan(newProjectPlan));
+  },
+  addOutcome() {
+    dispatch(IAPDActions.addProjectOutcome());
   }
 });
 

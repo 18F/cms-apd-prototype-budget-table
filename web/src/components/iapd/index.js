@@ -5,58 +5,9 @@ import Dollars from '../dollars';
 
 import ExecutiveSummary from './executive-summary';
 import ProjectPlan from './project-plan';
+import ProjectMilestones from './project-milestones';
 
 import { Requests } from '../../actions';
-
-const Milestone = props => (
-  <div className="milestone">
-    <h3>Project milestone {props.number}</h3>
-
-    <p>
-      Describe this project milestone in one sentence
-      <br />
-      <input type="text" />
-    </p>
-
-    <p>
-      What activities or workstreams are needed to achieve this project milestone?
-      <br />
-      <input type="text" />
-    </p>
-
-    <p>
-      Which outcome(s) does this milestone support?
-      <br />
-      <select>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-      </select>
-    </p>
-
-    <p>
-      Which MITA business areas are part of this milestone?
-      <br />
-      <select>
-        <option>A</option>
-        <option>B</option>
-        <option>C</option>
-      </select>
-    </p>
-
-    <p>
-      How much will it cost to reach this milestone?
-      <span className="input-with-dollar">
-        <input type="number" className="short dollar" />
-      </span>
-    </p>
-
-    <p>
-      How will you define success for this milestone?
-      <textarea />
-    </p>
-  </div>
-);
 
 const BudgetTable = props => (
   <div className="budget-table">
@@ -249,18 +200,10 @@ class IAPD extends React.Component {
         </header>
 
         <ExecutiveSummary info={this.props.request.executiveSummary} />
-        
+
         <ProjectPlan vision={this.props.request.plan.vision} outcomes={this.props.request.plan.outcomes} />
 
-        <Section name="Project milestones">
-          <p>
-            In the context of this APD, a project milestone is a mid-process
-            accomplishment that contributes to the larger project vision. Not
-            all milestones are accompanied by deliverables, although many are.
-          </p>
-
-          {this.props.request.milestones.map((m, i) => <Milestone key={m.id} number={i + 1} milestone={m} />)}
-        </Section>
+        <ProjectMilestones outcomes={this.props.request.plan.outcomes.filter(o => o.title)} milestones={this.props.request.milestones} />
 
         <Section name="Proposed budget">
           <h3>Detailed budget tables</h3>
