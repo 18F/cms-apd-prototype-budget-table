@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { IAPD as IAPDActions } from '../../actions';
-import Section from '../collapsible';
+import Section from '../../collapsible';
 import Outcome from './project-outcome';
-import TextArea from '../textarea';
+import TextArea from '../../textarea';
+import { IAPD as IAPDActions } from '../../../actions';
 
 class ProjectPlan extends React.Component {
   constructor(props) {

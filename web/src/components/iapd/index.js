@@ -4,8 +4,8 @@ import Section from '../collapsible';
 import Dollars from '../dollars';
 
 import ExecutiveSummary from './executive-summary';
-import ProjectPlan from './project-plan';
-import ProjectMilestones from './project-milestones';
+import ProjectPlan from './project-plan/';
+import ProjectMilestones from './project-milestones/';
 
 import { Requests } from '../../actions';
 

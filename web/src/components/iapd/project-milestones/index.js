@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Section from '../collapsible';
+import Section from '../../collapsible';
 import Milestone from './project-milestone';
-import { IAPD as IAPDActions } from '../../actions';
+import { IAPD as IAPDActions } from '../../../actions';
 
 class ProjectMilestones extends React.Component {
   constructor(props) {
