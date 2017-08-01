@@ -173,12 +173,14 @@ export default {
   }],
   staffing: {
     director: {
+      id: randomID(),
       name: '',
       email: '',
       percentTime: 0,
       responsibilities: ''
     },
     keyStaff: [{
+      id: randomID(),
       name: '',
       email: '',
       percentTime: 0,

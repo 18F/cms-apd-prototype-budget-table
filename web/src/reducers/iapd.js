@@ -97,6 +97,18 @@ export default (state = shape.request, action) => {
       }
       break;
 
+    case IAPD.messages.UPDATE_STAFFING_DIRECTOR:
+      newState = updeep({ staffing: { director: action.director } }, newState);
+      break;
+
+    case IAPD.messages.UPDATE_STAFFING_KEY_STAFF:
+      newState = updeep({ staffing: { keyStaff: { [action.person]: action.staff } } }, newState);
+      break;
+
+    case IAPD.messages.UPDATE_STAFFING_OTHER:
+      newState = updeep({ staffing: { other: action.other } }, newState);
+      break;
+
     case IAPD.messages.UPDATE_PAPD_SUMMARY:
       newState = updeep({ papdSummary: action.papdSummary }, newState);
       break;
@@ -175,6 +187,20 @@ export default (state = shape.request, action) => {
           total: 0
         });
         newState = updeep({ budget: { [action.budget]: { mechanizedSystems: { categories } } } }, newState);
+      }
+      break;
+
+    case IAPD.messages.ADD_STAFF_KEY_STAFF:
+      {
+        const keyStaff = [...newState.staffing.keyStaff];
+        keyStaff.push({
+          id: randomID(),
+          name: '',
+          email: '',
+          percentTime: 0,
+          responsibilities: ''
+        });
+        newState = updeep({ staffing: { keyStaff } }, newState);
       }
       break;
 

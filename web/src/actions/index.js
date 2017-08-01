@@ -8,12 +8,16 @@ export const IAPD = {
     UPDATE_BUDGET_DDI_CATEGORY: 'IAPD: update budget ddi category',
     UPDATE_BUDGET_OM_CATEGORY: 'IAPD: update budget om category',
     UPDATE_BUDGET_MECH_CATEGORY: 'IAPD: update budget mechanized systems category',
+    UPDATE_STAFFING_DIRECTOR: 'IAPD: update staffing project director',
+    UPDATE_STAFFING_KEY_STAFF: 'IAPD update staffing key staff',
+    UPDATE_STAFFING_OTHER: 'IAPD: update staffing other needs',
     UPDATE_PAPD_SUMMARY: 'IAPD: update PAPD summary',
     ADD_PROJECT_OUTCOME: 'IAPD: add outcome',
     ADD_PROJECT_MILESTONE: 'IAPD: add milestone',
     ADD_BUDGET_DDI_CATEGORY: 'IAPD: add budget ddi category',
     ADD_BUDGET_OM_CATEGORY: 'IAPD: add budget om category',
-    ADD_BUDGET_MECH_CATEGORY: 'IAPD: add budget mechanized systems category'
+    ADD_BUDGET_MECH_CATEGORY: 'IAPD: add budget mechanized systems category',
+    ADD_STAFF_KEY_STAFF: 'IAPD: add staffing key person'
   },
 
   updateExecutiveSummary(newExecutiveSummary) {
@@ -40,6 +44,18 @@ export const IAPD = {
     return { type: IAPD.messages.UPDATE_BUDGET_MECH_CATEGORY, budget: budgetIndex, category: categoryIndex, values: newValues };
   },
 
+  updateStaffingDirector(director) {
+    return { type: IAPD.messages.UPDATE_STAFFING_DIRECTOR, director };
+  },
+
+  updateStaffingKeyStaff(personIndex, staff) {
+    return { type: IAPD.messages.UPDATE_STAFFING_KEY_STAFF, person: personIndex, staff };
+  },
+
+  updateStaffingOther(newValues) {
+    return { type: IAPD.messages.UPDATE_STAFFING_OTHER, other: newValues };
+  },
+
   updatePAPDSummary(newPAPDSummary) {
     return { type: IAPD.messages.UPDATE_PAPD_SUMMARY, papdSummary: newPAPDSummary };
   },
@@ -62,6 +78,10 @@ export const IAPD = {
 
   addBudgetMechanizedSystemsCategory(budgetIndex) {
     return { type: IAPD.messages.ADD_BUDGET_MECH_CATEGORY, budget: budgetIndex };
+  },
+
+  addStaffKeyPerson() {
+    return { type: IAPD.messages.ADD_STAFF_KEY_STAFF };
   }
 };
 
