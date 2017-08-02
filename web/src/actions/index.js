@@ -18,6 +18,7 @@ export const IAPD = {
     ADD_BUDGET_DDI_CATEGORY: 'IAPD: add budget ddi category',
     ADD_BUDGET_OM_CATEGORY: 'IAPD: add budget om category',
     ADD_BUDGET_MECH_CATEGORY: 'IAPD: add budget mechanized systems category',
+    ADD_BUDGET_FFY: 'IAPD: add budget year',
     ADD_STAFF_KEY_STAFF: 'IAPD: add staffing key person'
   },
 
@@ -83,6 +84,10 @@ export const IAPD = {
 
   addBudgetMechanizedSystemsCategory(budgetIndex) {
     return { type: IAPD.messages.ADD_BUDGET_MECH_CATEGORY, budget: budgetIndex };
+  },
+
+  addBudgetFFY() {
+    return { type: IAPD.messages.ADD_BUDGET_FFY };
   },
 
   addStaffKeyPerson() {

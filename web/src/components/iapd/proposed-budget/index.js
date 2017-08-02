@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Section from '../../collapsible';
 import BudgetTable from './budget-table';
+import { IAPD as IAPDActions } from '../../../actions';
 
 class ProposedBudget extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handle = () => { };
+    this.addBudgetFFY = (e) => {
+      e.preventDefault();
+      props.addBudgetFFY();
+    };
   }
 
   render() {
@@ -26,9 +30,9 @@ class ProposedBudget extends React.Component {
           with &ldquo;Project planning and kickoff.&rdquo;
         </p>
 
-        {this.props.budgets.map((b, i) => <BudgetTable key={b.ffy} index={i} budget={b} />)}
+        {this.props.budgets.map((b, i) => <BudgetTable key={b.id} index={i} budget={b} />)}
 
-        <a href="">Add another fiscal year +</a>
+        <a href="" onClick={this.addBudgetFFY}>Add another fiscal year +</a>
 
         ...MDBT goes here...
       </Section>
@@ -39,11 +43,18 @@ class ProposedBudget extends React.Component {
 ProposedBudget.propTypes = {
   budgets: PropTypes.arrayOf(PropTypes.shape({
     ffy: PropTypes.number.isRequired
-  })).isRequired
+  })).isRequired,
+  addBudgetFFY: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   budgets: state.currentRequest.budget
 });
 
-export default connect(mapStateToProps, null)(ProposedBudget);
+const mapDispatchToProps = dispatch => ({
+  addBudgetFFY() {
+    dispatch(IAPDActions.addBudgetFFY());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProposedBudget);

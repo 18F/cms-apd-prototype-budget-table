@@ -47,6 +47,7 @@ export default {
     defineSuccess: ''
   }],
   budget: [{
+    id: randomID(),
     ffy: 0,
     ddi: {
       ffp90: 0,

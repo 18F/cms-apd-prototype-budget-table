@@ -194,6 +194,139 @@ export default (state = shape.request, action) => {
       }
       break;
 
+    case IAPD.messages.ADD_BUDGET_FFY:
+      {
+        const budget = [...newState.budget];
+        budget.push({
+          id: randomID(),
+          ffy: 0,
+          ddi: {
+            ffp90: 0,
+            state10: 0,
+            ffp75: 0,
+            state25: 0,
+            total: 0,
+            categories: [{
+              id: randomID(),
+              category: 'Category I (e.g., coding & development)',
+              inhouse: null,
+              ffp90: 0,
+              state10: 0,
+              ffp75: 0,
+              state25: 0,
+              total: 0
+            }, {
+              id: randomID(),
+              category: 'Category II',
+              inhouse: null,
+              ffp90: 0,
+              state10: 0,
+              ffp75: 0,
+              state25: 0,
+              total: 0
+            }, {
+              id: randomID(),
+              category: 'Category III',
+              inhouse: null,
+              ffp90: 0,
+              state10: 0,
+              ffp75: 0,
+              state25: 0,
+              total: 0
+            }, {
+              id: randomID(),
+              category: 'Category IV',
+              inhouse: null,
+              ffp90: 0,
+              state10: 0,
+              ffp75: 0,
+              state25: 0,
+              total: 0
+            }]
+          },
+          om: {
+            ffp75: 0,
+            state25: 0,
+            ffp50: 0,
+            state50: 0,
+            total: 0,
+            categories: [{
+              id: randomID(),
+              category: 'Category I',
+              inhouse: null,
+              ffp75: 0,
+              state25: 0,
+              ffp50: 0,
+              state50: 0,
+              total: 0
+            }, {
+              id: randomID(),
+              category: 'Category II',
+              inhouse: null,
+              ffp75: 0,
+              state25: 0,
+              ffp50: 0,
+              state50: 0,
+              total: 0
+            }, {
+              id: randomID(),
+              category: 'Category III',
+              inhouse: null,
+              ffp75: 0,
+              state25: 0,
+              ffp50: 0,
+              state50: 0,
+              total: 0
+            }, {
+              id: randomID(),
+              category: 'Category IV',
+              inhouse: null,
+              ffp75: 0,
+              state25: 0,
+              ffp50: 0,
+              state50: 0,
+              total: 0
+            }]
+          },
+          mechanizedSystems: {
+            ffp50: 0,
+            state50: 0,
+            total: 0,
+            categories: [{
+              id: randomID(),
+              category: 'Category I',
+              inhouse: null,
+              ffp50: 0,
+              state50: 0,
+              total: 0
+            }, {
+              id: randomID(),
+              category: 'Category II',
+              inhouse: null,
+              ffp50: 0,
+              state50: 0,
+              total: 0
+            }, {
+              id: randomID(),
+              category: 'Category III',
+              inhouse: null,
+              ffp50: 0,
+              state50: 0,
+              total: 0
+            }, {
+              id: randomID(),
+              category: 'Category IV',
+              inhouse: null,
+              ffp50: 0,
+              state50: 0,
+              total: 0
+            }]
+          }
+        });
+        newState = updeep({ budget }, newState);
+      }
+      break;
+
     case IAPD.messages.ADD_STAFF_KEY_STAFF:
       {
         const keyStaff = [...newState.staffing.keyStaff];

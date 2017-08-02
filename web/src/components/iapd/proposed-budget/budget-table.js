@@ -17,8 +17,8 @@ class BudgetTable extends React.Component {
     };
 
     this.updateFFY = (e) => {
-      this.setState({ ffy: e.target.value });
-      this.props.updateBudgetFFY(this.props.index, e.target.value);
+      this.setState({ ffy: Number(e.target.value) });
+      this.props.updateBudgetFFY(this.props.index, Number(e.target.value));
     };
 
     this.updateDDICategory = (categoryIndex, newValues) => {
@@ -52,7 +52,7 @@ class BudgetTable extends React.Component {
   render() {
     return (
       <div className="budget-table">
-        <input type="number" placeholder="federal fiscal year" value={this.state.ffy} onChange={this.updateFFY} />
+        <input type="number" placeholder="federal fiscal year" key="ffy" value={this.state.ffy} onChange={this.updateFFY} />
 
         <div className="pull right">FFY {this.state.ffy > 2000 ? this.state.ffy : '20XX'}</div>
 
