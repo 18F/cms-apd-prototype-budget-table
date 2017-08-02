@@ -114,10 +114,14 @@ ExecutiveSummary.propTypes = {
   updateExecutiveSummary: PropTypes.func.isRequired
 };
 
+const mapStateToProps = state => ({
+  info: state.currentRequest.executiveSummary
+});
+
 const mapDispatchToProps = dispatch => ({
   updateExecutiveSummary(newExecutiveSummary) {
     dispatch(IAPDActions.updateExecutiveSummary(newExecutiveSummary));
   }
 });
 
-export default connect(null, mapDispatchToProps)(ExecutiveSummary);
+export default connect(mapStateToProps, mapDispatchToProps)(ExecutiveSummary);

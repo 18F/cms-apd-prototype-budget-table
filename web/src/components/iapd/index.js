@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import ExecutiveSummary from './executive-summary';
@@ -26,21 +27,24 @@ class IAPD extends React.Component {
           <small>Days left in 60 day review period: {this.props.request.reviewRemaining}</small>
         </header>
 
-        <ExecutiveSummary info={this.props.request.executiveSummary} />
-
-        <ProjectPlan vision={this.props.request.plan.vision} outcomes={this.props.request.plan.outcomes} />
-
-        <ProjectMilestones outcomes={this.props.request.plan.outcomes.filter(o => o.title)} milestones={this.props.request.milestones} />
-
+        <ExecutiveSummary />
+        <ProjectPlan />
+        <ProjectMilestones />
         <ProposedBudget />
-
         <StaffingRequirements />
-
-        <PAPDSummary info={this.props.request.papdSummary} />
+        <PAPDSummary />
       </div>
     );
   }
 }
+
+IAPD.propTypes = {
+  request: PropTypes.shape({
+    status: PropTypes.string.isRequired,
+    revision: PropTypes.number.isRequired,
+    reviewRemaining: PropTypes.string.isRequired
+  }).isRequired
+};
 
 const mapStateToProps = state => ({
   request: state.currentRequest

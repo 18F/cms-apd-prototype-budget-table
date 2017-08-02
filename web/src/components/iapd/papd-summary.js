@@ -74,10 +74,14 @@ PAPDSummary.propTypes = {
   updatePAPDSummary: PropTypes.func.isRequired
 };
 
+const mapStateToProps = state => ({
+  info: state.currentRequest.papdSummary
+});
+
 const mapDispatchToProps = dispatch => ({
   updatePAPDSummary(newPAPDSummary) {
     dispatch(IAPDActions.updatePAPDSummary(newPAPDSummary));
   }
 });
 
-export default connect(null, mapDispatchToProps)(PAPDSummary);
+export default connect(mapStateToProps, mapDispatchToProps)(PAPDSummary);

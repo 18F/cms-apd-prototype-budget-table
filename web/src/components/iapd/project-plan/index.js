@@ -80,6 +80,11 @@ ProjectPlan.defaultProps = {
   vision: ''
 };
 
+const mapStateToProps = state => ({
+  vision: state.currentRequest.plan.vision,
+  outcomes: state.currentRequest.plan.outcomes
+});
+
 const mapDispatchToProps = dispatch => ({
   update(newProjectPlan) {
     dispatch(IAPDActions.updateProjectPlan(newProjectPlan));
@@ -89,4 +94,4 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(null, mapDispatchToProps)(ProjectPlan);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectPlan);

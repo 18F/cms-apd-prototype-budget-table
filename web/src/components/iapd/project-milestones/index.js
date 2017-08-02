@@ -55,6 +55,11 @@ ProjectMilestones.propTypes = {
   addMilestone: PropTypes.func.isRequired
 };
 
+const mapStateToProps = state => ({
+  milestones: state.currentRequest.milestones,
+  outcomes: state.currentRequest.plan.outcomes.filter(o => o.title)
+});
+
 const mapDispatchToProps = dispatch => ({
   update(newMilestones) {
     dispatch(IAPDActions.updateProjectMilestones(newMilestones));
@@ -64,4 +69,4 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(null, mapDispatchToProps)(ProjectMilestones);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectMilestones);
