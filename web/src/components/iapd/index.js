@@ -9,7 +9,7 @@ import ProposedBudget from './proposed-budget/';
 import StaffingRequirements from './staffing/';
 import PAPDSummary from './papd-summary';
 
-import { Requests } from '../../actions';
+import { IAPD as IAPDActions } from '../../actions';
 
 class IAPD extends React.Component {
   constructor(props) {
@@ -17,12 +17,21 @@ class IAPD extends React.Component {
     this.state = {
       totalDollars: 0
     };
+
+    this.submit = () => {
+      this.props.submit();
+    }
   }
 
   render() {
     return (
       <div className="new iapd">
         <header>
+          <div className="pull right">
+            <button className="dark">Submit</button>
+            <button className="usa-button-disabled" disabled>Save</button>
+          </div>
+
           <h3>State of Wyoming APD: {this.props.request.status} <small>Rev {this.props.request.revision}</small></h3>
           <small>Days left in 60 day review period: {this.props.request.reviewRemaining}</small>
         </header>
@@ -33,6 +42,7 @@ class IAPD extends React.Component {
         <ProposedBudget />
         <StaffingRequirements />
         <PAPDSummary />
+
       </div>
     );
   }
@@ -43,7 +53,8 @@ IAPD.propTypes = {
     status: PropTypes.string.isRequired,
     revision: PropTypes.number.isRequired,
     reviewRemaining: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  submit: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -51,8 +62,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateCost(which, value) {
-    dispatch(Requests.updateCost(which, value));
+  submit() {
+    dispatch(IAPDActions.submit());
   }
 });
 

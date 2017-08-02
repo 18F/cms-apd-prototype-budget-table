@@ -2,9 +2,10 @@
   header {
     background: rgb(24, 67, 104);
     color: white;
-    padding: 1em;
+    padding: 2em 1em;
 
     h3 {
+      clear: none;
       margin: 0;
       font-family: 'Source Sans Pro';
       font-size: 1.5em;
@@ -19,6 +20,24 @@
 
     small {
       font-weight: 200;
+    }
+
+    .pull.right {
+      position: relative;
+      top: -0.8em;
+    }
+
+    button {
+      width: 13rem;
+      display: block;
+      margin: 0;
+      & + button {
+        margin-top: 0.5rem;
+      }
+
+      &[disabled] {
+        color: rgba(0, 0, 0, 0.2);
+      }
     }
   }
 

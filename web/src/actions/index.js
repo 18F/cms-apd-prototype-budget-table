@@ -19,7 +19,8 @@ export const IAPD = {
     ADD_BUDGET_OM_CATEGORY: 'IAPD: add budget om category',
     ADD_BUDGET_MECH_CATEGORY: 'IAPD: add budget mechanized systems category',
     ADD_BUDGET_FFY: 'IAPD: add budget year',
-    ADD_STAFF_KEY_STAFF: 'IAPD: add staffing key person'
+    ADD_STAFF_KEY_STAFF: 'IAPD: add staffing key person',
+    SUBMIT: 'IAPD: submit'
   },
 
   updateExecutiveSummary(newExecutiveSummary) {
@@ -92,6 +93,10 @@ export const IAPD = {
 
   addStaffKeyPerson() {
     return { type: IAPD.messages.ADD_STAFF_KEY_STAFF };
+  },
+
+  submit() {
+    return { type: IAPD.messages.SUBMIT };
   }
 };
 

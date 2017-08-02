@@ -30,6 +30,16 @@ body {
   }
 
   main {
+    .pull {
+      &.left {
+        float: left;
+      }
+      
+      &.right {
+        float: right;
+      }
+    }
+
     @import "components/collapsible";
     @import "components/login";
     @import "components/search";
