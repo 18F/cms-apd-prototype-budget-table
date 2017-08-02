@@ -9,6 +9,8 @@ const render = props => (
       <h3>CMS MMIS <small>overview</small></h3>
     </header>
 
+    <h3>Pick a state</h3>
+
     <Map onClick={state => props.history.push(`${props.match.path}${state}`)} />
   </div>
 );
