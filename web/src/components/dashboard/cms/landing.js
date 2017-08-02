@@ -4,7 +4,13 @@ import { withRouter } from 'react-router';
 import Map from './state-map';
 
 const render = props => (
-  <Map onClick={state => props.history.push(`${props.match.path}${state}`)} />
+  <div className="cms dashboard">
+    <header>
+      <h3>CMS MMIS <small>overview</small></h3>
+    </header>
+
+    <Map onClick={state => props.history.push(`${props.match.path}${state}`)} />
+  </div>
 );
 
 render.propTypes = {
