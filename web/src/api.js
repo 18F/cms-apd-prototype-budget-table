@@ -32,3 +32,7 @@ export const getRequests = () =>
 export const getRequest = requestID =>
   internalAPI.get(`/review/requests/${requestID}`)
     .then(res => res.body);
+
+export const submitIAPD = apd =>
+  internalAPI.post('/iapd', { body: apd })
+    .then(res => res.body);

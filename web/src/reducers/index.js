@@ -13,7 +13,7 @@ export default function reducer(state = stateShape, action) {
 
   switch (action.type) {
     case Requests.messages.START_NEW_REQUEST:
-      newState = updeep({ currentRequest: shape.request }, newState);
+      newState = updeep({ currentRequest: shape.request() }, newState);
       break;
 
     case Projects.messages.SET_PROJECTS:

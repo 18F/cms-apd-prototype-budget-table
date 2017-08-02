@@ -13,7 +13,7 @@ const randomID = (function createRandomIDFunction() {
   };
 }());
 
-export default (state = shape.request, action) => {
+export default (state = shape.request(), action) => {
   let newState = state;
 
   switch (action.type) {

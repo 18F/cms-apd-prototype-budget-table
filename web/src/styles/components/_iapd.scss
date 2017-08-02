@@ -1,27 +1,5 @@
 .iapd {
   header {
-    background: rgb(24, 67, 104);
-    color: white;
-    padding: 2em 1em;
-
-    h3 {
-      clear: none;
-      margin: 0;
-      font-family: 'Source Sans Pro';
-      font-size: 1.5em;
-      font-weight: normal;
-
-      small {
-        padding-left: 1.5em;
-        font-size: 0.65em;
-        font-weight: normal;
-      }
-    }
-
-    small {
-      font-weight: 200;
-    }
-
     .pull.right {
       position: relative;
       top: -0.8em;

@@ -1,4 +1,4 @@
-import { api, removeAPIHeader, getProjects, getRequests, getRequest } from '../api';
+import { api, removeAPIHeader, getProjects, getRequests, getRequest, submitIAPD } from '../api';
 
 export const IAPD = {
   messages: {
@@ -96,7 +96,15 @@ export const IAPD = {
   },
 
   submit() {
-    return { type: IAPD.messages.SUBMIT };
+    console.log('submit top')
+    return (dispatch, getState) => {
+      dispatch({ type: IAPD.messages.SUBMIT });
+      setTimeout(() => {
+        submitIAPD(getState().currentRequest).then((result) => {
+          console.log(result);
+        });
+      }, 250);
+    };
   }
 };
 

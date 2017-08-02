@@ -20,6 +20,10 @@ header .usa-banner {
   max-height: 30px;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Source Sans Pro';
+}
+
 body {
   background: white;
 
@@ -29,17 +33,22 @@ body {
     margin: 0 auto;
   }
 
-  main {
-    .pull {
-      &.left {
-        float: left;
-      }
-      
-      &.right {
-        float: right;
-      }
+  .pull {
+    &.left {
+      float: left;
     }
 
+    &.right {
+      float: right;
+    }
+  }
+
+  .strong {
+    font-weight: 600;
+  }
+  
+  main {
+    @import "components/header";
     @import "components/collapsible";
     @import "components/login";
     @import "components/search";

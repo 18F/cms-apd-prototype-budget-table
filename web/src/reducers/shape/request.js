@@ -9,9 +9,9 @@ const randomID = (function createRandomIDFunction() {
   };
 }());
 
-export default {
-  id: false,
-  state: '',
+export default () => ({
+  id: randomID(),
+  state: 'WY',
   status: 'Draft',
   revision: 1,
   reviewRemaining: 'N/A',
@@ -201,4 +201,4 @@ export default {
     outcomes: '',
     expenditureStatus: ''
   }
-};
+});

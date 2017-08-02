@@ -1,163 +1,113 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
-import { Projects } from '../../../actions';
+import CircularProgress from 'react-circular-progressbar';
 import Dollars from '../../dollars';
 import Collapsible from '../../collapsible';
 
-const LinkToRequest = withRouter(props => (
-  <Link to={`${props.match.path}review/${props.request.id}`}>{props.request.id}</Link>
-));
-
-LinkToRequest.propTypes = {
-  request: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
-  }).isRequired
-};
-
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const dateToString = date => `${months[date.getUTCMonth()]} ${date.getUTCDate()}, ${date.getUTCFullYear()}`;
-
-const getFundingStatusForProject = (project) => {
-  let totalApprovedFunding = 0;
-  let totalPendingFunding = 0;
-  for (const request of project.requests) {
-    if (request.approved || request.superceded) {
-      totalApprovedFunding += request.dollars.added;
-      totalApprovedFunding -= request.dollars.subtracted;
-    } else {
-      totalPendingFunding += request.dollars.added;
-      totalPendingFunding -= request.dollars.subtracted;
-    }
-  }
-
+function getProjectFundingData(project) {
+  const totalApproved = project.fundingRequests.filter(fr => fr.approved).reduce((sum, fr) => sum + fr.adds, 0);
   return {
-    totalApprovedFunding,
-    totalPendingFunding,
-    totalSpent: project.spent,
-    totalApprovedRemaining: (totalApprovedFunding - project.spent)
+    totalApproved,
+    approvedRemaining: totalApproved - project.spent
   };
-};
-
-const FundingSummary = (props) => (
-  <div>
-    <h3>{props.project ? 'Approved project' : 'Total approved'} funds remaining: <Dollars value={props.funding.totalApprovedRemaining} /></h3>
-    <div>
-      <div>Total approved funding: <Dollars value={props.funding.totalApprovedFunding} /></div>
-      <div>Total spent so far: <Dollars value={props.funding.totalSpent} /></div>
-    </div>
-
-    {props.funding.totalPendingFunding !== 0 ? (<h3>{props.project ? 'Pending project' : 'Total pending'} funding requested: <Dollars value={props.funding.totalPendingFunding} /></h3>) : null}
-  </div>
-);
-
-const ProjectSummary = (props) => {
-  const funding = getFundingStatusForProject(props.project);
-
-  const getRequestNode = (request) => {
-    let status = 'submitted';
-    let actionDate = request.submitted;
-    if (request.superceded) {
-      status = 'superceded';
-      actionDate = request.superceded;
-    } else if (request.approved) {
-      status = 'approved';
-      actionDate = request.approved;
-    }
-
-    if (actionDate) {
-      actionDate = dateToString(new Date(actionDate));
-    }
-
-    return (
-      <li key={request.id}>
-        <LinkToRequest request={request} />, {status} {actionDate}<br />
-        Adds <Dollars value={request.dollars.added} /> in new funding,
-        returns <Dollars value={request.dollars.subtracted} /> in previously-approved funding
-      </li>
-    );
-  };
-
-  return (
-    <Collapsible name={props.project.name} className="project summary" collapsed>
-
-      <FundingSummary funding={funding} project />
-
-      <h4>Funding requests</h4>
-      <ul>
-        {props.project.requests.map(request => getRequestNode(request))}
-      </ul>
-    </Collapsible>
-  )
 }
 
-const StateSummary = (props) => {
-  const funding = props.projects.map(getFundingStatusForProject).reduce((total, project) => ({
-    totalApprovedFunding: (total.totalApprovedFunding + project.totalApprovedFunding),
-    totalPendingFunding: (total.totalPendingFunding + project.totalPendingFunding),
-    totalSpent: (total.totalSpent + project.totalSpent),
-    totalApprovedRemaining: (total.totalApprovedRemaining + project.totalApprovedRemaining)
-  }), { totalApprovedFunding: 0, totalPendingFunding: 0, totalSpent: 0, totalApprovedRemaining: 0 });
+function landing() {
+  const projects = [{
+    name: 'Participant webapp to view spenddown status',
+    spent: 343474,
+    fundingRequests: [{
+      id: 'WY-MMIS-2017-01-R01',
+      submitted: 'June 13, 2017',
+      approved: 'June 14, 2017',
+      adds: 3485118
+    }, {
+      id: 'WY-MMIS-2017-01-R02',
+      submitted: 'August 1, 2017',
+      approved: false,
+      adds: 735733
+    }]
+  }, {
+    name: 'Provider claims reporting functionality',
+    spent: 0,
+    fundingRequests: [{
+      id: 'WY-MMIS-2017-02-R01',
+      submitted: 'July 12, 2017',
+      approved: 'July 19, 2017',
+      adds: 1151788
+    }]
+  }];
 
-  return (
-    <div>
-      <h1>{props.projects[0].state}</h1>
+  const totalApproved = projects.reduce((sum, project) => (
+    sum + project.fundingRequests.filter(fr => fr.approved).reduce((frSum, fr) => fr.adds + frSum, 0)
+  ), 0);
+  const totalPending = projects.reduce((sum, project) => (
+    sum + project.fundingRequests.filter(fr => !fr.approved).reduce((frSum, fr) => fr.adds + frSum, 0)
+  ), 0);
+  const totalSpent = projects.reduce((sum, project) => sum + project.spent, 0);
+  const percentRemaining = 100 - Math.round(100 * (totalSpent / totalApproved));
 
-      <FundingSummary funding={funding} />
-
-      <Collapsible name="Projects" collapsed>
-        {props.projects.map(project => <ProjectSummary key={project.id} project={project} />)}
-      </Collapsible>
-    </div>
-  )
-};
-
-function landing(props) {
-  if (!props.projects) {
-    // fetch 'em'
-    props.getProjects();
-    return (<span>Loading data...</span>);
-  }
+  projects.forEach((p) => {
+    p.fundingData = getProjectFundingData(p); // eslint-disable-line no-param-reassign
+  });
 
   return (
     <div className="cms dashboard">
-      {props.stateNames.map(stateName => (<StateSummary key={stateName} projects={props.projects.filter(project => project.state === stateName)} />))}
+      <header>
+        <h3>State of Wyoming <small>overview</small></h3>
+      </header>
+
+      <h2>Spending summary</h2>
+
+      <div className="spending-wheel">
+        <CircularProgress percentage={percentRemaining} />
+        <div className="percentage">{percentRemaining}</div>
+        <div className="detail">
+          Total spent:<br />
+          <Dollars value={totalSpent} hideCents />
+        </div>
+      </div>
+
+      <div className="summary">
+        <span className="title">Total approved funds remaining</span>
+        <div className="highlight">
+          <Dollars value={totalApproved - totalSpent} hideCents />
+        </div>
+        <div className="detail">
+          Total approved funding: <Dollars value={totalApproved} hideCents />
+        </div>
+      </div>
+
+      <div className="summary">
+        <span className="title">Total pending funds requested</span>
+        <div className="highlight">
+          <Dollars value={totalPending} hideCents />
+        </div>
+      </div>
+
+      <hr />
+
+      <h2>Projects</h2>
+
+      <div className="projects">
+        {projects.map(p => (
+          <Collapsible key={p.name} name={p.name}>
+            <h3>Approved project funds remaining: <Dollars value={p.fundingData.approvedRemaining} /></h3>
+            <div className="highlight">
+              Total approved funding: <Dollars value={p.fundingData.totalApproved} /><br />
+              Total spent to date: <Dollars value={p.spent} />
+            </div>
+
+            <h3>Funding requests</h3>
+            {p.fundingRequests.map(fr => (
+              <div key={fr.id} className="highlight">
+                {fr.id} {fr.approved ? 'approved' : 'submitted'} {fr.approved ? fr.approved : fr.submitted}<br />
+                {fr.approved ? 'Added' : 'Requests'} <Dollars value={fr.adds} /> in new funding
+              </div>
+            ))}
+          </Collapsible>
+        ))}
+      </div>
     </div>
   );
 }
-
-landing.propTypes = {
-  projects: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]).isRequired,
-  stateNames: PropTypes.arrayOf(PropTypes.string).isRequired,
-  getProjects: PropTypes.func.isRequired
-};
-
-function mapStateToProps(state) {
-  const stateNames = [];
-
-  if (state.projects) {
-    for (const project of state.projects) {
-      if (!stateNames.includes(project.state)) {
-        stateNames.push(project.state);
-      }
-    }
-  }
-
-  return {
-    projects: state.projects,
-    stateNames
-  };
-}
-
-function mapDispatchToState(dispatch) {
-  return {
-    getProjects() {
-      dispatch(Projects.getProjects());
-    }
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToState)(landing);
+export default landing;

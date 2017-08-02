@@ -20,7 +20,7 @@ class IAPD extends React.Component {
 
     this.submit = () => {
       this.props.submit();
-    }
+    };
   }
 
   render() {
@@ -28,7 +28,7 @@ class IAPD extends React.Component {
       <div className="new iapd">
         <header>
           <div className="pull right">
-            <button className="dark">Submit</button>
+            <button className="dark" onClick={this.submit}>Submit</button>
             <button className="usa-button-disabled" disabled>Save</button>
           </div>
 
