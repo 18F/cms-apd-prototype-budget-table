@@ -29,6 +29,10 @@ export default (state = shape.request, action) => {
       newState = updeep({ milestones: action.milestones }, newState);
       break;
 
+    case IAPD.messages.UPDATE_BUDGET_FFY:
+      newState = updeep({ budget: { [action.budget]: { ffy: action.ffy } } }, newState);
+      break;
+
     case IAPD.messages.UPDATE_BUDGET_DDI_CATEGORY:
       {
         const categoryUpdate = { [action.category]: action.values };

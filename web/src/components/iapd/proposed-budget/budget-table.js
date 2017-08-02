@@ -12,6 +12,15 @@ class BudgetTable extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      ffy: props.budget.ffy
+    };
+
+    this.updateFFY = (e) => {
+      this.setState({ ffy: e.target.value });
+      this.props.updateBudgetFFY(this.props.index, e.target.value);
+    };
+
     this.updateDDICategory = (categoryIndex, newValues) => {
       this.props.updateDDICategory(this.props.index, categoryIndex, newValues);
     };
@@ -43,9 +52,9 @@ class BudgetTable extends React.Component {
   render() {
     return (
       <div className="budget-table">
-        <input type="number" placeholder="federal fiscal year" />
+        <input type="number" placeholder="federal fiscal year" value={this.state.ffy} onChange={this.updateFFY} />
 
-        <div className="pull right">FFY 20XX</div>
+        <div className="pull right">FFY {this.state.ffy > 2000 ? this.state.ffy : '20XX'}</div>
 
         <table>
           <thead>
@@ -206,6 +215,7 @@ BudgetTable.propTypes = {
       }))
     }).isRequired
   }).isRequired,
+  updateBudgetFFY: PropTypes.func.isRequired,
   updateDDICategory: PropTypes.func.isRequired,
   addDDICategory: PropTypes.func.isRequired,
   updateOMCategory: PropTypes.func.isRequired,
@@ -215,6 +225,10 @@ BudgetTable.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
+  updateBudgetFFY(budgetIndex, newFFY) {
+    dispatch(IAPDActions.updateBudgetFFY(budgetIndex, newFFY));
+  },
+
   updateDDICategory(budgetIndex, categoryIndex, newValues) {
     dispatch(IAPDActions.updateBudgetDDICategory(budgetIndex, categoryIndex, newValues));
   },

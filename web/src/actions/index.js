@@ -5,6 +5,7 @@ export const IAPD = {
     UPDATE_EXECUTIVE_SUMMARY: 'IAPD: update executive summary',
     UPDATE_PROJECT_PLAN: 'IAPD: update project plan',
     UPDATE_PROJECT_MILESTONES: 'IAPD: update milestones',
+    UPDATE_BUDGET_FFY: 'IAPD: updated budget FFY',
     UPDATE_BUDGET_DDI_CATEGORY: 'IAPD: update budget ddi category',
     UPDATE_BUDGET_OM_CATEGORY: 'IAPD: update budget om category',
     UPDATE_BUDGET_MECH_CATEGORY: 'IAPD: update budget mechanized systems category',
@@ -30,6 +31,10 @@ export const IAPD = {
 
   updateProjectMilestones(newMilestones) {
     return { type: IAPD.messages.UPDATE_PROJECT_MILESTONES, milestones: newMilestones };
+  },
+
+  updateBudgetFFY(budgetIndex, newFFY) {
+    return { type: IAPD.messages.UPDATE_BUDGET_FFY, budget: budgetIndex, ffy: newFFY };
   },
 
   updateBudgetDDICategory(budgetIndex, categoryIndex, newValues) {
