@@ -42,7 +42,7 @@ class Review extends React.Component {
               Submitted 6/20/2017<br />
             </div>
             <div className="submitters">
-              {request.submitters.map(person => <Submitter key={`apd-${request.id}-person-${person.name}`} person={person} />)}
+              {request.submitters.map(person => <Submitter key={`${person.name}`} person={person} />)}
             </div>
           </div>
 
@@ -63,7 +63,7 @@ class Review extends React.Component {
               </thead>
               <tbody>
                 {request.outcomes.map(outcome => (
-                  <tr>
+                  <tr key={outcome.outcome}>
                     <td>{outcome.priority}</td>
                     <td>{outcome.outcome}</td>
                     <td>{outcome.example}</td>

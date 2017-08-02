@@ -4,12 +4,12 @@ import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
 import Landing from './landing';
-import NewRequest from './new-request';
+import IAPD from '../../iapd';
 
 const render = props => (
   <div className="state dashboard">
     <Route exact path={`${props.match.path}/`} component={Landing} />
-    <Route exact path={`${props.match.path}/request`} component={NewRequest} />
+    <Route exact path={`${props.match.path}/iapd`} component={IAPD} />
   </div>
 );
 render.propTypes = {

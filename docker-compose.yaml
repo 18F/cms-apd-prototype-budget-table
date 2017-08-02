@@ -1,12 +1,24 @@
 version: "3"
 services:
+  database:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=cms_prototype
+      - POSTGRES_PASSWORD=cms
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
   api:
     build: ./api
+    depends_on:
+      - "database"
     volumes:
       - ./api:/app
       - /app/node_modules
     environment:
-      PORT: 8000
+      - DATABASE_URL=postgres://postgres:cms@database/cms_prototype
+      - PORT=8000
     expose:
       - 8000
     ports:

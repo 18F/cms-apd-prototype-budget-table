@@ -1,0 +1,214 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique ID of the financial request"
+    },
+    "name": {
+      "type": "string",
+      "description": "A friendly name for the financial request"
+    },
+    "state": {
+      "type": "string",
+      "description": "The name of the state, territory, or jurisdiction submitting the request"
+    },
+    "submitters": {
+      "type": "array",
+      "description": "The submitters on the financial request",
+      "items": {
+        "$ref": "#/definitions/person"
+      }
+    },
+    "prose": {
+      "type": "object",
+      "description": "The chunks of prose that support the financial request",
+      "properties": {
+        "executiveSummary": {
+          "type": "string",
+          "description": "Executive summary"
+        },
+        "statementOfOutcomes": {
+          "type": "string",
+          "description": "Statement of outcomes"
+        },
+        "proposedBudget": {
+          "type": "string",
+          "description": "Proposed budget"
+        },
+        "papdSummary": {
+          "type": "string",
+          "description": "PAPD summary"
+        },
+        "personnel": {
+          "type": "string",
+          "description": "Personnel"
+        },
+        "acquisitionsPlan": {
+          "type": "string",
+          "description": "Acquisitions plan"
+        },
+        "costAllocationEstimate": {
+          "type": "string",
+          "description": "Cost allocation estimate"
+        },
+        "costBenefitAnalysis": {
+          "type": "string",
+          "description": "Cost/benefit analysis"
+        },
+        "proposedActivity": {
+          "type": "string",
+          "description": "Proposed activity"
+        },
+        "continuityOfOperations": {
+          "type": "string",
+          "description": "Security, interface, disaster recover, and business continuity"
+        },
+        "otherAssurances": {
+          "type": "string",
+          "description": "Other assurances"
+        }
+      }
+    },
+    "outcomes": {
+      "type": "array",
+      "description": "Expected project outcomes",
+      "items": {
+        "$ref": "#/definitions/outcome"
+      }
+    },
+    "costs": {
+      "type": "array",
+      "description": "Detailed budget estimate costs",
+      "items": {
+        "$ref": "#/definitions/cost"
+      }
+    },
+    "mdbt": {
+      "$ref": "#/definitions/mdbt"
+    }
+  },
+  "required": [ "id", "submitters", "prose", "mdbt" ],
+  "definitions": {
+    "person": {
+      "type": "object",
+      "description": "A single person",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The persons's name"
+        },
+        "email": {
+          "type": "string",
+          "description": "The person's email address"
+        },
+        "phone": {
+          "type": "string",
+          "description": "The person's phone number"
+        }
+      },
+      "required": [ "name" ]
+    },
+    "outcome": {
+      "type": "object",
+      "description": "A project outcome",
+      "properties": {
+        "priority": {
+          "type": "number",
+          "description": "The outcome priority"
+        },
+        "outcome": {
+          "type": "string",
+          "description": "A short description of the outcome"
+        },
+        "example": {
+          "type": "string",
+          "description": "A brief example of what could happen if the outcome is achieved"
+        },
+        "measures": {
+          "type": "string",
+          "description": "Some example measures of success for the outcome"
+        }
+      },
+      "required": [ "priority", "outcome", "example", "measures" ]
+    },
+    "cost": {
+      "type": "object",
+      "description": "A budget cost item",
+      "properties": {
+        "category": {
+          "type": "string",
+          "description": "The cost category/name"
+        },
+        "ffp": {
+          "type": "number",
+          "description": "Federal financial participation rate; e.g., 0.9 (90%), 0.75 (75%), etc."
+        },
+        "type": {
+          "type": "string",
+          "description": "Cost allocation type (e.g., ddi, om, other)"
+        },
+        "years": {
+          "type": "array",
+          "description": "List of federal fiscal years this cost occurs in",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ffy": {
+                "type": "number",
+                "description": "A federal fiscal year"
+              },
+              "total": {
+                "type": "number",
+                "description": "Total cost of this budget item for the corresponding FFY"
+              }
+            }
+          }
+        }
+      },
+      "required": [ "category", "ffp", "type", "years" ]
+    },
+    "mdbt": {
+      "type": "object",
+      "description": "Medicaid detailed budget table data",
+      "properties": {
+        "development": {
+          "type": "object",
+          "properties": {
+            "internal": {
+              "type": "number"
+            },
+            "external": {
+              "type": "number"
+            }
+          }
+        },
+        "operations": {
+          "type": "object",
+          "properties": {
+            "internal": {
+              "type": "number"
+            },
+            "external": {
+              "type": "number"
+            }
+          }
+        },
+        "other": {
+          "type": "object",
+          "properties": {
+            "internal": {
+              "type": "number"
+            },
+            "external": {
+              "type": "number"
+            },
+            "interagency": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    }
+  }
+}

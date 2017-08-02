@@ -28,6 +28,38 @@ function methodIsUnsupported(urlPath, methodName, test) {
 
 function runTests() {
   tape.test('api endpoints', (test) => {
+    test.test('/projects', (requestsTest) => {
+      requestsTest.test('get', (getTest) => {
+        request.get('http://0.0.0.0:8000/projects')
+          .then((response) => {
+            const body = JSON.parse(response);
+            const validator = ajv.compile(swagger.paths['/projects'].get.responses['200'].schema);
+            const valid = validator(body);
+            getTest.ok(valid, 'body should be valid according to swagger spec');
+            getTest.notOk(validator.errors, 'no errors');
+            getTest.end();
+          })
+          .catch((err) => {
+            getTest.fail(err);
+            getTest.end();
+          });
+      });
+
+      requestsTest.test('put', (unsupportedMethodTest) => {
+        methodIsUnsupported('/projects', 'put', unsupportedMethodTest);
+      });
+
+      requestsTest.test('post', (unsupportedMethodTest) => {
+        methodIsUnsupported('/projects', 'post', unsupportedMethodTest);
+      });
+
+      requestsTest.test('delete', (unsupportedMethodTest) => {
+        methodIsUnsupported('/projects', 'del', unsupportedMethodTest);
+      });
+
+      requestsTest.end();
+    });
+
     test.test('/review/requests', (requestsTest) => {
       requestsTest.test('get', (getTest) => {
         request.get('http://0.0.0.0:8000/review/requests')
@@ -131,7 +163,7 @@ tape.test('HTTP server setup', (t) => {
   // wait a second so it can actually crank up
   setTimeout(() => {
     // load swagger so we can validate against it
-    swaggerParser.dereference(path.join(__dirname, '../documentation/swagger.json'))
+    swaggerParser.dereference(path.join(__dirname, '../schema/api.json'))
       .then((parsedSwagger) => {
         swagger = parsedSwagger;
 

@@ -4,9 +4,9 @@ machine:
   services:
     - docker
 dependencies:
-  post:
-    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-    - chmod +x ./cc-test-reporter
+#  post:
+#    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+#    - chmod +x ./cc-test-reporter
   override:
     - npm install
     - cd api && npm install
@@ -14,11 +14,11 @@ dependencies:
   cache_directories:
     - "api/node_modules"
     - "web/node_modules"
-test:
-  pre:
-    - ./cc-test-reporter before-build
-  override:
-    - npm test; ./cc-test-reporter after-build --exit-code $?
+#test:
+#  pre:
+#    - ./cc-test-reporter before-build
+#  override:
+#    - npm test; ./cc-test-reporter after-build --exit-code $?
 
 deployment:
   production:

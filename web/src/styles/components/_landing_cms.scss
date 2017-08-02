@@ -1,0 +1,131 @@
+.cms.dashboard {
+  font-weight: 400;
+  padding-bottom: 1em;
+
+  header {
+    h3 {
+      display: inline-block;
+      border-bottom: 1px solid rgba(185, 184, 182, 0.3);
+
+      small {
+        color: rgb(185, 184, 182);
+      }
+    }
+  }
+
+  h2 {
+    color: rgb(24, 67, 104);
+  }
+
+  .summary {
+    margin-right: 150px;
+
+    .title {
+      font-size: 1.5em;
+      font-weight: 200;
+      color: rgb(150, 150, 150);
+    }
+
+    .highlight {
+      font-size: 2em;
+      color: rgb(24, 67, 104);
+      margin-left: 4rem;
+      border-left: 1rem solid rgb(237, 237, 237);
+      padding-left: 1rem;
+    }
+
+    .detail {
+      margin-left: 6rem;
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: rgb(237, 237, 237);
+      color: rgb(100, 100, 100);
+      font-weight: 600;
+      font-size: 0.7em;
+      text-transform: uppercase;
+    }
+
+    & + .summary {
+      margin-top: 5rem;
+    }
+  }
+
+  hr {
+    margin: 4em;
+    border: 0;
+    border-top: 1px solid rgb(237, 237, 237);
+  }
+
+  .spending-wheel {
+    float: right;
+    position: relative;
+
+    .percentage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      line-height: 100px;
+      text-align: center;
+      font-size: 3.5rem;
+      color: rgb(115, 146, 173);
+
+      &:after {
+        content: '%';
+        position: absolute;
+        top: -0.5rem;
+        font-size: 1.5rem;
+      }
+    }
+
+    .detail {
+      text-transform: uppercase;
+      font-size: 0.7em;
+      text-align: center;
+    }
+
+    svg.CircularProgressbar {
+      width: 100px;
+
+      .CircularProgressbar-trail {
+        stroke: rgb(237, 237, 237);
+        stroke-width: 3;
+      }
+
+      .CircularProgressbar-path {
+        stroke: rgb(115, 146, 173);
+        stroke-width: 6;
+      }
+
+      .CircularProgressbar-text {
+        stroke: transparent;
+        fill: transparent;
+      }
+    }
+  }
+
+  .projects {
+    padding-left: 4rem;
+    h3 {
+      font-weight: 400;
+    }
+
+    .collapsible button {
+      background-color: rgb(216, 216, 216);
+      color: rgb(103, 103, 103);
+    }
+
+    .highlight {
+      font-size: 0.8em;
+      font-weight: 200;
+      margin-left: 2rem;
+      border-left: 1rem solid rgb(237, 237, 237);
+      padding-left: 1rem;
+
+      & + .highlight {
+        margin-top: 1rem;
+      }
+    }
+  }
+}

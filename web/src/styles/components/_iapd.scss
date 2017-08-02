@@ -1,0 +1,63 @@
+.iapd {
+  header {
+    .pull.right {
+      position: relative;
+      top: -0.8em;
+    }
+
+    button {
+      width: 13rem;
+      display: block;
+      margin: 0;
+      & + button {
+        margin-top: 0.5rem;
+      }
+
+      &[disabled] {
+        color: rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+
+  .collapsible {
+    button {
+      background-color: rgb(116, 147, 172);
+    }
+
+    h2 {
+      font-family: 'Source Sans Pro';
+      color: rgb(76, 114, 146);
+    }
+  }
+
+  .small {
+    font-size: 0.8em;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  span.shift {
+    &.up {
+      position: relative;
+      top: -1em;
+    }
+  }
+
+  input.short {
+    display: inline;
+    width: 4em;
+    margin: 0 0.5em;
+  }
+
+  .input-with-dollar {
+    position: relative;
+    &:after {
+      position: absolute;
+      content: '$';
+      top: -0.25rem;
+      left: 1rem;
+    }
+  }
+}
