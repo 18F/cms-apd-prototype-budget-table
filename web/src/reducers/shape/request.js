@@ -145,6 +145,7 @@ export default () => ({
         id: randomID(),
         category: 'Category I',
         inhouse: null,
+        interagency: null,
         ffp50: 0,
         state50: 0,
         total: 0
@@ -152,6 +153,7 @@ export default () => ({
         id: randomID(),
         category: 'Category II',
         inhouse: null,
+        interagency: null,
         ffp50: 0,
         state50: 0,
         total: 0
@@ -159,6 +161,7 @@ export default () => ({
         id: randomID(),
         category: 'Category III',
         inhouse: null,
+        interagency: null,
         ffp50: 0,
         state50: 0,
         total: 0
@@ -166,6 +169,7 @@ export default () => ({
         id: randomID(),
         category: 'Category IV',
         inhouse: null,
+        interagency: null,
         ffp50: 0,
         state50: 0,
         total: 0

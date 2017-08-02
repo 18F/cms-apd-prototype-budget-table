@@ -186,6 +186,7 @@ export default (state = shape.request(), action) => {
           id: randomID(),
           category: '',
           inhouse: null,
+          interagency: null,
           ffp50: 0,
           state50: 0,
           total: 0

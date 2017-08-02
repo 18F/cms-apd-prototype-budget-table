@@ -30,8 +30,16 @@ class MechCategoryRow extends React.Component {
     };
 
     this.changeInHouseOrContractor = (e) => {
-      const value = e.target.value === 'in-house';
-      this.setState({ inhouse: value }, triggerChange);
+      let inhouse = e.target.value === 'in-house';
+      let interagency = e.target.value === 'interagency';
+
+      if (inhouse) {
+        interagency = null;
+      } else if (interagency) {
+        inhouse = null;
+      }
+
+      this.setState({ inhouse, interagency }, triggerChange);
     };
 
     this.updateShare = (e) => {
@@ -72,6 +80,7 @@ class MechCategoryRow extends React.Component {
             <option>select</option>
             <option>in-house</option>
             <option>contractor</option>
+            <option>interagency</option>
           </select>
         </td>
         <td>

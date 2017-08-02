@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Section from '../../collapsible';
 import BudgetTable from './budget-table';
+import MDBT from './mdbt';
 import { IAPD as IAPDActions } from '../../../actions';
 
 class ProposedBudget extends React.Component {
@@ -34,7 +35,15 @@ class ProposedBudget extends React.Component {
 
         <a href="" onClick={this.addBudgetFFY}>Add another fiscal year +</a>
 
-        ...MDBT goes here...
+        <h3>MMIS detailed budget table</h3>
+
+        <p>
+          We&rsquo;ve generated a comprehensive MMIS Detailed Budget Table (MDBT)
+          for all fiscal years of the project, based on the information you
+          entered into the budget tables above.
+        </p>
+
+        <MDBT />
       </Section>
     );
   }
