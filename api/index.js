@@ -11,7 +11,7 @@ app.use('/documentation', express.static('documentation'));
 middleware(app);
 routes(app);
 
-const db = require('./models');
+// const db = require('./models');
 
 // db.funding_request.findOne({ where: { id: 5 }}).then(fr => {
 //   fr.getOutcomes().then(o => {
