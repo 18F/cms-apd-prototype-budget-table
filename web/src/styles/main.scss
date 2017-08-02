@@ -46,10 +46,11 @@ body {
   .strong {
     font-weight: 600;
   }
-  
+
   main {
     @import "components/header";
     @import "components/collapsible";
+    @import "components/map";
     @import "components/login";
     @import "components/search";
     @import "components/iapd";
