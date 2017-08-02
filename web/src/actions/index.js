@@ -96,7 +96,6 @@ export const IAPD = {
   },
 
   submit() {
-    console.log('submit top')
     return (dispatch, getState) => {
       dispatch({ type: IAPD.messages.SUBMIT });
       setTimeout(() => {
