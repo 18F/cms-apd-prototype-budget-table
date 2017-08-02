@@ -1,0 +1,12 @@
+svg.state-map {
+  max-width: 100%;
+
+  path.state, path.DC1, circle.DC2 {
+    fill: rgb(237, 237, 237);
+
+    &:hover {
+      fill: rgb(115, 146, 173);
+      cursor: pointer;
+    }
+  }
+}
