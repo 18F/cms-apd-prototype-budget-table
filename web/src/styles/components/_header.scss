@@ -2,6 +2,8 @@ header {
   background: rgb(24, 67, 104);
   color: white;
   padding: 2em 1em;
+  width: 100vw;
+  margin-left: calc(-1 * ((100vw - 100%) / 2));
 
   h3 {
     clear: none;

@@ -60,4 +60,13 @@
       left: 1rem;
     }
   }
+  .budget-table {
+    table {
+      width: 97vw;
+
+      // https://stackoverflow.com/questions/20214735/can-you-make-a-child-div-larger-than-parent-without-position-absolute
+      // The extra 25px is to account for a margin/padding around the content
+      margin-left: calc(-1 * ((97vw - 100%) / 2) - 25px);
+    }
+  }
 }
