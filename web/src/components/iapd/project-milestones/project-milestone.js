@@ -70,9 +70,11 @@ class Milestone extends React.Component {
           <input type="text" value={this.state.activities} name="activities" onChange={this.updateString} />
         </p>
 
-        <p>
-          Which outcome(s) does this milestone support?
-        </p>
+        {this.props.outcomes.length > 0 ? (
+          <p>
+            Which outcome(s) does this milestone support?
+          </p>
+        ) : null }
         {this.props.outcomes.map(outcome => (<div key={outcome.id}><input type="checkbox" id={`_project_milestone_outcome_${outcome.id}`} value={outcome.id} name="associatedOutcomes" onChange={this.updateArray} /><label htmlFor={`_project_milestone_outcome_${outcome.id}`}>{outcome.title}</label></div>))}
 
         <p>
