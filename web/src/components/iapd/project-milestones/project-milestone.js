@@ -76,7 +76,15 @@ class Milestone extends React.Component {
             </p>
             {this.props.outcomes.map(outcome => (<div className="checkbox" key={outcome.id}><input type="checkbox" id={`_project_milestone_outcome_${outcome.id}`} value={outcome.id} name="associatedOutcomes" onChange={this.updateArray} /><label htmlFor={`_project_milestone_outcome_${outcome.id}`}>{outcome.title}</label></div>))}
           </div>
-        ) : null }
+        ) : (
+          <div className="checklist">
+            <p>
+              Your project does&rsquo;t have any outcomes defined yet, so you
+              cannot associate this milestone to outcomes. Project outcomes can
+              be created in the previous section of this form.
+            </p>
+          </div>
+        )}
 
         <div className="checklist">
           <p>
