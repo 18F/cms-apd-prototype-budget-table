@@ -137,4 +137,37 @@
       }
     }
   }
+
+  .staffing {
+    .collapsible {
+      padding-bottom: 1em;
+      margin-bottom: 1em;
+      border-bottom: 1px solid rgb(230, 230, 230);
+
+      & + .collapsible {
+        // margin-top: 1em;
+      }
+
+      &:last-child {
+        border-bottom: 0;
+      }
+
+      > button {
+        width: 25px;
+        height: 25px;
+        border-radius: 25px;
+        background-color: rgb(210, 210, 210);
+
+        > span {
+          width: 20px;
+        }
+      }
+
+      > h2 {
+        color: black;
+        margin-top: 0;
+        font-size: 1em;
+      }
+    }
+  }
 }
