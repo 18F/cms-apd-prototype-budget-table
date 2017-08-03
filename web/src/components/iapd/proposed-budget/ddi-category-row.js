@@ -10,6 +10,7 @@ class DDICategoryRow extends React.Component {
     this.state = {
       category: props.category.category,
       inhouse: props.category.inhouse,
+      inhouseString: '',
       ffp90: props.category.ffp90,
       state10: props.category.state10,
       ffp75: props.category.ffp75,
@@ -33,7 +34,7 @@ class DDICategoryRow extends React.Component {
 
     this.changeInHouseOrContractor = (e) => {
       const value = e.target.value === 'in-house';
-      this.setState({ inhouse: value }, triggerChange);
+      this.setState({ inhouse: value, inhouseString: e.target.value }, triggerChange);
     };
 
     this.updateShare = (e) => {
@@ -82,10 +83,10 @@ class DDICategoryRow extends React.Component {
       <tr>
         <td><input value={this.state.category} onChange={this.updateCategory} /></td>
         <td>
-          <select onChange={this.changeInHouseOrContractor}>
-            <option>select</option>
-            <option>in-house</option>
-            <option>contractor</option>
+          <select onChange={this.changeInHouseOrContractor} value={this.state.inhouseString}>
+            <option disabled value="">select</option>
+            <option value="in-house">in-house</option>
+            <option value="contractor">contractor</option>
           </select>
         </td>
         <td>
