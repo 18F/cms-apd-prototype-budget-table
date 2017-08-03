@@ -68,7 +68,7 @@ class BudgetTable extends React.Component {
               <th>10% state share</th>
               <th>75% federal share</th>
               <th>25% state share</th>
-              <th>Total</th>
+              <th className="totals">Total</th>
             </tr>
           </thead>
           <tbody>
@@ -104,7 +104,7 @@ class BudgetTable extends React.Component {
               <th>25% state share</th>
               <th>50% federal share</th>
               <th>50% state share</th>
-              <th>Total</th>
+              <th className="totals">Total</th>
             </tr>
           </thead>
           <tbody>
@@ -138,7 +138,7 @@ class BudgetTable extends React.Component {
               <th>In-house, contract, or interagency?</th>
               <th>50% federal share</th>
               <th>50% state share</th>
-              <th>Total</th>
+              <th className="totals">Total</th>
             </tr>
           </thead>
           <tbody>
