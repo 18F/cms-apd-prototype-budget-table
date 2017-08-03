@@ -33,6 +33,7 @@ class IAPD extends React.Component {
           </div>
 
           <h3>State of Wyoming APD: {this.props.request.status} <small>Rev {this.props.request.revision}</small></h3>
+          <br />
           <small>Days left in 60 day review period: {this.props.request.reviewRemaining}</small>
         </header>
 
