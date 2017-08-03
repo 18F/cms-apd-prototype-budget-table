@@ -10,6 +10,7 @@ class MechCategoryRow extends React.Component {
     this.state = {
       category: props.category.category,
       inhouse: props.category.inhouse,
+      inhouseString: '',
       ffp50: props.category.ffp50,
       state50: props.category.state50,
       total: (props.category.ffp50 + props.category.state50)
@@ -39,7 +40,7 @@ class MechCategoryRow extends React.Component {
         inhouse = null;
       }
 
-      this.setState({ inhouse, interagency }, triggerChange);
+      this.setState({ inhouse, interagency, inhouseString: e.target.value }, triggerChange);
     };
 
     this.updateShare = (e) => {
@@ -74,13 +75,13 @@ class MechCategoryRow extends React.Component {
   render() {
     return (
       <tr>
-        <td><input value={this.state.category} onChange={this.updateCategory} /></td>
+        <td><input type="text" className="category" value={this.state.category} onChange={this.updateCategory} /></td>
         <td>
-          <select onChange={this.changeInHouseOrContractor}>
-            <option>select</option>
-            <option>in-house</option>
-            <option>contractor</option>
-            <option>interagency</option>
+          <select onChange={this.changeInHouseOrContractor} value={this.state.inhouseString}>
+            <option disabled value="">select</option>
+            <option value="in-house">in-house</option>
+            <option value="contractor">contractor</option>
+            <option value="interagency">interagency</option>
           </select>
         </td>
         <td>

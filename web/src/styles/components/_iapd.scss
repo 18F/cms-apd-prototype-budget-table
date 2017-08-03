@@ -60,4 +60,114 @@
       left: 1rem;
     }
   }
+
+  .milestone {
+    .checklist {
+      border-top: 1px solid rgb(230, 230, 230);
+      border-bottom: 1px solid rgb(230, 230, 230);
+      padding-bottom: 1em;
+
+      & + .checklist {
+        border-top: 0;
+      }
+
+      .checkbox {
+        margin-left: 3em;
+      }
+    }
+  }
+
+  .mdbt {
+    table {
+      margin-top: 0;
+    }
+  }
+
+  .budget-table {
+    table {
+      width: 97vw;
+
+      // https://stackoverflow.com/questions/20214735/can-you-make-a-child-div-larger-than-parent-without-position-absolute
+      // The extra 25px is to account for a margin/padding around the content
+      margin-left: calc(-1 * ((97vw - 100%) / 2) - 25px);
+
+      th.totals {
+        width: 100%;
+      }
+
+      input[type=text], input[type=number], select {
+        font-size: 1.2rem;
+        padding: 0.5rem;
+        line-height: 1.2rem;
+        height: 4rem;
+        border: 1px solid rgb(200, 200, 200);
+      }
+
+      input.category {
+        width: 20rem;
+      }
+
+      select {
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+        width: 10rem;
+      }
+
+      input[type=number] {
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+        width: 12rem;
+
+        @media screen and (max-width: 1200px) {
+          width: auto;
+          max-width: 5rem;
+        }
+      }
+
+      span.input-with-dollar {
+        input[type=number] {
+          padding-left: 1.5rem;
+        }
+
+        &:after {
+          top: -3rem;
+          font-size: 1.2rem;
+          left: 0.5rem;
+        }
+      }
+    }
+  }
+
+  .milestones, .staffing {
+    .collapsible {
+      padding-bottom: 1em;
+      margin-bottom: 1em;
+      border-bottom: 1px solid rgb(230, 230, 230);
+
+      & + .collapsible {
+        // margin-top: 1em;
+      }
+
+      &:last-child {
+        border-bottom: 0;
+      }
+
+      > button {
+        width: 25px;
+        height: 25px;
+        border-radius: 25px;
+        background-color: rgb(210, 210, 210);
+
+        > span {
+          width: 20px;
+        }
+      }
+
+      > h2 {
+        color: black;
+        margin-top: 0;
+        font-size: 1em;
+      }
+    }
+  }
 }
