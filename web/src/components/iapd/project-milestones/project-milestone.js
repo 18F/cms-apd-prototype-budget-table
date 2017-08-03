@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'debounce';
+import Section from '../../collapsible';
 import TextArea from '../../textarea';
 
 class Milestone extends React.Component {
@@ -55,9 +56,7 @@ class Milestone extends React.Component {
 
   render() {
     return (
-      <div className="milestone">
-        <h3>Project milestone {this.props.number}</h3>
-
+      <Section name={`Project milestone ${this.props.number}`} className="milestone">
         <p>
           Describe this project milestone in one sentence
           <br />
@@ -97,7 +96,7 @@ class Milestone extends React.Component {
           How will you define success for this milestone?
           <TextArea value={this.props.milestone.defineSuccess} name="defineSuccess" onChange={this.updateString} />
         </p>
-      </div>
+      </Section>
     );
   }
 }
