@@ -37,7 +37,7 @@ class ProjectPlan extends React.Component {
       <Section name="Project plan">
         <p>
           In this section, you&rsquo;ll describe the desired outcomes of your
-          initiative, along with the activities (tasks) you&rsquo; complete
+          initiative, along with the activities (tasks) you&rsquo;ll complete
           to achieve them.
         </p>
 
