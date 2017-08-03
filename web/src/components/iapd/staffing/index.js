@@ -80,7 +80,7 @@ class StaffingRequirements extends React.Component {
 
   render() {
     return (
-      <Section name="Staffing requirements">
+      <Section className="staffing" name="Staffing requirements">
         <p>
           In this section, you&rsquo;ll provide information on the staff
           you&rsquo;ll need to complete this project. You don&rsquo;nt

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'debounce';
 import TextArea from '@18f/redux-textarea-debounce';
+import Section from '../../collapsible';
 
 class Milestone extends React.Component {
   constructor(props) {
@@ -55,9 +56,7 @@ class Milestone extends React.Component {
 
   render() {
     return (
-      <div className="milestone">
-        <h3>Project milestone {this.props.number}</h3>
-
+      <Section name={`Project milestone ${this.props.number}`} className="milestone">
         <p>
           Describe this project milestone in one sentence
           <br />
@@ -70,15 +69,29 @@ class Milestone extends React.Component {
           <input type="text" value={this.state.activities} name="activities" onChange={this.updateString} />
         </p>
 
-        <p>
-          Which outcome(s) does this milestone support?
-        </p>
-        {this.props.outcomes.map(outcome => (<div key={outcome.id}><input type="checkbox" id={`_project_milestone_outcome_${outcome.id}`} value={outcome.id} name="associatedOutcomes" onChange={this.updateArray} /><label htmlFor={`_project_milestone_outcome_${outcome.id}`}>{outcome.title}</label></div>))}
+        {this.props.outcomes.length > 0 ? (
+          <div className="checklist">
+            <p>
+              Which outcome(s) does this milestone support?
+            </p>
+            {this.props.outcomes.map(outcome => (<div className="checkbox" key={outcome.id}><input type="checkbox" id={`_project_milestone_outcome_${outcome.id}`} value={outcome.id} name="associatedOutcomes" onChange={this.updateArray} /><label htmlFor={`_project_milestone_outcome_${outcome.id}`}>{outcome.title}</label></div>))}
+          </div>
+        ) : (
+          <div className="checklist">
+            <p>
+              Your project does&rsquo;t have any outcomes defined yet, so you
+              cannot associate this milestone to outcomes. Project outcomes can
+              be created in the previous section of this form.
+            </p>
+          </div>
+        )}
 
-        <p>
-          Which MITA business areas are part of this milestone?
-        </p>
-        {this.mitaBusinessAreas.map(area => (<div key={area}><input type="checkbox" id={`_project_milestone_mita_${area}`} value={area} name="mitaAreas" onChange={this.updateArray} /><label htmlFor={`_project_milestone_mita_${area}`}>{area}</label></div>))}
+        <div className="checklist">
+          <p>
+            Which MITA business areas are part of this milestone?
+          </p>
+          {this.mitaBusinessAreas.map(area => (<div className="checkbox" key={area}><input type="checkbox" id={`_project_milestone_mita_${area}`} value={area} name="mitaAreas" onChange={this.updateArray} /><label htmlFor={`_project_milestone_mita_${area}`}>{area}</label></div>))}
+        </div>
 
         <p>
           How much will it cost to reach this milestone?
@@ -91,7 +104,7 @@ class Milestone extends React.Component {
           How will you define success for this milestone?
           <TextArea value={this.props.milestone.defineSuccess} name="defineSuccess" onChange={this.updateString} />
         </p>
-      </div>
+      </Section>
     );
   }
 }

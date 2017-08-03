@@ -23,7 +23,7 @@ class ProjectMilestones extends React.Component {
 
   render() {
     return (
-      <Section name="Project milestones">
+      <Section className="milestones" name="Project milestones">
         <p>
           In the context of this APD, a project milestone is a mid-process
           accomplishment that contributes to the larger project vision. Not

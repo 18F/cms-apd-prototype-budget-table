@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import debounce from 'debounce';
 import TextArea from '@18f/redux-textarea-debounce';
+import Section from '../../collapsible';
 import { IAPD as IAPDActions } from '../../../actions';
 
 class Person extends React.Component {
@@ -36,8 +37,7 @@ class Person extends React.Component {
 
   render() {
     return (
-      <div className="staff">
-        <span className="small bold">{this.props.title}</span>
+      <Section name={this.props.title} className="staff">
         <label htmlFor={`person_name_${this.props.person.id}`}>
           Name
           <input type="text" value={this.state.name} id={`person_name_${this.props.person.id}`} name="name" onChange={this.updateText} />
@@ -55,7 +55,7 @@ class Person extends React.Component {
         <br />
         Key job responsibilities (separate using commas)
         <TextArea value={this.state.responsibilities} name="responsibilities" onChange={this.updateText} />
-      </div>
+      </Section>
     );
   }
 }
