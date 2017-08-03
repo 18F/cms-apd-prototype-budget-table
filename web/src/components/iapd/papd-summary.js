@@ -26,7 +26,7 @@ class PAPDSummary extends React.Component {
 
   render() {
     return (
-      <Section name="PAPD summary of activites">
+      <Section name="PAPD summary of activites" collapsed>
         <p>
           The Planning Advance Planning Document (PAPD) helps you and your
           team create a project roadmap. Here, you&rsquo;ll share what you
