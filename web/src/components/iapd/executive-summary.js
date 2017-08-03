@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import TextArea from '@18f/redux-textarea-debounce';
 import Section from '../collapsible';
-import TextArea from '../textarea';
 import { IAPD as IAPDActions } from '../../actions';
 
 class ExecutiveSummary extends React.Component {
   constructor(props) {
     super(props);
 
-    this.updateProblem = (value) => {
+    this.updateProblem = (e) => {
       this.props.updateExecutiveSummary({
-        problem: value,
+        problem: e.target.value,
         vision: this.props.info.vision,
         time: this.props.info.time,
         cost: this.props.info.cost

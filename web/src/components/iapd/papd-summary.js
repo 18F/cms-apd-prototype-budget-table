@@ -1,26 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import TextArea from '@18f/redux-textarea-debounce';
 import Section from '../collapsible';
-import TextArea from '../textarea';
 import { IAPD as IAPDActions } from '../../actions';
 
 class PAPDSummary extends React.Component {
   constructor(props) {
     super(props);
 
-    this.updateOutcomes = (value) => {
-      this.props.updatePAPDSummary({
-        outcomes: value,
-        expenditureStatus: this.props.info.expenditureStatus
-      });
+    this.state = {
+      outcomes: props.info.outcomes,
+      expenditureStatus: props.info.expenditureStatus
     };
 
-    this.updateExpenditureStatus = (value) => {
-      this.props.updatePAPDSummary({
-        outcomes: this.props.info.outcomes,
-        expenditureStatus: value
-      });
+    this.updateText = (e) => {
+      this.setState({ [e.target.name]: e.target.value }, () => props.updatePAPDSummary(this.state));
     };
   }
 
@@ -48,7 +43,7 @@ class PAPDSummary extends React.Component {
         <p>
           In 200 words of fewer, describe what you learned from the PAPD and
           how this changed your plan.
-          <TextArea value={this.props.info.outcomes} name="outcomes" onChange={this.updateOutcomes} />
+          <TextArea value={this.props.info.outcomes} name="outcomes" onChange={this.updateText} />
         </p>
 
         <h3>PAPD expenditure status</h3>
@@ -59,7 +54,7 @@ class PAPDSummary extends React.Component {
           each activity (&ldquot;This activity is already 75% complete,
           according to our outline.&rdquot;). Please also note the status
           of CMS-approved expenditures included in the PAPD.
-          <TextArea value={this.props.info.expenditureStatus} name="expenditureStatus" onChange={this.updateExpenditureStatus} />
+          <TextArea value={this.props.info.expenditureStatus} name="expenditureStatus" onChange={this.updateText} />
         </p>
       </Section>
     );

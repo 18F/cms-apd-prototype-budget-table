@@ -21,7 +21,7 @@ function landing(props) {
 
   const projects = [{
     name: 'Participant webapp to view spenddown status',
-    spent: 343474,
+    spent: 643474,
     fundingRequests: [{
       id: 'WY-MMIS-2017-01-R01',
       submitted: 'June 13, 2017',
