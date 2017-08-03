@@ -68,12 +68,18 @@
       padding-bottom: 1em;
 
       & + .checklist {
-        border-top: 0;S
+        border-top: 0;
       }
 
       .checkbox {
         margin-left: 3em;
       }
+    }
+  }
+
+  .mdbt {
+    table {
+      margin-top: 0;
     }
   }
 
