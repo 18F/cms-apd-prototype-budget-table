@@ -81,7 +81,7 @@ class OMCategoryRow extends React.Component {
   render() {
     return (
       <tr>
-        <td><input value={this.state.category} onChange={this.updateCategory} /></td>
+        <td><input type="text" className="category" value={this.state.category} onChange={this.updateCategory} /></td>
         <td>
           <select onChange={this.changeInHouseOrContractor} value={this.state.inhouseString}>
             <option disabled value="">select</option>
