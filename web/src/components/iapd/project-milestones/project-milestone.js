@@ -71,16 +71,20 @@ class Milestone extends React.Component {
         </p>
 
         {this.props.outcomes.length > 0 ? (
-          <p>
-            Which outcome(s) does this milestone support?
-          </p>
+          <div className="checklist">
+            <p>
+              Which outcome(s) does this milestone support?
+            </p>
+            {this.props.outcomes.map(outcome => (<div className="checkbox" key={outcome.id}><input type="checkbox" id={`_project_milestone_outcome_${outcome.id}`} value={outcome.id} name="associatedOutcomes" onChange={this.updateArray} /><label htmlFor={`_project_milestone_outcome_${outcome.id}`}>{outcome.title}</label></div>))}
+          </div>
         ) : null }
-        {this.props.outcomes.map(outcome => (<div key={outcome.id}><input type="checkbox" id={`_project_milestone_outcome_${outcome.id}`} value={outcome.id} name="associatedOutcomes" onChange={this.updateArray} /><label htmlFor={`_project_milestone_outcome_${outcome.id}`}>{outcome.title}</label></div>))}
 
-        <p>
-          Which MITA business areas are part of this milestone?
-        </p>
-        {this.mitaBusinessAreas.map(area => (<div key={area}><input type="checkbox" id={`_project_milestone_mita_${area}`} value={area} name="mitaAreas" onChange={this.updateArray} /><label htmlFor={`_project_milestone_mita_${area}`}>{area}</label></div>))}
+        <div className="checklist">
+          <p>
+            Which MITA business areas are part of this milestone?
+          </p>
+          {this.mitaBusinessAreas.map(area => (<div className="checkbox" key={area}><input type="checkbox" id={`_project_milestone_mita_${area}`} value={area} name="mitaAreas" onChange={this.updateArray} /><label htmlFor={`_project_milestone_mita_${area}`}>{area}</label></div>))}
+        </div>
 
         <p>
           How much will it cost to reach this milestone?

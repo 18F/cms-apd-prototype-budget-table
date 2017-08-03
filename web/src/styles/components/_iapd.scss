@@ -61,6 +61,22 @@
     }
   }
 
+  .milestone {
+    .checklist {
+      border-top: 1px solid rgb(230, 230, 230);
+      border-bottom: 1px solid rgb(230, 230, 230);
+      padding-bottom: 1em;
+
+      & + .checklist {
+        border-top: 0;S
+      }
+
+      .checkbox {
+        margin-left: 3em;
+      }
+    }
+  }
+
   .budget-table {
     table {
       width: 97vw;
