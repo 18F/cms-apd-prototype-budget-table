@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import TextArea from '@18f/redux-textarea-debounce';
 import Section from '../../collapsible';
 import Outcome from './project-outcome';
-import TextArea from '../../textarea';
 import { IAPD as IAPDActions } from '../../../actions';
 
 class ProjectPlan extends React.Component {
   constructor(props) {
     super(props);
 
-    this.updateVision = (value) => {
+    this.updateVision = (e) => {
       this.props.update({
-        vision: value,
+        vision: e.target.value,
         outcomes: this.props.outcomes
       });
     };

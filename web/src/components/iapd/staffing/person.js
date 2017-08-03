@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import debounce from 'debounce';
-import TextArea from '../../textarea';
+import TextArea from '@18f/redux-textarea-debounce';
 import { IAPD as IAPDActions } from '../../../actions';
 
 class Person extends React.Component {
@@ -32,10 +32,6 @@ class Person extends React.Component {
     this.updateNumber = (e) => {
       this.setState({ [e.target.name]: Number(e.target.value) }, this.triggerUpdate);
     };
-
-    this.updateResponsibilities = (responsibilities) => {
-      this.setState({ responsibilities }, this.triggerUpdate);
-    };
   }
 
   render() {
@@ -58,7 +54,7 @@ class Person extends React.Component {
         </label>
         <br />
         Key job responsibilities (separate using commas)
-        <TextArea value={this.state.responsibilities} onChange={this.updateResponsibilities} />
+        <TextArea value={this.state.responsibilities} name="responsibilities" onChange={this.updateText} />
       </div>
     );
   }

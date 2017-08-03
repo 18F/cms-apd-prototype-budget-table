@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-import Map from './state-map';
+import Map from 'react-us-state-map';
 
 const render = props => (
   <div className="cms dashboard">

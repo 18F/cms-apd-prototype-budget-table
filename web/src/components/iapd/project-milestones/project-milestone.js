@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'debounce';
-import TextArea from '../../textarea';
+import TextArea from '@18f/redux-textarea-debounce';
 
 class Milestone extends React.Component {
   constructor(props) {

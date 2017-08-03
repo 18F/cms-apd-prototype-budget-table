@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import TextArea from '@18f/redux-textarea-debounce';
 import Section from '../../collapsible';
-import TextArea from '../../textarea';
 import { IAPD as IAPDActions } from '../../../actions';
 
 import Person from './person';
@@ -36,12 +36,8 @@ class StaffingRequirements extends React.Component {
       this.setState({ [e.target.name]: Number(e.target.value) }, this.triggerChange);
     };
 
-    this.updateCostAllocationMethodologies = (costAllocationMethodologies) => {
-      this.setState({ costAllocationMethodologies }, this.triggerChange);
-    };
-
-    this.updateNeededSkills = (neededSkills) => {
-      this.setState({ neededSkills }, this.triggerChange);
+    this.updateText = (e) => {
+      this.setState({ [e.target.name]: e.target.value }, this.triggerChange);
     };
 
     this.updateAnyCostAllocated = (e) => {
@@ -72,7 +68,7 @@ class StaffingRequirements extends React.Component {
             <p>
               Provide a short description (no more than 200 words) of your
               cost-allocation methodologies.
-              <TextArea value={this.state.costAllocationMethodologies} onChange={this.updateCostAllocationMethodologies} />
+              <TextArea value={this.state.costAllocationMethodologies} name="costAllocationMethodologies" onChange={this.updateText} />
             </p>
           </div>
         );
@@ -120,7 +116,7 @@ class StaffingRequirements extends React.Component {
         <p>
           Please describe the skills you&rsquo;ll need to complete your project;
           separate individual skills using commas.
-          <TextArea value={this.state.neededSkills} onChange={this.updateNeededSkills} />
+          <TextArea value={this.state.neededSkills} name="neededSkills" onChange={this.updateText} />
         </p>
 
         <p>
