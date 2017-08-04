@@ -2,6 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import Map from 'react-us-state-map';
+import chart1 from './all-state-chart1.png';
+import chart2 from './all-state-chart2.png';
 
 class AllStatesView extends React.Component {
   constructor() {
@@ -58,8 +60,8 @@ class AllStatesView extends React.Component {
         </div>
 
         <div className="usa-grid charts">
-          <div className="usa-width-seven-twelfths">hi</div>
-          <div className="usa-width-five-twelfths">bye</div>
+          <div className="usa-width-seven-twelfths"><img alt="expenditures by state" src={chart1} /></div>
+          <div className="usa-width-five-twelfths"><img alt="MITA average by state" src={chart2} /></div>
         </div>
 
       </div>
