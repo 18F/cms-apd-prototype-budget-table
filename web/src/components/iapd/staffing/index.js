@@ -83,7 +83,7 @@ class StaffingRequirements extends React.Component {
       <Section className="staffing" name="Staffing requirements">
         <p>
           In this section, you&rsquo;ll provide information on the staff
-          you&rsquo;ll need to complete this project. You don&rsquo;nt
+          you&rsquo;ll need to complete this project. You don&rsquo;t
           need to provide exact numbers; rather, please list the approximate
           number of internal staff members and external staff members
           (contractors) you anticipate needing.  As you come up with these

@@ -51,8 +51,8 @@ class PAPDSummary extends React.Component {
           Write a summary (500 words or fewer) of the current status of the
           activities you included in your Planning Advanced Planning
           Document (PAPD).  If possible, provide completion estimates for
-          each activity (&ldquot;This activity is already 75% complete,
-          according to our outline.&rdquot;). Please also note the status
+          each activity (&ldquo;This activity is already 75% complete,
+          according to our outline.&rdquo;). Please also note the status
           of CMS-approved expenditures included in the PAPD.
           <TextArea value={this.props.info.expenditureStatus} name="expenditureStatus" onChange={this.updateText} />
         </p>
