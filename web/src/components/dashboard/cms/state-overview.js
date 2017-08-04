@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import CircularProgress from 'react-circular-progressbar';
 import Dollars from '../../dollars';
 import Collapsible from '../../collapsible';
@@ -59,6 +60,7 @@ function landing(props) {
 
   return (
     <div className="cms dashboard">
+      <header className="back"><Link to="/dashboard/cms">Back to the dashboard</Link></header>
       <header>
         <h3>State of {state} <small>overview</small></h3>
       </header>

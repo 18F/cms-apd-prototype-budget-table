@@ -1,0 +1,112 @@
+.cms.all-states {
+  $state-highlight-color: rgb(255, 239, 199);
+  $state-highlight-border: adjust-hue(darken($state-highlight-color, 35%), -30%);
+
+  .map-container {
+    position: relative;
+    margin: 3em 0;
+
+    svg.us-state-map {
+
+      path.state, path.DC1, circle.DC2 {
+        &:hover {
+          fill: rgb(247, 247, 247);
+          cursor: default;
+        }
+      }
+
+      .state.WY {
+        fill: $state-highlight-color;
+        stroke: $state-highlight-border;
+
+        &:hover {
+          fill: darken($state-highlight-color, 20%);
+          cursor: pointer;
+        }
+      }
+    }
+
+    .alert-icon {
+      position: absolute;
+      top: 161px;
+      left: 277px;
+      background: rgb(166,13,17);
+      border-radius: 50px;
+      border: 1px solid black;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      color: white;
+      font-size: 3rem;
+      font-weight: 600;
+      padding: 0;
+      margin: 0;
+      user-select: none;
+      cursor: pointer;
+    }
+
+    .state-callout {
+      position: absolute;
+      top: 120px;
+      left: 370px;
+      background: $state-highlight-color;
+      border: 4px solid $state-highlight-border;
+      padding: 1em;
+
+      h2 {
+        font-weight: 400;
+        margin: 0;
+      }
+
+      &:after, &:before {
+        right: 100%;
+        top: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+
+      &:after {
+        border-color: rgba(255, 235, 199, 0);
+        border-right-color: $state-highlight-color;
+        border-width: 20px;
+        margin-top: -20px;
+      }
+      &:before {
+        border-color: rgba(255, 210, 184, 0);
+        border-right-color: $state-highlight-border;
+        border-width: 26px;
+        margin-top: -26px;
+      }
+    }
+  }
+
+  .summary {
+    margin: 1em 0;
+
+    h1 {
+      font-weight: 600;
+      color: rgb(2, 61, 100);
+      margin-top: 0;
+    }
+
+    h2 {
+      color: rgb(167, 167, 167);
+      font-weight: 200;
+      margin-bottom: 0;
+    }
+
+    .callout {
+      color: rgb(2, 61, 100);
+      font-weight: 600;
+      font-size: 2.5em;
+      border-left: 0.25em solid rgb(237, 237, 237);
+      padding-left: 0.25em;
+      margin-left: 0.5em;
+    }
+  }
+}

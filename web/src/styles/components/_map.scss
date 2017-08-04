@@ -1,12 +1,19 @@
 svg.us-state-map {
   max-width: 100%;
+  // $state-scale: 1.5;
+  // $state-translate: -(1 - (1 / $state-scale)) * 100%;
 
   path.state, path.DC1, circle.DC2 {
-    fill: rgb(237, 237, 237);
+    fill: rgb(247, 247, 247);
+    stroke: #E0E0E0;
+    // transition: transform 0s;
 
     &:hover {
       fill: rgb(115, 146, 173);
       cursor: pointer;
+      // transform: translate($state-translate, $state-translate) scale($state-scale);
+      // transform-origin: top left;
+      // transition: transform 200ms;
     }
   }
 }

@@ -2,11 +2,10 @@
   font-weight: 400;
   padding-bottom: 1em;
 
-  header {
+  header:not(.back) {
+    background-color: black;
     h3 {
-      display: inline-block;
-      border-bottom: 1px solid rgba(185, 184, 182, 0.3);
-
+      border-bottom-color: rgb(45, 77, 105);
       small {
         color: rgb(185, 184, 182);
       }
