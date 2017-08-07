@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import ExecutiveSummary from './executive-summary';
 import ProjectPlan from './project-plan/';
@@ -20,6 +21,7 @@ class IAPD extends React.Component {
 
     this.submit = () => {
       this.props.submit();
+      this.props.history.push('/dashboard/state/iapd/success');
     };
   }
 
@@ -68,4 +70,4 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(IAPD);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(IAPD));
