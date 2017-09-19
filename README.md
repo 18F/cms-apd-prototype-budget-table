@@ -19,7 +19,7 @@ around at it.  There are currently two major prototyped areas.
 2. Project search  
   The [project search section](https://mmis-financial-requests.app.cloud.gov/#/search) is not linked from
   the prototype front page right now.  Currently it lets you perform simple searches on dummy data, based
-  on project names, states, or invovled vendors.
+  on project names, states, or involved vendors.
 
 ## Developing
 
